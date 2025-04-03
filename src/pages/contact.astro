@@ -1,0 +1,238 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+const contactInfo = [
+  {
+    icon: 'mdi:phone',
+    title: 'Phone',
+    content: '+17279454200',
+    link: 'tel:+17279454200'
+  },
+  {
+    icon: 'mdi:email',
+    title: 'Email',
+    content: 'ditosbartender@gmail.com',
+    link: 'mailto:ditosbartender@gmail.com'
+  },
+  {
+    icon: 'mdi:map-marker',
+    title: 'Location',
+    content: 'Bonita Springs, FL',
+    link: 'https://maps.google.com'
+  },
+  {
+    icon: 'mdi:clock',
+    title: 'Business Hours',
+    content: 'Mon - Fri: 9:00 AM - 6:00 PM',
+    link: '#'
+  }
+];
+---
+
+<Layout title="Contact" description="Get in touch with us to request a personalized quote or resolve any questions about our mobile bartending services.">
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
+        <p class="text-xl text-white/80">
+          We're here to answer your questions and help you plan your next event. Get in touch today.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Info Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        {contactInfo.map(item => (
+          <a 
+            href={item.link} 
+            class="bg-gray-50 hover:bg-gray-100 rounded-lg p-6 text-center transition-colors duration-300"
+          >
+            <div class="text-primary mb-4">
+              <Icon name={item.icon} class="w-12 h-12 mx-auto" />
+            </div>
+            <h3 class="text-xl font-bold mb-2">{item.title}</h3>
+            <p class="text-gray-600">{item.content}</p>
+          </a>
+        ))}
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="p-8 lg:p-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+            <form class="space-y-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                />
+              </div>
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  name="subject" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                  required
+                />
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="4" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                  required
+                ></textarea>
+              </div>
+              <button 
+                type="submit" 
+                class="w-full bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-md transition-colors duration-300"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+          <div class="bg-gray-100 p-8 lg:p-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-bold mb-2">What is your service coverage area?</h3>
+                <p class="text-gray-600">We offer our services throughout the United States. For events outside major metropolitan areas, please contact us to verify availability.</p>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">How far in advance should I book?</h3>
+                <p class="text-gray-600">We recommend booking 4-6 weeks in advance, especially for high-demand dates like weekends or wedding season.</p>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">What does the basic service include?</h3>
+                <p class="text-gray-600">Our basic service includes professional bartenders, mobile bar, glassware, ice, cocktail ingredients, and setup/breakdown.</p>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">Do you offer tastings?</h3>
+                <p class="text-gray-600">Yes, we offer tastings for large events or weddings. Contact us for more information.</p>
+              </div>
+            </div>
+            <div class="mt-8">
+              <a 
+                href="/faq" 
+                class="text-primary hover:text-primary-dark font-medium inline-flex items-center"
+              >
+                View all frequently asked questions
+                <Icon name="mdi:arrow-right" class="w-5 h-5 ml-1" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Map Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Our Location</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Visit us at our central office to learn more about our services or schedule a tasting.
+        </p>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="aspect-w-16 aspect-h-9 h-[400px]">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425872426698!3d40.74076987138558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1682458652963!5m2!1sen!2sus" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-secondary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Follow Us on Social Media</h2>
+        <p class="text-xl text-white/80 mb-8">
+          Stay up to date with our latest creations, events, and special promotions.
+        </p>
+        <div class="flex justify-center space-x-6">
+          <a 
+            href="https://instagram.com/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"
+            aria-label="Instagram"
+          >
+            <Icon name="mdi:instagram" class="w-8 h-8" />
+          </a>
+          <a 
+            href="https://facebook.com/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"
+            aria-label="Facebook"
+          >
+            <Icon name="mdi:facebook" class="w-8 h-8" />
+          </a>
+          <a 
+            href="https://twitter.com/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"
+            aria-label="Twitter"
+          >
+            <Icon name="mdi:twitter" class="w-8 h-8" />
+          </a>
+          <a 
+            href="https://wa.me/+17279454200" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"
+            aria-label="WhatsApp"
+          >
+            <Icon name="mdi:whatsapp" class="w-8 h-8" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+

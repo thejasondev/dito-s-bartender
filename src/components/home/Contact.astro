@@ -1,0 +1,149 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const contactInfo = [
+  {
+    icon: 'mdi:phone',
+    title: 'Phone',
+    content: '+1 (727) 945-4200',
+    link: 'tel:+1 (727) 945-4200'
+  },
+  {
+    icon: 'mdi:email',
+    title: 'Email',
+    content: 'ditosbartender@gmail.com',
+    link: 'mailto:ditosbartender@gmail.com'
+  },
+  {
+    icon: 'mdi:map-marker',
+    title: 'Location',
+    content: 'Bonita Springs, FL',
+    link: 'https://maps.google.com'
+  }
+];
+---
+
+<section class="py-20 bg-primary text-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+      <p class="text-white/80 max-w-2xl mx-auto">
+        Ready to elevate your next event? Get in touch with us for more information or to request a personalized quote.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+      {contactInfo.map(item => (
+        <a 
+          href={item.link} 
+          class="bg-primary-dark rounded-lg p-6 text-center hover:bg-primary-light transition-colors duration-300"
+        >
+          <div class="text-accent mb-4">
+            <Icon name={item.icon} class="w-12 h-12 mx-auto" />
+          </div>
+          <h3 class="text-xl font-bold mb-2">{item.title}</h3>
+          <p class="text-white/80">{item.content}</p>
+        </a>
+      ))}
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="p-8 lg:p-12">
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">Request a Quote</h3>
+          <form class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-800"
+                  required
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-800"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-800"
+              />
+            </div>
+            <div>
+              <label for="event_type" class="block text-sm font-medium text-gray-700 mb-1">Event Type</label>
+              <select 
+                id="event_type" 
+                name="event_type" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-800"
+              >
+                <option value="">Select an option</option>
+                <option value="wedding">Wedding</option>
+                <option value="corporate">Corporate</option>
+                <option value="private">Private Event</option>
+                <option value="themed">Themed Party</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="4" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-800"
+                required
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              class="w-full bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-md transition-colors duration-300"
+            >
+              Submit Request
+            </button>
+          </form>
+        </div>
+        <div class="bg-secondary p-8 lg:p-12 flex flex-col justify-center">
+          <h3 class="text-2xl font-bold text-white mb-6">Why Choose Us?</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
+              <span class="text-white/80">Professional bartenders with extensive experience</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
+              <span class="text-white/80">Custom cocktails based on your preferences</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
+              <span class="text-white/80">Themed mobile bars and coordinated decor</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
+              <span class="text-white/80">Fresh, high-quality ingredients</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
+              <span class="text-white/80">Personalized service and attention to detail</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+
+const teamMembers = [
+  {
+    name: 'Fernando Rodriguez',
+    role: 'Founder & Head Bartender',
+    bio: 'With over 2 years of experience in the hospitality industry, Fernando founded Dito\'s Bartender with a vision to bring exceptional cocktail experiences to events of all sizes. His passion for mixology and attention to detail ensures every event is unforgettable.',
+    image: '/images/team-1.jpg',
+    social: [
+      { name: 'instagram', url: 'https://instagram.com/' },
+      { name: 'linkedin', url: 'https://linkedin.com/' }
+    ]
+  },
+];
+
+const values = [
+  {
+    icon: 'mdi:star',
+    title: 'Excellence',
+    description: 'We strive for excellence in every aspect of our service, from the quality of our ingredients to the professionalism of our staff.'
+  },
+  {
+    icon: 'mdi:creation',
+    title: 'Creativity',
+    description: 'We bring innovation and imagination to our cocktail creations and bar designs, ensuring each event is unique and memorable.'
+  },
+  {
+    icon: 'mdi:account-group',
+    title: 'Teamwork',
+    description: 'We work collaboratively with our clients and within our team to deliver seamless and exceptional experiences.'
+  },
+  {
+    icon: 'mdi:heart',
+    title: 'Passion',
+    description: 'Our love for mixology and hospitality drives us to continuously learn, improve, and share our knowledge with others.'
+  },
+  {
+    icon: 'mdi:handshake',
+    title: 'Integrity',
+    description: 'We conduct our business with honesty, transparency, and respect for our clients, partners, and team members.'
+  },
+  {
+    icon: 'mdi:leaf',
+    title: 'Sustainability',
+    description: 'We are committed to environmentally responsible practices, from sourcing ingredients to reducing waste at events.'
+  }
+];
+
+---
+
+<Layout title="About Us" description="Learn about Dito's Bartender, our team, our story, and our commitment to creating exceptional mobile bartending experiences for all types of events.">
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">About Us</h1>
+        <p class="text-xl text-white/80">
+          Get to know the passionate team behind Dito's Bartender and our commitment to creating exceptional mobile bartending experiences.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Our Story Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Story</h2>
+          <p class="text-gray-600 mb-6">
+            Dito's Bartender was born out of a passion for crafting exceptional cocktails and creating unforgettable experiences. Founded by Fernando Rodriguez, who brings two years of professional bartending expertise to the table, our journey began with a clear mission: to deliver top-quality mobile bartending services that elevate any event.
+          </p>
+          <p class="text-gray-600 mb-6">
+            Though we are a newly established business, Fernando's hands-on experience and commitment to the art of mixology have already set us apart. With a focus on creativity, precision, and customer satisfaction, Dito's Bartender is dedicated to transforming events—be it weddings, corporate gatherings, or private parties—into extraordinary celebrations.
+          </p>
+          <p class="text-gray-600">
+            Today, our team is growing, and our innovative cocktail creations continue to impress guests across the United States. At Dito's Bartender, every drink is a work of art, and every event is an opportunity to create lasting memories.
+          </p>
+        </div>
+        <div class="relative">
+            <div class="grid grid-cols-1 gap-8">
+            {teamMembers.map(member => (
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+                  <Image 
+                    src={member.image || "/placeholder.svg"} 
+                    alt={member.name} 
+                    width={400} 
+                    height={400}
+                    class="w-full h-80 object-cover"
+                  />
+                  <div class="p-6">
+                    <h3 class="text-xl font-bold mb-1">{member.name}</h3>
+                    <p class="text-primary font-medium mb-4">{member.role}</p>
+                    <div class="flex space-x-3">
+                      {member.social.map(social => (
+                        <a 
+                          href={social.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          class="text-gray-400 hover:text-primary transition-colors duration-300"
+                          aria-label={`Follow ${member.name} on ${social.name}`}
+                        >
+                          <Icon name={`mdi:${social.name}`} class="w-5 h-5" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-accent/20 rounded-full -z-10"></div>
+          <div class="absolute -top-6 -left-6 w-32 h-32 bg-primary/20 rounded-full -z-10"></div>
+        </div>
+    </div>
+  </section>
+  
+  <!-- Our Values Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Values</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          These core principles guide everything we do and help us deliver exceptional experiences to our clients.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {values.map(value => (
+          <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2">
+            <div class="text-primary mb-4">
+              <Icon name={value.icon} class="w-12 h-12" />
+            </div>
+            <h3 class="text-xl font-bold mb-3">{value.title}</h3>
+            <p class="text-gray-600">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Work With Us?</h2>
+        <p class="text-xl text-white/80 mb-8">
+          Let's create an unforgettable experience for your next event. Contact us today to discuss how we can bring our passion for exceptional cocktails to your celebration.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="bg-accent hover:bg-accent-dark text-secondary font-semibold px-8 py-4 rounded-md transition-colors duration-300"
+          >
+            Contact Us
+          </a>
+          <a 
+            href="/services" 
+            class="bg-transparent hover:bg-white/10 border-2 border-white text-white font-semibold px-8 py-4 rounded-md transition-colors duration-300"
+          >
+            Explore Our Services
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+

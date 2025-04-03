@@ -1,0 +1,95 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const currentYear = new Date().getFullYear();
+const socialLinks = [
+  { name: 'instagram', url: 'https://instagram.com/', icon: 'mdi:instagram' },
+  { name: 'facebook', url: 'https://facebook.com/', icon: 'mdi:facebook' },
+  { name: 'whatsapp', url: 'https://wa.me/+17279454200', icon: 'mdi:whatsapp' },
+];
+
+const footerLinks = [
+  {
+    title: 'Services',
+    links: [
+      { name: 'Private Events', url: '/services#private' },
+      { name: 'Weddings', url: '/services#weddings' },
+      { name: 'Corporate', url: '/services#corporate' },
+      { name: 'Themed Parties', url: '/services#themed' },
+    ]
+  },
+  {
+    title: 'Company',
+    links: [
+      { name: 'About Us', url: '/about' },
+      { name: 'Blog', url: '/blog' },
+      { name: 'FAQ', url: '/faq' },
+    ]
+  },
+  {
+    title: 'Legal',
+    links: [
+      { name: 'Terms & Conditions', url: '/terms' },
+      { name: 'Privacy Policy', url: '/privacy' },
+      { name: 'Cookie Policy', url: '/cookies' },
+    ]
+  }
+];
+---
+
+<footer class="bg-secondary text-white pt-16 pb-8">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <!-- Brand column -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl font-bold text-accent">Dito's</span>
+          <span class="text-xl font-semibold">Bartender</span>
+        </div>
+        <p class="text-gray-300 text-sm">
+          Professional mobile bartending service for all types of events. We create unique experiences through custom cocktails and themed bars.
+        </p>
+        <div class="flex space-x-4">
+          {socialLinks.map(social => (
+            <a 
+              href={social.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-gray-300 hover:text-accent transition-colors duration-300"
+              aria-label={`Follow us on ${social.name}`}
+            >
+              <Icon name={social.icon} class="w-6 h-6" />
+            </a>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Footer links -->
+      {footerLinks.map(column => (
+        <div>
+          <h3 class="text-lg font-semibold mb-4 text-accent">{column.title}</h3>
+          <ul class="space-y-2">
+            {column.links.map(link => (
+              <li>
+                <a 
+                  href={link.url} 
+                  class="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    
+    <div class="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400 text-sm">
+      <p>&copy; {currentYear} Dito's Bartender. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+
+

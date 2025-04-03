@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+
+const galleryImages = [
+  {
+    src: '/images/bar_mobile.jpg',
+    alt: 'Mobile bar at corporate event',
+    category: 'Corporate'
+  },
+  {
+    src: '/images/exclusive_cocktail.jpg',
+    alt: 'Exclusive cocktail preparation',
+    category: 'Cocktails'
+  },
+  {
+    src: '/images/bar_wedding.jpg',
+    alt: 'Themed bar for wedding',
+    category: 'Weddings'
+  },
+  {
+    src: '/images/private_party.jpg',
+    alt: 'Bartending service at private party',
+    category: 'Private Events'
+  },
+  {
+    src: '/images/cocktail_presentation.jpg',
+    alt: 'Cocktail presentation detail',
+    category: 'Cocktails'
+  },
+  {
+    src: '/images/themed_event.jpg',
+    alt: 'Mobile bar decorated for themed event',
+    category: 'Themed'
+  }
+];
+---
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Gallery</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Discover the magic of our events through images that capture the essence of our mobile bartending service.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {galleryImages.map((image, index) => (
+        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+          <Image 
+            src={image.src || "/placeholder.svg"} 
+            alt={image.alt} 
+            width={600} 
+            height={400}
+            class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+            <span class="text-accent text-sm font-medium">{image.category}</span>
+            <h3 class="text-white text-xl font-semibold">{image.alt}</h3>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="text-center mt-12">
+      <a 
+        href="/gallery" 
+        class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
+      >
+        View full gallery
+      </a>
+    </div>
+  </div>
+</section>
+
+
+

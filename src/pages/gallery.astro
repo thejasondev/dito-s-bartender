@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+const categories = [
+  { id: 'all', name: 'All' },
+  { id: 'weddings', name: 'Weddings' },
+  { id: 'corporate', name: 'Corporate' },
+  { id: 'private', name: 'Private Events' },
+  { id: 'themed', name: 'Themed Events' },
+  { id: 'cocktails', name: 'Cocktails' }
+];
+
+const galleryImages = [
+  {
+    src: '/images/gallery-1.jpg',
+    alt: 'Mobile bar at corporate event',
+    category: 'corporate'
+  },
+  {
+    src: '/images/gallery-2.jpg',
+    alt: 'Exclusive cocktail preparation',
+    category: 'cocktails'
+  },
+  {
+    src: '/images/gallery-3.jpg',
+    alt: 'Themed bar for wedding',
+    category: 'weddings'
+  },
+  {
+    src: '/images/gallery-4.jpg',
+    alt: 'Bartending service at private party',
+    category: 'private'
+  },
+  {
+    src: '/images/gallery-5.jpg',
+    alt: 'Cocktail presentation detail',
+    category: 'cocktails'
+  },
+  {
+    src: '/images/gallery-6.jpg',
+    alt: 'Mobile bar decorated for themed event',
+    category: 'themed'
+  },
+  {
+    src: '/images/gallery-7.jpg',
+    alt: 'Bartender preparing cocktail at wedding',
+    category: 'weddings'
+  },
+  {
+    src: '/images/gallery-8.jpg',
+    alt: 'Custom cocktails for corporate event',
+    category: 'corporate'
+  },
+  {
+    src: '/images/gallery-9.jpg',
+    alt: 'Mobile bar at private event',
+    category: 'private'
+  },
+  {
+    src: '/images/gallery-10.jpg',
+    alt: 'Signature cocktail with special decoration',
+    category: 'cocktails'
+  },
+  {
+    src: '/images/gallery-11.jpg',
+    alt: 'Themed bar for Halloween party',
+    category: 'themed'
+  },
+  {
+    src: '/images/gallery-12.jpg',
+    alt: 'Bartending service for corporate event',
+    category: 'corporate'
+  }
+];
+---
+
+<Layout title="Gallery" description="Explore our gallery of images and discover the magic of our mobile bartending services in action.">
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Gallery</h1>
+        <p class="text-xl text-white/80">
+          Explore our collection of images and discover the magic of our mobile bartending services in action.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Gallery Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        {categories.map(category => (
+          <button 
+            data-category={category.id}
+            class="filter-btn px-6 py-2 rounded-full border border-gray-300 hover:border-primary hover:bg-primary hover:text-white transition-colors duration-300"
+            class:list={[
+              { 'bg-primary text-white border-primary': category.id === 'all' }
+            ]}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
+      
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+        {galleryImages.map(image => (
+          <div class="gallery-item group relative overflow-hidden rounded-lg shadow-lg" data-category={image.category}>
+            <Image 
+              src={image.src || "/placeholder.svg"} 
+              alt={image.alt} 
+              width={600} 
+              height={400}
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <h3 class="text-white text-xl font-semibold">{image.alt}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Gallery filtering
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+        });
+        button.classList.add('bg-primary', 'text-white', 'border-primary');
+        
+        // Filter gallery items
+        const category = button.getAttribute('data-category');
+        
+        galleryItems.forEach(item => {
+          if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
+

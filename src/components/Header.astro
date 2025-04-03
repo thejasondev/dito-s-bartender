@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const navItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Services', url: '/services' },
+  { name: 'About', url: '/about' },
+  { name: 'Gallery', url: '/gallery' },
+  { name: 'FAQ', url: '/faq' },
+  { name: 'Contact', url: '/contact', highlight: true },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
+  <div class="container mx-auto px-4 py-3">
+    <div class="flex justify-between items-center">
+      <a href="/" class="flex items-center gap-2">
+        <span class="text-2xl font-bold text-primary">Dito's</span>
+        <span class="text-xl font-semibold text-secondary">Bartender</span>
+      </a>
+      
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-gray-700 focus:outline-none">
+        <Icon name="mdi:menu" class="w-8 h-8" />
+      </button>
+      
+      <!-- Desktop navigation -->
+      <nav class="hidden lg:flex items-center space-x-6">
+        {navItems.map(item => (
+          <a 
+            href={item.url} 
+            class:list={[
+              'transition duration-300 hover:text-primary relative py-2',
+              { 
+                'text-primary font-medium': currentPath === item.url,
+                'font-medium text-white bg-primary px-4 py-2 rounded-md hover:bg-primary-dark': item.highlight
+              }
+            ]}
+          >
+            {item.name}
+            {currentPath === item.url && !item.highlight && (
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
+            )}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </div>
+  
+  <!-- Mobile navigation -->
+  <nav id="mobile-menu" class="hidden lg:hidden bg-white w-full border-t">
+    <div class="container mx-auto px-4 py-2">
+      <ul class="flex flex-col space-y-2">
+        {navItems.map(item => (
+          <li>
+            <a 
+              href={item.url} 
+              class:list={[
+                'block py-2 px-4 transition duration-300',
+                { 
+                  'text-primary font-medium': currentPath === item.url,
+                  'font-medium text-white bg-primary rounded-md hover:bg-primary-dark': item.highlight
+                }
+              ]}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>
+

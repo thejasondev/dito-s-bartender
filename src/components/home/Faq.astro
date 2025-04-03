@@ -1,0 +1,72 @@
+---
+const faqs = [
+  {
+    question: 'What is your service coverage area?',
+    answer: 'We offer our services throughout the United States. For events outside major metropolitan areas, please contact us to verify availability and potential additional travel charges.'
+  },
+  {
+    question: 'How far in advance should I book the service?',
+    answer: 'We recommend booking 4-6 weeks in advance, especially for high-demand dates like weekends or wedding season. For larger events or during peak season, it\'s advisable to book 2-3 months ahead.'
+  },
+  {
+    question: 'What does the mobile bartending service include?',
+    answer: 'Our basic service includes professional bartenders, mobile bar, glassware, ice, cocktail ingredients, customized menu, and setup/breakdown. We offer additional packages with options like themed bars, signature cocktails, and more.'
+  },
+  {
+    question: 'Can I customize the cocktail menu for my event?',
+    answer: 'Absolutely. We work with you to create a cocktail menu that suits your preferences, event theme, and guest profile. We offer tastings for large events.'
+  },
+  {
+    question: 'What is the duration of the service?',
+    answer: 'Our standard packages have a duration of 4 hours. You can extend the service for additional hours at an extra charge, which must be agreed upon in advance.'
+  },
+  {
+    question: 'What payment methods do you accept?',
+    answer: 'We accept bank transfers, credit/debit card payments, and cash. We require a 50% deposit to confirm the reservation, and the remaining balance must be paid one week before the event.'
+  }
+];
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        We answer your questions about our mobile bartending service so you can plan your event with complete peace of mind.
+      </p>
+    </div>
+    
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-6">
+        {faqs.map((faq, index) => (
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <details class="group">
+              <summary class="flex justify-between items-center p-6 cursor-pointer">
+                <h3 class="text-lg font-semibold">{faq.question}</h3>
+                <span class="transition-transform duration-300 group-open:rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <p class="text-gray-600 mb-4">Can't find an answer to your question?</p>
+        <a 
+          href="/contact" 
+          class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
+        >
+          Contact us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+

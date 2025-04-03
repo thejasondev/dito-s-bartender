@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="order-2 lg:order-1">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">About Us</h2>
+        <p class="text-gray-600 mb-6">
+          At <span class="font-semibold text-primary">Dito's Bartender</span>, we are passionate about crafting memorable experiences through the art of cocktail making. Founded by Fernando Rodriguez, who brings two years of professional bartending expertise, our mission is to deliver exceptional service by blending technique, creativity, and a keen attention to detail.
+        </p>
+        <p class="text-gray-600 mb-8">
+          Although we're a newly established venture, our innovative approach has already delighted clients at a variety of events—from intimate family celebrations to corporate gatherings—while upholding our commitment to excellence and customer satisfaction.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+            <span class="text-3xl font-bold text-primary mr-2">500+</span>
+            <span class="text-gray-600">Events completed</span>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+            <span class="text-3xl font-bold text-primary mr-2">50+</span>
+            <span class="text-gray-600">Exclusive cocktails</span>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+            <span class="text-3xl font-bold text-primary mr-2">100%</span>
+            <span class="text-gray-600">Satisfied clients</span>
+          </div>
+        </div>
+        <div class="mt-8">
+          <a 
+            href="/about" 
+            class="bg-transparent hover:bg-primary text-primary hover:text-white border border-primary font-semibold px-6 py-2 rounded-md transition-colors duration-300"
+          >
+            Learn our story
+          </a>
+        </div>
+      </div>
+      <div class="order-1 lg:order-2 relative">
+        <div class="relative z-10">
+          <Image 
+            src="/images/bartender.jpg" 
+            alt="Professional bartender preparing a cocktail" 
+            width={600} 
+            height={800}
+            class="rounded-lg shadow-xl object-cover w-full h-[500px]"
+          />
+        </div>
+        <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-accent/20 rounded-full -z-10"></div>
+        <div class="absolute -top-6 -left-6 w-32 h-32 bg-primary/20 rounded-full -z-10"></div>
+      </div>
+    </div>
+  </div>
+</section>
+

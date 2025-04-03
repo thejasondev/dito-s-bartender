@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+const faqCategories = [
+  {
+    title: 'General Information',
+    faqs: [
+      {
+        question: 'What is a mobile bartending service?',
+        answer: 'A mobile bartending service involves bringing a fully equipped bar and professional bartenders to your event to offer high-quality cocktails and beverages. It includes everything necessary: bar, bartenders, glassware, ice, ingredients, and a customized menu.'
+      },
+      {
+        question: 'What is your service coverage area?',
+        answer: 'We offer our services throughout the United States. For events outside major metropolitan areas, please contact us to verify availability and potential additional travel charges.'
+      },
+      {
+        question: 'How far in advance should I book the service?',
+        answer: 'We recommend booking 4-6 weeks in advance, especially for high-demand dates like weekends or wedding season. For larger events or during peak season, it\'s advisable to book 2-3 months ahead.'
+      }
+    ]
+  },
+  {
+    title: 'Services and Packages',
+    faqs: [
+      {
+        question: 'What does the mobile bartending service include?',
+        answer: 'Our basic service includes professional bartenders, mobile bar, glassware, ice, cocktail ingredients, customized menu, and setup/breakdown. We offer additional packages with options like themed bars, signature cocktails, and more.'
+      },
+      {
+        question: 'Can I customize the cocktail menu for my event?',
+        answer: 'Absolutely. We work with you to create a cocktail menu that suits your preferences, event theme, and guest profile. We offer tastings for large events.'
+      },
+      {
+        question: 'What is the duration of the service?',
+        answer: 'Our standard packages have a duration of 4 hours. You can extend the service for additional hours at an extra charge, which must be agreed upon in advance.'
+      },
+      {
+        question: 'Do you offer non-alcoholic options?',
+        answer: 'Yes, we offer a wide variety of creative and delicious mocktails (non-alcoholic cocktails), as well as fresh juices and other non-alcoholic beverages to ensure all your guests enjoy the experience.'
+      }
+    ]
+  },
+  {
+    title: 'Logistics and Requirements',
+    faqs: [
+      {
+        question: 'What space is needed to set up the mobile bar?',
+        answer: 'Our standard bar requires approximately a 6x10 foot space. However, we have different bar sizes that can adapt to smaller spaces if necessary.'
+      },
+      {
+        question: 'Do you need access to electricity or water?',
+        answer: 'Ideally, we need access to electricity for bar lighting and possible equipment like blenders. Regarding water, we can bring our own supply if there is no direct access at the event location.'
+      },
+      {
+        question: 'How long before the event do you arrive for setup?',
+        answer: 'We typically arrive 1-2 hours before the event starts for setup and preparation. The exact time may vary depending on the complexity of the service and venue conditions.'
+      }
+    ]
+  },
+  {
+    title: 'Payments and Policies',
+    faqs: [
+      {
+        question: 'What payment methods do you accept?',
+        answer: 'We accept bank transfers, credit/debit card payments, and cash. We require a 50% deposit to confirm the reservation, and the remaining balance must be paid one week before the event.'
+      },
+      {
+        question: 'What is your cancellation policy?',
+        answer: 'If you cancel more than 30 days in advance, we refund 100% of the deposit. Between 15-30 days, we refund 50%. For cancellations with less than 15 days\' notice, the deposit is non-refundable but can be used as credit for a future event within the next 6 months.'
+      },
+      {
+        question: 'Do you provide invoices?',
+        answer: 'Yes, we issue invoices for all our services. We just need you to provide your billing information when requesting the invoice.'
+      }
+    ]
+  }
+];
+---
+
+<Layout title="Frequently Asked Questions" description="Find answers to the most common questions about our mobile bartending services.">
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Frequently Asked Questions</h1>
+        <p class="text-xl text-white/80">
+          Find answers to the most common questions about our mobile bartending services.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        {faqCategories.map(category => (
+          <div class="mb-12 last:mb-0">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b border-gray-200">{category.title}</h2>
+            <div class="space-y-6">
+              {category.faqs.map((faq, index) => (
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
+                  <details class="group" id={`faq-${index}`}>
+                    <summary class="flex justify-between items-center p-6 cursor-pointer">
+                      <h3 class="text-lg font-semibold pr-8">{faq.question}</h3>
+                      <span class="transition-transform duration-300 group-open:rotate-180">
+                        <Icon name="mdi:chevron-down" class="w-6 h-6 text-primary" />
+                      </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                      <p>{faq.answer}</p>
+                    </div>
+                  </details>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact CTA Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Can't find an answer to your question?</h2>
+        <p class="text-gray-600 text-lg mb-8">
+          We're here to help. Contact us directly and we'll answer all your questions as soon as possible.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
+          >
+            Contact Us
+          </a>
+          <a 
+            href="https://wa.me/+17279454200" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="bg-transparent hover:bg-primary hover:text-white text-primary border border-primary font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center justify-center"
+          >
+            <Icon name="mdi:whatsapp" class="w-5 h-5 mr-2" />
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Open FAQ item if URL has hash
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      const element = document.getElementById(id);
+      if (element && element.tagName === 'DETAILS') {
+        element.setAttribute('open', '');
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+</script>
+
