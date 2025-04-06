@@ -146,9 +146,9 @@ const galleryImages = [
         
         galleryItems.forEach(item => {
           if (category === 'all' || item.getAttribute('data-category') === category) {
-            item.style.display = 'block';
+            item.classList.remove('hidden');
           } else {
-            item.style.display = 'none';
+            item.classList.add('hidden');
           }
         });
       });
