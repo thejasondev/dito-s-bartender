@@ -101,9 +101,12 @@ const { title, description = "Professional mobile bartending service for all typ
 	}
 	html {
 		scroll-behavior: smooth;
+		overflow-x: hidden; /* Prevenir scroll horizontal */
 	}
 	body {
 		font-family: 'Poppins', sans-serif;
+		overflow-x: hidden; /* Asegurar que no haya scroll horizontal */
+		max-width: 100%;
 	}
 	h1, h2, h3, h4, h5, h6 {
 		font-family: 'Playfair Display', serif;

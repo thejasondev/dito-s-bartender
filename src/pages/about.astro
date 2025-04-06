@@ -65,7 +65,7 @@ const values = [
   </section>
   
   <!-- Our Story Section -->
-  <section class="py-20 bg-white">
+  <section class="py-20 bg-white overflow-hidden">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
@@ -81,40 +81,40 @@ const values = [
           </p>
         </div>
         <div class="relative">
-            <div class="grid grid-cols-1 gap-8">
+          <div class="grid grid-cols-1 gap-8">
             {teamMembers.map(member => (
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
-                  <Image 
-                    src={member.image || "/placeholder.svg"} 
-                    alt={member.name} 
-                    width={400} 
-                    height={400}
-                    class="w-full h-80 object-cover"
-                  />
-                  <div class="p-6">
-                    <h3 class="text-xl font-bold mb-1">{member.name}</h3>
-                    <p class="text-primary font-medium mb-4">{member.role}</p>
-                    <div class="flex space-x-3">
-                      {member.social.map(social => (
-                        <a 
-                          href={social.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          class="text-gray-400 hover:text-primary transition-colors duration-300"
-                          aria-label={`Follow ${member.name} on ${social.name}`}
-                        >
-                          <Icon name={`mdi:${social.name}`} class="w-5 h-5" />
-                        </a>
-                      ))}
-                    </div>
+              <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+                <Image 
+                  src={member.image || "/placeholder.svg"} 
+                  alt={member.name} 
+                  width={400} 
+                  height={400}
+                  class="w-full h-80 object-cover"
+                />
+                <div class="p-6">
+                  <h3 class="text-xl font-bold mb-1">{member.name}</h3>
+                  <p class="text-primary font-medium mb-4">{member.role}</p>
+                  <div class="flex space-x-3">
+                    {member.social.map(social => (
+                      <a 
+                        href={social.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-primary transition-colors duration-300"
+                        aria-label={`Follow ${member.name} on ${social.name}`}
+                      >
+                        <Icon name={`mdi:${social.name}`} class="w-5 h-5" />
+                      </a>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-          <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-accent/20 rounded-full -z-10"></div>
-          <div class="absolute -top-6 -left-6 w-32 h-32 bg-primary/20 rounded-full -z-10"></div>
+          <div class="absolute -bottom-6 right-0 w-64 h-64 bg-accent/20 rounded-full -z-10"></div>
+          <div class="absolute -top-6 left-0 w-32 h-32 bg-primary/20 rounded-full -z-10"></div>
         </div>
+      </div>
     </div>
   </section>
   
