@@ -22,8 +22,15 @@ const currentPath = Astro.url.pathname;
       </a>
       
       <!-- Mobile menu button -->
-      <button id="menu-toggle" class="lg:hidden text-gray-700 focus:outline-none">
-        <Icon name="mdi:menu" class="w-8 h-8" />
+      <button 
+        id="menu-toggle" 
+        class="lg:hidden text-gray-700 focus:outline-none"
+        aria-expanded="false"
+        aria-label="Toggle navigation menu"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="mdi:menu" class="w-8 h-8" id="menu-open-icon" />
+        <Icon name="mdi:close" class="w-8 h-8 hidden" id="menu-close-icon" />
       </button>
       
       <!-- Desktop navigation -->
@@ -50,7 +57,11 @@ const currentPath = Astro.url.pathname;
   </div>
   
   <!-- Mobile navigation -->
-  <nav id="mobile-menu" class="hidden lg:hidden bg-white w-full border-t">
+  <nav 
+    id="mobile-menu" 
+    class="lg:hidden bg-white w-full border-t max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+    aria-hidden="true"
+  >
     <div class="container mx-auto px-4 py-2">
       <ul class="flex flex-col space-y-2">
         {navItems.map(item => (
@@ -75,14 +86,56 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  }
+  document.addEventListener('astro:page-load', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOpenIcon = document.getElementById('menu-open-icon');
+    const menuCloseIcon = document.getElementById('menu-close-icon');
+    
+    if (menuToggle && mobileMenu && menuOpenIcon && menuCloseIcon) {
+      // Funcionalidad del menú móvil
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        
+        // Actualizar el estado del botón
+        menuToggle.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+        mobileMenu.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+        
+        // Cambiar iconos y visibilidad
+        menuOpenIcon.classList.toggle('hidden');
+        menuCloseIcon.classList.toggle('hidden');
+        
+        // Animar la altura del menú
+        if (isExpanded) {
+          mobileMenu.style.maxHeight = '0';
+        } else {
+          mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+        }
+      });
+      
+      // Cerrar el menú cuando se hace clic en un enlace
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          menuOpenIcon.classList.remove('hidden');
+          menuCloseIcon.classList.add('hidden');
+          mobileMenu.style.maxHeight = '0';
+        });
+      });
+      
+      // Cerrar el menú cuando se redimensiona a desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          menuOpenIcon.classList.remove('hidden');
+          menuCloseIcon.classList.add('hidden');
+          mobileMenu.style.maxHeight = '0';
+        }
+      });
+    }
+  });
 </script>
 

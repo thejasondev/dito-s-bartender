@@ -24,6 +24,13 @@ const { title, description = "Professional mobile bartending service for all typ
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<!-- Meta para mejorar SEO y compartir en redes sociales -->
+		<meta property="og:title" content={`${title} | Dito's Bartender`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url.href} />
+		<meta property="og:image" content="/images/share-image.jpg" />
+		<meta name="twitter:card" content="summary_large_image" />
 	</head>
 	<body class="bg-white text-gray-800 font-sans min-h-screen flex flex-col">
 		<Header />
@@ -31,6 +38,59 @@ const { title, description = "Professional mobile bartending service for all typ
 			<slot />
 		</main>
 		<Footer />
+
+		<script>
+			// Script para animaciones al hacer scroll
+			document.addEventListener('astro:page-load', () => {
+				const scrollElements = document.querySelectorAll('.scroll-trigger');
+				
+				const elementInView = (el: Element, percentageScroll = 100) => {
+					const elementTop = el.getBoundingClientRect().top;
+					const elementHeight = el.getBoundingClientRect().height;
+					const windowHeight = window.innerHeight;
+					
+					const thresholdPixels = (windowHeight * percentageScroll) / 100;
+					
+					return elementTop <= windowHeight - thresholdPixels && 
+							elementTop > -elementHeight;
+				};
+				
+				const displayScrollElement = (element: Element) => {
+					element.classList.add('scroll-visible');
+				};
+				
+				const hideScrollElement = (element: Element) => {
+					element.classList.remove('scroll-visible');
+				};
+				
+				const handleScrollAnimation = () => {
+					scrollElements.forEach((el) => {
+						if (elementInView(el, 25)) {
+							displayScrollElement(el);
+						} else {
+							hideScrollElement(el);
+						}
+					});
+				};
+				
+				// Solo activar animaciones si el usuario no prefiere movimiento reducido
+				const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				
+				if (!prefersReducedMotion) {
+					window.addEventListener('scroll', () => {
+						handleScrollAnimation();
+					});
+					
+					// Inicializar para elementos visibles en la carga
+					handleScrollAnimation();
+				} else {
+					// Si prefiere movimiento reducido, mostrar todo sin animaciones
+					scrollElements.forEach(el => {
+						el.classList.add('scroll-visible');
+					});
+				}
+			});
+		</script>
 	</body>
 </html>
 
@@ -47,6 +107,31 @@ const { title, description = "Professional mobile bartending service for all typ
 	}
 	h1, h2, h3, h4, h5, h6 {
 		font-family: 'Playfair Display', serif;
+	}
+
+	/* Barra de desplazamiento personalizada */
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+	
+	::-webkit-scrollbar-track {
+		background: #f1f1f1;
+	}
+	
+	::-webkit-scrollbar-thumb {
+		background: theme('colors.primary.DEFAULT');
+		border-radius: 5px;
+	}
+	
+	::-webkit-scrollbar-thumb:hover {
+		background: theme('colors.primary.dark');
+	}
+
+	/* Mejora de accesibilidad para foco en enlaces */
+	a:focus-visible {
+		outline: 2px solid theme('colors.primary.DEFAULT');
+		outline-offset: 2px;
+		border-radius: 2px;
 	}
 </style>
 

@@ -35,9 +35,9 @@ const galleryImages = [
 ];
 ---
 
-<section class="py-20 bg-white">
+<section id="gallery" class="py-20 bg-white">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
+    <div class="text-center mb-16 scroll-trigger">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Gallery</h2>
       <p class="text-gray-600 max-w-2xl mx-auto">
         Discover the magic of our events through images that capture the essence of our mobile bartending service.
@@ -46,15 +46,19 @@ const galleryImages = [
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {galleryImages.map((image, index) => (
-        <div class="group relative overflow-hidden rounded-lg shadow-lg">
+        <div 
+          class="group relative overflow-hidden rounded-lg shadow-lg scroll-trigger hover-lift" 
+          style={`animation-delay: ${index * 100}ms;`}
+        >
           <Image 
             src={image.src || "/placeholder.svg"} 
             alt={image.alt} 
             width={600} 
             height={400}
-            class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+            loading={index < 3 ? "eager" : "lazy"}
+            class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform">
             <span class="text-accent text-sm font-medium">{image.category}</span>
             <h3 class="text-white text-xl font-semibold">{image.alt}</h3>
           </div>
@@ -62,16 +66,30 @@ const galleryImages = [
       ))}
     </div>
     
-    <div class="text-center mt-12">
+    <div class="text-center mt-12 scroll-trigger" style="animation-delay: 300ms;">
       <a 
         href="/gallery" 
-        class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
+        class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
       >
         View full gallery
       </a>
     </div>
   </div>
 </section>
+
+<style>
+  /* Estilos específicos para esta sección */
+  .scroll-trigger {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+  }
+  
+  .scroll-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 
 
 

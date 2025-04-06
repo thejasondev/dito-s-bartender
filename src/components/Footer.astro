@@ -36,25 +36,35 @@ const footerLinks = [
 ];
 ---
 
-<footer class="bg-secondary text-white pt-16 pb-8">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+<footer class="bg-secondary text-white relative footer-wrapper">
+  <!-- Separador geométrico moderno -->
+  <div class="footer-geometric-separator">
+    <div class="geometric-element geo-1"></div>
+    <div class="geometric-element geo-2"></div>
+    <div class="geometric-element geo-3"></div>
+    <div class="geometric-element geo-4"></div>
+    <div class="geometric-element geo-5"></div>
+    <div class="geometric-element geo-6"></div>
+  </div>
+
+  <div class="container mx-auto px-4 pt-20 pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
       <!-- Brand column -->
       <div class="space-y-4">
         <div class="flex items-center gap-2">
           <span class="text-2xl font-bold text-accent">Dito's</span>
           <span class="text-xl font-semibold">Bartender</span>
         </div>
-        <p class="text-gray-300 text-sm">
+        <p class="text-gray-300 text-sm max-w-xs">
           Professional mobile bartending service for all types of events. We create unique experiences through custom cocktails and themed bars.
         </p>
-        <div class="flex space-x-4">
+        <div class="flex space-x-4 mt-6">
           {socialLinks.map(social => (
             <a 
               href={social.url} 
               target="_blank" 
               rel="noopener noreferrer"
-              class="text-gray-300 hover:text-accent transition-colors duration-300"
+              class="text-gray-300 hover:text-accent transition-all duration-300 transform hover:scale-110"
               aria-label={`Follow us on ${social.name}`}
             >
               <Icon name={social.icon} class="w-6 h-6" />
@@ -63,18 +73,21 @@ const footerLinks = [
         </div>
       </div>
       
-      <!-- Footer links -->
+      <!-- Footer links con mejor animación hover -->
       {footerLinks.map(column => (
         <div>
-          <h3 class="text-lg font-semibold mb-4 text-accent">{column.title}</h3>
-          <ul class="space-y-2">
+          <h3 class="text-lg font-semibold mb-5 text-accent">{column.title}</h3>
+          <ul class="space-y-3">
             {column.links.map(link => (
               <li>
                 <a 
                   href={link.url} 
-                  class="text-gray-300 hover:text-white transition-colors duration-300 text-sm"
+                  class="text-gray-300 hover:text-white transition-all duration-300 text-sm inline-flex items-center group"
                 >
-                  {link.name}
+                  <span class="relative overflow-hidden">
+                    {link.name}
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                  </span>
                 </a>
               </li>
             ))}
@@ -83,11 +96,156 @@ const footerLinks = [
       ))}
     </div>
     
-    <div class="border-t border-gray-700 pt-8 mt-8 text-center text-gray-400 text-sm">
+    
+    <!-- Copyright y créditos finales -->
+    <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
       <p>&copy; {currentYear} Dito's Bartender. All rights reserved.</p>
     </div>
   </div>
 </footer>
+
+<style>
+  /* Estilo para el separador geométrico */
+  .footer-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-geometric-separator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    transform: translateY(-99%);
+    pointer-events: none;
+  }
+
+  .geometric-element {
+    position: absolute;
+    background-color: #1A1A1A; /* Color secundario */
+    z-index: 1;
+  }
+
+  .geo-1 {
+    width: 30%;
+    height: 100px;
+    left: 0;
+    bottom: 0;
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+  }
+
+  .geo-2 {
+    width: 45%;
+    height: 80px;
+    left: 20%;
+    bottom: 0;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    opacity: 0.8;
+  }
+
+  .geo-3 {
+    width: 25%;
+    height: 70px;
+    left: 55%;
+    bottom: 0;
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    opacity: 0.9;
+  }
+
+  .geo-4 {
+    width: 30%;
+    height: 60px;
+    right: 0;
+    bottom: 0;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    opacity: 0.95;
+  }
+
+  .geo-5 {
+    width: 15%;
+    height: 40px;
+    left: 40%;
+    bottom: 0;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    opacity: 0.7;
+    background-color: #D4AF37; /* Color acento específico */
+  }
+
+  .geo-6 {
+    width: 20%;
+    height: 50px;
+    right: 25%;
+    bottom: 0;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    opacity: 0.85;
+    background-color: #D4AF37; /* Color acento específico */
+  }
+
+  /* Efecto de paralaje en scroll */
+  @media (prefers-reduced-motion: no-preference) {
+    .geo-1 {
+      animation: floatSlow 8s ease-in-out infinite;
+    }
+    .geo-2 {
+      animation: floatMedium 12s ease-in-out infinite;
+    }
+    .geo-3 {
+      animation: floatFast 6s ease-in-out infinite;
+    }
+    .geo-5 {
+      animation: floatSlow 10s ease-in-out infinite reverse;
+    }
+    .geo-6 {
+      animation: floatMedium 9s ease-in-out infinite reverse;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    @keyframes floatMedium {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes floatFast {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+  }
+
+  /* Animación sutil de entrada para los elementos */
+  @media (prefers-reduced-motion: no-preference) {
+    footer .container > div {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+</style>
 
 
 
