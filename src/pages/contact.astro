@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
+import ContactForm from '../components/ContactForm';
 
 const contactInfo = [
   {
@@ -65,65 +66,7 @@ const contactInfo = [
         <div class="grid grid-cols-1 lg:grid-cols-2">
           <div class="p-8 lg:p-12">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
-            <form action="mailto:jason.guerra1002@gmail.com" method="post" enctype="text/plain">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
-                    required
-                  />
-                </div>
-                <div>
-                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  name="phone" 
-                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
-                />
-              </div>
-              <div>
-                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                <input 
-                  type="text" 
-                  id="subject" 
-                  name="subject" 
-                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
-                  required
-                />
-              </div>
-              <div>
-                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  rows="4" 
-                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
-                  required
-                ></textarea>
-              </div>
-              <button 
-                type="submit" 
-                class="w-full bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-md transition-colors duration-300"
-              >
-                Send Message
-              </button>
-            </form>
+            <ContactForm client:load />
           </div>
           <div class="bg-gray-100 p-8 lg:p-12">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
@@ -155,31 +98,6 @@ const contactInfo = [
               </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Map Section -->
-  <section class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">Our Location</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
-          Visit us at our central office to learn more about our services or schedule a tasting.
-        </p>
-      </div>
-      
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div class="aspect-w-16 aspect-h-9 h-[400px]">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425872426698!3d40.74076987138558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1682458652963!5m2!1sen!2sus" 
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy"
-          ></iframe>
         </div>
       </div>
     </div>
