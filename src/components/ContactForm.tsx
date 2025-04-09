@@ -52,7 +52,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 text-black">
       {" "}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {" "}
@@ -139,7 +139,7 @@ export default function ContactForm() {
         </label>
         <select
           {...register("event_type")}
-          className={`w-full px-4 py-2 border rounded-md text-black focus:ring-primary focus:border-primary ${
+          className={`w-full px-4 py-2 border rounded-md focus:ring-primary focus:border-primary ${
             errors.event_type ? "border-red-500" : "border-gray-300"
           }`}
         >
@@ -164,7 +164,7 @@ export default function ContactForm() {
         <textarea
           {...register("message")}
           rows={4}
-          className={`w-full px-4 py-2 border rounded-md text-black focus:ring-primary focus:border-primary ${
+          className={`w-full px-4 py-2 border rounded-md focus:ring-primary focus:border-primary ${
             errors.message ? "border-red-500" : "border-gray-300"
           }`}
         />
