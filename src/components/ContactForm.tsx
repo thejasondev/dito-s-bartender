@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +21,11 @@ export default function ContactForm() {
     error: false,
   });
 
+  useEffect(() => {
+    // Inicializar EmailJS
+    emailjs.init(import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY);
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -37,6 +42,7 @@ export default function ContactForm() {
         {
           from_name: data.name,
           from_email: data.email,
+          to_email: "ditosbartender@gmail.com", // Tu correo
           phone: data.phone,
           subject: data.subject,
           event_type: data.event_type,
@@ -47,6 +53,7 @@ export default function ContactForm() {
       setStatus({ loading: false, success: true, error: false });
       reset();
     } catch (error) {
+      console.error("Error sending email:", error);
       setStatus({ loading: false, success: false, error: true });
     }
   };
