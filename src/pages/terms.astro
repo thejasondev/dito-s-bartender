@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const sections = [
+  {
+    title: "1. Mobile Bartending Services",
+    content: [
+      "Dito's Bartender provides professional mobile bartending services for private and corporate events.",
+      "We reserve the right to modify, suspend, or discontinue any aspect of our services at any time.",
+      "Pricing is subject to change and will be confirmed at the time of booking.",
+      "All bartenders are professionally trained and certified in responsible alcohol service."
+    ]
+  },
+  {
+    title: "2. Bookings and Payments",
+    content: [
+      "A 50% deposit is required to secure your event date.",
+      "The remaining balance must be paid 7 days prior to the event.",
+      "Cancellations made less than 14 days before the event are non-refundable.",
+      "Deposits are transferable to another date within 6 months.",
+      "We accept major credit cards, digital payments, and bank transfers."
+    ]
+  },
+  {
+    title: "3. Event Requirements",
+    content: [
+      "Client must provide adequate and safe space for bar setup.",
+      "Minimum 2-hour setup time is required before event start.",
+      "Client is responsible for obtaining necessary permits and venue approvals.",
+      "Minimum guest count and duration requirements may apply.",
+      "Access to water and electricity must be available at the venue."
+    ]
+  },
+  {
+    title: "4. Liability and Insurance",
+    content: [
+      "Dito's Bartender maintains comprehensive liability insurance.",
+      "We are not liable for damages caused by intoxicated guests.",
+      "We reserve the right to refuse service to visibly intoxicated individuals.",
+      "Clients may be required to sign a service agreement prior to the event.",
+      "We follow all local and state alcohol service regulations."
+    ]
+  },
+  {
+    title: "5. Service Policies",
+    content: [
+      "Valid ID required for all guests consuming alcohol (21+ only).",
+      "We reserve the right to verify identification.",
+      "Last call will be made 30 minutes before scheduled end time.",
+      "Additional hours can be added during the event at our standard rate.",
+      "All equipment remains the property of Dito's Bartender."
+    ]
+  }
+];
+---
+
+<Layout title="Terms & Conditions" description="Terms and conditions for Dito's Bartender mobile bartending services">
+  <section class="pt-32 pb-20">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h1 class="text-4xl font-bold text-gray-800 mb-8">Terms & Conditions</h1>
+      <p class="text-gray-600 mb-12">
+        Last updated: {new Date().toLocaleDateString()}
+      </p>
+
+      <div class="space-y-12">
+        {sections.map(section => (
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+              {section.title}
+            </h2>
+            <ul class="space-y-3">
+              {section.content.map(item => (
+                <li class="text-gray-600">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

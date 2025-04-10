@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const sections = [
+  {
+    title: "What Are Cookies",
+    content: [
+      "Cookies are small text files stored on your device when visiting our website.",
+      "They help us improve your browsing experience and understand how you use our site.",
+      "Some cookies are essential for the website to function properly."
+    ]
+  },
+  {
+    title: "Types of Cookies We Use",
+    content: [
+      "Essential cookies: Required for basic website functionality",
+      "Performance cookies: Help us analyze site usage and improve our services",
+      "Functionality cookies: Remember your preferences and choices",
+      "Marketing cookies: Help us deliver relevant content",
+      "Third-party cookies: Used by our trusted partners"
+    ]
+  },
+  {
+    title: "Cookie Management",
+    content: [
+      "You can modify your browser settings to reject cookies",
+      "You can delete existing cookies at any time",
+      "Rejecting cookies may affect some website functionality",
+      "Essential cookies cannot be disabled as they are required for the website to work"
+    ]
+  },
+  {
+    title: "Third-Party Services",
+    content: [
+      "We use Google Analytics to analyze site usage",
+      "Social media features may set cookies if you use them",
+      "Payment processors may use cookies for transaction processing",
+      "We only use trusted third-party services"
+    ]
+  }
+];
+---
+
+<Layout title="Cookie Policy" description="Cookie policy for Dito's Bartender website">
+  <section class="pt-32 pb-20">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h1 class="text-4xl font-bold text-gray-800 mb-8">Cookie Policy</h1>
+      <p class="text-gray-600 mb-12">
+        Last updated: {new Date().toLocaleDateString()}
+      </p>
+
+      <div class="space-y-12">
+        {sections.map(section => (
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+              {section.title}
+            </h2>
+            <ul class="space-y-3">
+              {section.content.map(item => (
+                <li class="text-gray-600">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

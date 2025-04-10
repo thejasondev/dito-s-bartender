@@ -8,13 +8,25 @@ const contactInfo = [
     icon: 'mdi:phone',
     title: 'Phone',
     content: '+1(727)945-4200',
-    link: 'tel:+17279454200'
+    link: 'tel:7279454200'
   },
   {
-    icon: 'mdi:email',
-    title: 'Email',
-    content: 'ditosbartender@gmail.com',
-    link: 'mailto:ditosbartender@gmail.com'
+    icon: 'mdi:whatsapp',
+    title: 'WhatsApp',
+    content: '+1(727)945-4200',
+    link: `https://wa.me/7279454200?text=${encodeURIComponent("¡Hola! Me interesa sus servicios de bartender móvil. ¿Podría brindarme más información sobre paquetes y disponibilidad? 🍸")}`
+  },
+  {
+    icon: 'mdi:instagram',
+    title: 'Instagram',
+    content: '@dito_mobilebar',
+    link: 'https://instagram.com/dito_mobilebar?'
+  },
+  {
+    icon: 'mdi:facebook',
+    title: 'Facebook',
+    content: 'Dito Mobile Bar',
+    link: 'https://facebook.com/share/12KUW1sGc7W/?'
   },
   {
     icon: 'mdi:map-marker',
@@ -46,7 +58,7 @@ const contactInfo = [
   <!-- Contact Info Section -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
         {contactInfo.map(item => (
           <a 
             href={item.link} 
@@ -73,7 +85,7 @@ const contactInfo = [
             <div class="space-y-6">
               <div>
                 <h3 class="font-bold mb-2">What is your service coverage area?</h3>
-                <p class="text-gray-600">We offer our services throughout the United States. For events outside major metropolitan areas, please contact us to verify availability.</p>
+                <p class="text-gray-600">We offer our services in Dunedin, Clearwater, Tampa, Largo, St Pete, and Palm Harbor. For events outside major metropolitan areas, please contact us to verify availability and potential additional travel charges.</p>
               </div>
               <div>
                 <h3 class="font-bold mb-2">How far in advance should I book?</h3>
@@ -113,7 +125,7 @@ const contactInfo = [
         </p>
         <div class="flex justify-center space-x-6">
           <a 
-            href="https://instagram.com/" 
+            href="https://instagram.com/dito_mobilebar?" 
             target="_blank" 
             rel="noopener noreferrer"
             class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"
@@ -122,7 +134,7 @@ const contactInfo = [
             <Icon name="mdi:instagram" class="w-8 h-8" />
           </a>
           <a 
-            href="https://facebook.com/" 
+            href="https://facebook.com/share/12KUW1sGc7W/?" 
             target="_blank" 
             rel="noopener noreferrer"
             class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"
@@ -131,16 +143,7 @@ const contactInfo = [
             <Icon name="mdi:facebook" class="w-8 h-8" />
           </a>
           <a 
-            href="https://twitter.com/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"
-            aria-label="Twitter"
-          >
-            <Icon name="mdi:twitter" class="w-8 h-8" />
-          </a>
-          <a 
-            href="https://wa.me/+17279454200" 
+            href={`https://wa.me/17279454200?text=${encodeURIComponent("¡Hola! Me interesa contratar sus servicios de bartender para mi evento. Me gustaría obtener más información.")}`}
             target="_blank" 
             rel="noopener noreferrer"
             class="bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors duration-300"

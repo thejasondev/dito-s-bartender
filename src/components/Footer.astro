@@ -2,10 +2,20 @@
 import { Icon } from 'astro-icon/components';
 
 const currentYear = new Date().getFullYear();
+
+const whatsappMessage = encodeURIComponent(`¡Hola! Me gustaría obtener más información sobre sus servicios de bartender móvil.
+
+Me interesa conocer:
+- Disponibilidad
+- Paquetes y precios
+- Tipos de servicios
+
+¡Gracias por su atención!.`);
+
 const socialLinks = [
-  { name: 'instagram', url: 'https://instagram.com/', icon: 'mdi:instagram' },
-  { name: 'facebook', url: 'https://facebook.com/', icon: 'mdi:facebook' },
-  { name: 'whatsapp', url: 'https://wa.me/+17279454200', icon: 'mdi:whatsapp' },
+  { name: 'instagram', url: 'https://instagram.com/dito_mobilebar?', icon: 'mdi:instagram' },
+  { name: 'facebook', url: 'https://facebook.com/share/12KUW1sGc7W/?', icon: 'mdi:facebook' },
+  { name: 'whatsapp', url: `https://wa.me/17279454200?text=${whatsappMessage}`, icon: 'mdi:whatsapp' }
 ];
 
 const footerLinks = [

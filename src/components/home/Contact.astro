@@ -2,18 +2,39 @@
 import { Icon } from 'astro-icon/components';
 import ContactForm from '../ContactForm';
 
+const whatsappMessage = encodeURIComponent(`¡Hola! Me gustaría obtener más información sobre sus servicios de bartender móvil.
+
+Me interesa conocer:
+- Disponibilidad
+- Paquetes y precios
+- Tipos de servicios
+
+¡Gracias por su atención!.`);
+
 const contactInfo = [
-  {
+ {
     icon: 'mdi:phone',
     title: 'Phone',
-    content: '+1 (727) 945-4200',
-    link: 'tel:+17279454200'
+    content: '+1(727)945-4200',
+    link: 'tel:7279454200'
   },
   {
-    icon: 'mdi:email',
-    title: 'Email',
-    content: 'ditosbartender@gmail.com',
-    link: 'mailto:ditosbartender@gmail.com'
+    icon: 'mdi:whatsapp',
+    title: 'WhatsApp',
+    content: '+1(727)945-4200',
+    link: `https://wa.me/17279454200?text=${whatsappMessage}`
+  },
+  {
+    icon: 'mdi:instagram',
+    title: 'Instagram',
+    content: '@dito_mobilebar',
+    link: 'https://instagram.com/dito_mobilebar?'
+  },
+  {
+    icon: 'mdi:facebook',
+    title: 'Facebook',
+    content: 'Dito Mobile Bar',
+    link: 'https://facebook.com/share/12KUW1sGc7W/?'
   },
   {
     icon: 'mdi:map-marker',
@@ -21,6 +42,11 @@ const contactInfo = [
     content: 'Dunedin, FL',
     link: 'https://maps.google.com/?q=Dunedin,FL'
   },
+  {
+    icon: 'mdi:clock',
+    title: 'Business Hours',
+    content: 'Mon - Fri: 9:00 AM - 6:00 PM',
+  }
 ];
 
 ---
@@ -34,7 +60,7 @@ const contactInfo = [
       </p>
     </div>
     
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
       {contactInfo.map(item => (
         <a 
           href={item.link} 
