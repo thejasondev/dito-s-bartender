@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ditos-bartender.vercel.app/sitemap-index.xml 

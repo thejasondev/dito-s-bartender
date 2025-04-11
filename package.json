@@ -6,7 +6,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lighthouse": "npx lighthouse-ci http://localhost:4321 --output=html --output-path=./lighthouse-report.html",
+    "check-links": "npx broken-link-checker http://localhost:4321 -ro",
+    "analyze": "npx astro-bundle-analyzer"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.3",
@@ -25,6 +28,8 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/sitemap": "^3.3.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3"
   }

@@ -42,7 +42,7 @@ export default function ContactForm() {
         {
           from_name: data.name,
           from_email: data.email,
-          to_email: "ditosbartender@gmail.com", // Tu correo
+          to_email: "ditosbartender@gmail.com",
           phone: data.phone,
           subject: data.subject,
           event_type: data.event_type,
@@ -52,6 +52,15 @@ export default function ContactForm() {
       );
       setStatus({ loading: false, success: true, error: false });
       reset();
+
+      // Enviar evento a Google Analytics
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag("event", "form_submission", {
+          event_category: "Contact",
+          event_label: data.event_type,
+          value: 1,
+        });
+      }
     } catch (error) {
       console.error("Error sending email:", error);
       setStatus({ loading: false, success: false, error: true });
@@ -158,7 +167,9 @@ export default function ContactForm() {
           <option value="other">Other</option>
         </select>
         {errors.event_type && (
-          <p className="mt-1 text-sm text-red-500">{errors.event_type.message}</p>
+          <p className="mt-1 text-sm text-red-500">
+            {errors.event_type.message}
+          </p>
         )}
       </div>
       <div>

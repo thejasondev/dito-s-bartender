@@ -2,13 +2,23 @@
 import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
+	canonicalURL?: string;
+	googleVerification?: string;
 }
 
-const { title, description = "Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences." } = Astro.props;
+const { 
+	title, 
+	description = "Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences.",
+	image = "/images/logo.webp",
+	canonicalURL = Astro.url.href,
+	googleVerification = 'A7BT_C6ClgkaWHA9brgG3v0v7gG-1NeclQ6jCfvQF8U'
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -19,7 +29,9 @@ const { title, description = "Professional mobile bartending service for all typ
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		{googleVerification && <meta name="google-site-verification" content={googleVerification} />}
 		<title>{title} | Dito's Bartender</title>
+		<link rel="canonical" href={canonicalURL} />
 		<ViewTransitions />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,8 +41,41 @@ const { title, description = "Professional mobile bartending service for all typ
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Astro.url.href} />
-		<meta property="og:image" content="/images/share-image.jpg" />
+		<meta property="og:image" content={image} />
+		<meta property="og:site_name" content="Dito's Bartender" />
+		<meta property="og:locale" content="en_US" />
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={`${title} | Dito's Bartender`} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image} />
+		<!-- Metadatos estructurados para Rich Snippets -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "LocalBusiness",
+				"name": "Dito's Bartender",
+				"description": "${description}",
+				"image": "${image}",
+				"url": "${Astro.url.href}",
+				"telephone": "+17279454200",
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Dunedin, FL",
+					"addressRegion": "FL",
+					"addressCountry": "US"
+				},
+				"priceRange": "$$",
+				"servesCuisine": "Cocktails",
+				"sameAs": [
+					"https://www.facebook.com/share/12KUW1sGc7W/?",
+					"https://www.instagram.com/dito_mobilebar?"
+				]
+			}
+		</script>
+		<!-- Google Analytics -->
+		<GoogleAnalytics />
+		<!-- Slot para metaetiquetas personalizadas por página -->
+		<slot name="head" />
 	</head>
 	<body class="bg-white text-gray-800 font-sans min-h-screen flex flex-col">
 		<Header />
