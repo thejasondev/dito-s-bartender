@@ -15,12 +15,14 @@ const galleryImages = [
   {
     src: '/images/mobile_bar.webp',
     alt: 'Mobile bar at corporate event',
-    category: 'corporate'
+    category: 'corporate',
+    description: 'Professional mobile bar setup for corporate events'
   },
   {
     src: '/images/trago.webp',
-    alt: 'Exclusive cocktail preparation',
-    category: 'cocktails'
+    alt: 'Signature cocktail',
+    category: 'cocktails',
+    description: 'Handcrafted signature cocktails'
   },
   {
     src: '/images/boda.jpg',
@@ -48,9 +50,9 @@ const galleryImages = [
     category: 'weddings'
   },
   {
-    src: '/images/foto6.jpg',
+    src: '/images/foto1.jpg',
     alt: 'Custom cocktails for corporate event',
-    category: 'corporate'
+    category: 'cocktails'
   },
   {
     src: '/images/foto3.jpg',
@@ -70,7 +72,7 @@ const galleryImages = [
   {
     src: '/images/foto7.jpg',
     alt: 'Bartending service for corporate event',
-    category: 'corporate'
+    category: 'cocktails'
   }
 ];
 ---
@@ -109,7 +111,10 @@ const galleryImages = [
       <!-- Gallery Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
         {galleryImages.map(image => (
-          <div class="gallery-item group relative overflow-hidden rounded-lg shadow-lg" data-category={image.category}>
+          <div 
+            class="gallery-item group relative overflow-hidden rounded-lg shadow-lg opacity-0 scale-95" 
+            data-category={image.category}
+          >
             <Image 
               src={image.src || "/placeholder.svg"} 
               alt={image.alt} 
@@ -119,6 +124,9 @@ const galleryImages = [
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
               <h3 class="text-white text-xl font-semibold">{image.alt}</h3>
+              {image.description && (
+                <p class="text-white/80 mt-2">{image.description}</p>
+              )}
             </div>
           </div>
         ))}
@@ -128,32 +136,30 @@ const galleryImages = [
 </Layout>
 
 <script>
-  // Gallery filtering
-  document.addEventListener('DOMContentLoaded', () => {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Update active button
-        filterButtons.forEach(btn => {
-          btn.classList.remove('bg-primary', 'text-white', 'border-primary');
-        });
-        button.classList.add('bg-primary', 'text-white', 'border-primary');
-        
-        // Filter gallery items
-        const category = button.getAttribute('data-category');
-        
-        galleryItems.forEach(item => {
-          if (category === 'all' || item.getAttribute('data-category') === category) {
-            item.classList.remove('hidden');
-          } else {
-            item.classList.add('hidden');
-          }
-        });
-      });
-    });
-  });
+  import { initGallery } from '../lib/gallery';
+  document.addEventListener('DOMContentLoaded', initGallery);
 </script>
+
+<style>
+  .gallery-item {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .opacity-0 {
+    opacity: 0;
+  }
+
+  .opacity-100 {
+    opacity: 1;
+  }
+
+  .scale-95 {
+    transform: scale(0.95);
+  }
+
+  .scale-100 {
+    transform: scale(1);
+  }
+</style>
 
 
