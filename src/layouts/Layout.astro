@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { 
-	title, 
+	title = "Dito's Bartender", 
 	description = "Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences.",
 	image = "/images/logo.webp",
 	canonicalURL = Astro.url.href,
@@ -40,22 +40,22 @@ const {
 		
 		<meta name="generator" content={Astro.generator} />
 		{googleVerification && <meta name="google-site-verification" content={googleVerification} />}
-		<title>{title} | Dito's Bartender</title>
+		<title>{title} | {description}</title>
 		<link rel="canonical" href={canonicalURL} />
 		<ViewTransitions />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		<!-- Meta para mejorar SEO y compartir en redes sociales -->
-		<meta property="og:title" content={`${title} | Dito's Bartender`} />
+		<meta property="og:title" content={`${title} | ${description}`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Astro.url.href} />
 		<meta property="og:image" content={image} />
-		<meta property="og:site_name" content="Dito's Bartender" />
+		<meta property="og:site_name" content={title} />
 		<meta property="og:locale" content="en_US" />
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={`${title} | Dito's Bartender`} />
+		<meta name="twitter:title" content={`${title} | ${description}`} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={image} />
 		<!-- Metadatos estructurados para Rich Snippets -->
