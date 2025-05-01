@@ -35,8 +35,11 @@ const {
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="theme-color" content="#D4AF37" />
+		
 		<!-- Específico para Google -->
-		<meta itemprop="image" content="https://ditos-bartender.vercel.app/favicon-96x96.png" />
+		<meta itemprop="name" content={title} />
+		<meta itemprop="description" content={description} />
+		<meta itemprop="image" content={new URL('/web-app-manifest-512x512.png', Astro.site || Astro.url.origin).href} />
 		
 		<meta name="generator" content={Astro.generator} />
 		{googleVerification && <meta name="google-site-verification" content={googleVerification} />}
@@ -67,6 +70,7 @@ const {
 				"description": "${description}",
 				"image": "${image}",
 				"url": "${Astro.url.href}",
+				"logo": "${new URL('/web-app-manifest-512x512.png', Astro.site || Astro.url.origin).href}",
 				"telephone": "+17279454200",
 				"address": {
 					"@type": "PostalAddress",
