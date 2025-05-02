@@ -1,38 +1,48 @@
 ---
-import { Image } from 'astro:assets';
+import OptimizedImage from '../OptimizedImage.astro';
 
 const galleryImages = [
   {
     src: '/images/bar_mobile.webp',
     alt: 'Mobile bar at corporate event',
-    category: 'Corporate'
+    category: 'Corporate',
+    placeholder: '/images/placeholders/bar_mobile-placeholder.webp'
   },
   {
     src: '/images/exclusive_cocktail.webp',
     alt: 'Exclusive cocktail preparation',
-    category: 'Cocktails'
+    category: 'Cocktails',
+    placeholder: '/images/placeholders/exclusive_cocktail-placeholder.webp'
   },
   {
     src: '/images/bar_wedding.webp',
     alt: 'Themed bar for wedding',
-    category: 'Weddings'
+    category: 'Weddings',
+    placeholder: '/images/placeholders/bar_wedding-placeholder.webp'
   },
   {
     src: '/images/bartender.webp',
     alt: 'Bartending service at private party',
-    category: 'Private Events'
+    category: 'Private Events',
+    placeholder: '/images/placeholders/bartender-placeholder.webp'
   },
   {
     src: '/images/cocktail_presentation.webp',
     alt: 'Cocktail presentation detail',
-    category: 'Cocktails'
+    category: 'Cocktails',
+    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp'
   },
   {
     src: '/images/themed_event.webp',
     alt: 'Mobile bar decorated for themed event',
-    category: 'Themed'
+    category: 'Themed',
+    placeholder: '/images/placeholders/themed_event-placeholder.webp'
   }
 ];
+
+// Las primeras 3 imágenes se cargan con prioridad alta
+const priorityImages = galleryImages.slice(0, 3);
+const regularImages = galleryImages.slice(3);
 ---
 
 <section id="gallery" class="py-20 bg-white">
@@ -45,17 +55,40 @@ const galleryImages = [
     </div>
     
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {galleryImages.map((image, index) => (
+      {priorityImages.map((image, index) => (
         <div 
           class="group relative overflow-hidden rounded-lg shadow-lg scroll-trigger hover-lift" 
           style={`animation-delay: ${index * 100}ms;`}
         >
-          <Image 
+          <OptimizedImage 
             src={image.src || "/placeholder.svg"} 
             alt={image.alt} 
             width={600} 
             height={400}
-            loading={index < 3 ? "eager" : "lazy"}
+            loading="eager"
+            fetchpriority="high"
+            placeholder={image.placeholder}
+            class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6 transform translate-y-4 group-hover:translate-y-0">
+            <span class="text-accent text-sm font-medium">{image.category}</span>
+            <h3 class="text-white text-xl font-semibold">{image.alt}</h3>
+          </div>
+        </div>
+      ))}
+
+      {regularImages.map((image, index) => (
+        <div 
+          class="group relative overflow-hidden rounded-lg shadow-lg scroll-trigger hover-lift" 
+          style={`animation-delay: ${(index + 3) * 100}ms;`}
+        >
+          <OptimizedImage 
+            src={image.src || "/placeholder.svg"} 
+            alt={image.alt} 
+            width={600} 
+            height={400}
+            loading="lazy"
+            placeholder={image.placeholder}
             class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6 transform translate-y-4 group-hover:translate-y-0">

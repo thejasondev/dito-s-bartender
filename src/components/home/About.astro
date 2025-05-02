@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import OptimizedImage from '../OptimizedImage.astro';
 ---
 
 <section class="py-20 bg-gray-50">
@@ -38,12 +38,15 @@ import { Image } from 'astro:assets';
       </div>
       <div class="order-1 lg:order-2 relative">
         <div class="relative z-10">
-          <Image 
+          <OptimizedImage 
             src="/images/profile.webp" 
             alt="Professional bartender preparing a cocktail" 
             width={600} 
             height={800}
             class="rounded-lg shadow-xl object-cover w-full h-[500px]"
+            loading="eager"
+            fetchpriority="high"
+            placeholder="/images/placeholders/profile-placeholder.webp"
           />
         </div>
         <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-accent/20 rounded-full -z-10"></div>

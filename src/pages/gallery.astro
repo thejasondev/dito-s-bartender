@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
+import OptimizedImage from '../components/OptimizedImage.astro';
 
 const categories = [
   { id: 'all', name: 'All' },
@@ -16,68 +16,97 @@ const galleryImages = [
     src: '/images/mobile_bar.webp',
     alt: 'Mobile bar at corporate event',
     category: 'corporate',
-    description: 'Professional mobile bar setup for corporate events'
+    description: 'Professional mobile bar setup for corporate events',
+    placeholder: '/images/placeholders/mobile_bar-placeholder.webp'
   },
   {
     src: '/images/trago.webp',
     alt: 'Signature cocktail',
     category: 'cocktails',
-    description: 'Handcrafted signature cocktails'
+    description: 'Handcrafted signature cocktails',
+    placeholder: '/images/placeholders/trago-placeholder.webp'
   },
   {
     src: '/images/boda.webp',
     alt: 'Themed bar for wedding',
-    category: 'weddings'
+    category: 'weddings',
+    description: 'Themed bar for wedding',
+    placeholder: '/images/placeholders/boda-placeholder.webp'
   },
   {
     src: '/images/bartender.webp',
     alt: 'Bartending service at private party',
-    category: 'private'
+    category: 'private',
+    description: 'Bartending service at private party',
+    placeholder: '/images/placeholders/bartender-placeholder.webp'
   },
   {
     src: '/images/cocktail.webp',
     alt: 'Cocktail presentation detail',
-    category: 'cocktails'
+    category: 'cocktails',
+    description: 'Cocktail presentation detail',
+    placeholder: '/images/placeholders/cocktail-placeholder.webp'
   },
   {
     src: '/images/foto2.webp',
     alt: 'Mobile bar decorated for themed event',
-    category: 'themed'
+    category: 'themed',
+    description: 'Mobile bar decorated for themed event',
+    placeholder: '/images/placeholders/foto2-placeholder.webp'
   },
   {
     src: '/images/bar_wedding.webp',
     alt: 'Bartender preparing cocktail at wedding',
-    category: 'weddings'
+    category: 'weddings',
+    description: 'Bartender preparing cocktail at wedding',
+    placeholder: '/images/placeholders/bar_wedding-placeholder.webp'
   },
   {
     src: '/images/foto1.webp',
     alt: 'Custom cocktails for corporate event',
-    category: 'cocktails'
+    category: 'cocktails',
+    description: 'Custom cocktails for corporate event',
+    placeholder: '/images/placeholders/foto1-placeholder.webp'
   },
   {
     src: '/images/foto3.webp',
     alt: 'Mobile bar at private event',
-    category: 'private'
+    category: 'private',
+    description: 'Mobile bar at private event',
+    placeholder: '/images/placeholders/foto3-placeholder.webp'
   },
   {
     src: '/images/foto6.webp',
     alt: 'Signature cocktail with special decoration',
-    category: 'cocktails'
+    category: 'cocktails',
+    description: 'Signature cocktail with special decoration',
+    placeholder: '/images/placeholders/foto6-placeholder.webp'
   },
   {
     src: '/images/foto5.webp',
     alt: 'Themed bar for Halloween party',
-    category: 'themed'
+    category: 'themed',
+    description: 'Themed bar for Halloween party',
+    placeholder: '/images/placeholders/foto5-placeholder.webp'
   },
   {
     src: '/images/foto7.webp',
     alt: 'Bartending service for corporate event',
-    category: 'cocktails'
+    category: 'cocktails',
+    description: 'Bartending service for corporate event',
+    placeholder: '/images/placeholders/foto7-placeholder.webp'
   }
 ];
+
+// Identificar las imágenes visibles inicialmente (primeras 6)
+const initiallyVisibleImages = galleryImages.slice(0, 6);
+const lazyLoadedImages = galleryImages.slice(6);
 ---
 
-<Layout title="Gallery" description="Explore our gallery of images and discover the magic of our mobile bartending services in action.">
+<Layout 
+  title="Gallery" 
+  description="Explore our gallery of images and discover the magic of our mobile bartending services in action."
+>
   <!-- Hero Section -->
   <section class="pt-32 pb-20 bg-primary text-white">
     <div class="container mx-auto px-4">
@@ -110,17 +139,43 @@ const galleryImages = [
       
       <!-- Gallery Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
-        {galleryImages.map(image => (
+        {initiallyVisibleImages.map((image, index) => (
           <div 
             class="gallery-item group relative overflow-hidden rounded-lg shadow-lg opacity-0 scale-95" 
             data-category={image.category}
           >
-            <Image 
+            <OptimizedImage 
               src={image.src || "/placeholder.svg"} 
               alt={image.alt} 
               width={600} 
               height={400}
               class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              loading={index < 3 ? "eager" : "lazy"}
+              fetchpriority={index < 3 ? "high" : "auto"}
+              placeholder={image.placeholder}
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <h3 class="text-white text-xl font-semibold">{image.alt}</h3>
+              {image.description && (
+                <p class="text-white/80 mt-2">{image.description}</p>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {lazyLoadedImages.map(image => (
+          <div 
+            class="gallery-item group relative overflow-hidden rounded-lg shadow-lg opacity-0 scale-95" 
+            data-category={image.category}
+          >
+            <OptimizedImage 
+              src={image.src || "/placeholder.svg"} 
+              alt={image.alt} 
+              width={600} 
+              height={400}
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+              placeholder={image.placeholder}
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
               <h3 class="text-white text-xl font-semibold">{image.alt}</h3>
@@ -138,6 +193,31 @@ const galleryImages = [
 <script>
   import { initGallery } from '../lib/gallery';
   document.addEventListener('DOMContentLoaded', initGallery);
+
+  // Implementar carga progresiva para las imágenes que entran en el viewport
+  document.addEventListener('astro:page-load', () => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const item = entry.target;
+          item.classList.remove('opacity-0', 'scale-95');
+          item.classList.add('opacity-100', 'scale-100');
+          observer.unobserve(item);
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos de la galería
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      observer.observe(item);
+    });
+  });
 </script>
 
 <style>

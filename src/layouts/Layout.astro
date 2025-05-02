@@ -10,15 +10,20 @@ interface Props {
 	image?: string;
 	canonicalURL?: string;
 	googleVerification?: string;
+	preloadHeroImage?: boolean;
 }
 
 const { 
 	title = "Dito's Bartender", 
 	description = "Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences.",
-	image = "/images/logo.webp",
+	image = "/web-app-manifest-512x512.png",
 	canonicalURL = Astro.url.href,
-	googleVerification = 'A7BT_C6ClgkaWHA9brgG3v0v7gG-1NeclQ6jCfvQF8U'
+	googleVerification = 'A7BT_C6ClgkaWHA9brgG3v0v7gG-1NeclQ6jCfvQF8U',
+	preloadHeroImage = false
 } = Astro.props;
+
+// Determinar si es la página principal para precargar imágenes del héroe
+const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 ---
 
 <!doctype html>
@@ -46,6 +51,35 @@ const {
 		<title>{title} | {description}</title>
 		<link rel="canonical" href={canonicalURL} />
 		<ViewTransitions />
+		
+		<!-- Precargar imágenes críticas en la página principal -->
+		{isHomePage && (
+			<>
+				<link rel="preload" as="image" href="/images/header-placeholder.webp" fetchpriority="high" />
+				<link 
+					rel="preload" 
+					as="image" 
+					href="/images/header-small.webp" 
+					media="(max-width: 640px)" 
+					fetchpriority="high" 
+				/>
+				<link 
+					rel="preload" 
+					as="image" 
+					href="/images/header-medium.webp" 
+					media="(min-width: 641px) and (max-width: 1024px)" 
+					fetchpriority="high" 
+				/>
+				<link 
+					rel="preload" 
+					as="image" 
+					href="/images/header.webp" 
+					media="(min-width: 1025px)" 
+					fetchpriority="high" 
+				/>
+			</>
+		)}
+		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
