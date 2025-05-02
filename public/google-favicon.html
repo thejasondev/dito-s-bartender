@@ -3,57 +3,235 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dito's Bartender - Favicon Indicator</title>
+    <title>Dito's Bartender - Mobile Bartending Services</title>
+
+    <!-- Favicons completos -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-    <meta name="robots" content="noindex" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta
+      name="msapplication-TileImage"
+      content="/web-app-manifest-512x512.png"
+    />
+    <meta name="msapplication-TileColor" content="#D4AF37" />
+    <meta name="theme-color" content="#D4AF37" />
+
+    <!-- Metadatos para SEO -->
+    <meta
+      name="description"
+      content="Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences."
+    />
+    <meta
+      name="keywords"
+      content="mobile bartender, bartending services, event bartender, cocktail service, Dunedin, Florida"
+    />
+
+    <!-- Metadatos para Google -->
+    <meta itemprop="name" content="Dito's Bartender" />
+    <meta
+      itemprop="description"
+      content="Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences."
+    />
+    <meta
+      itemprop="image"
+      content="https://ditos-bartender.vercel.app/web-app-manifest-512x512.png"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ditos-bartender.vercel.app/" />
+    <meta property="og:title" content="Dito's Bartender" />
+    <meta
+      property="og:description"
+      content="Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences."
+    />
+    <meta
+      property="og:image"
+      content="https://ditos-bartender.vercel.app/web-app-manifest-512x512.png"
+    />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dito's Bartender" />
+    <meta
+      name="twitter:description"
+      content="Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences."
+    />
+    <meta
+      name="twitter:image"
+      content="https://ditos-bartender.vercel.app/web-app-manifest-512x512.png"
+    />
+
+    <!-- Metadatos estructurados para Rich Snippets -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Dito's Bartender",
+        "description": "Professional mobile bartending service for all types of events. Custom cocktails, themed bars, and unique experiences.",
+        "image": "https://ditos-bartender.vercel.app/web-app-manifest-512x512.png",
+        "url": "https://ditos-bartender.vercel.app/",
+        "logo": "https://ditos-bartender.vercel.app/web-app-manifest-512x512.png",
+        "telephone": "+17279454200",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dunedin, FL",
+          "addressRegion": "FL",
+          "addressCountry": "US"
+        },
+        "priceRange": "$$",
+        "sameAs": [
+          "https://www.facebook.com/share/12KUW1sGc7W/?",
+          "https://www.instagram.com/dito_mobilebar?"
+        ]
+      }
+    </script>
+
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
-        margin: 50px;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+        color: #333;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      header {
+        margin-bottom: 40px;
+      }
+      h1 {
+        color: #d4af37;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #555;
+        max-width: 700px;
+        margin: 0 auto 20px;
       }
       .favicon-container {
-        margin: 30px 0;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin: 40px 0;
+      }
+      .favicon-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 200px;
+      }
+      .favicon-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #333;
       }
       .favicon {
         width: 150px;
         height: 150px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+      }
+      .main-logo {
+        width: 200px;
+        height: auto;
+        margin-bottom: 20px;
+      }
+      .button {
+        display: inline-block;
+        background-color: #d4af37;
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+      }
+      .button:hover {
+        background-color: #b8971e;
+      }
+      footer {
+        margin-top: 60px;
+        font-size: 0.9rem;
+        color: #777;
       }
     </style>
   </head>
   <body>
-    <h1>Favicon de Dito's Bartender</h1>
-    <p>
-      Esta página está creada para ayudar a Google a indexar correctamente
-      nuestro favicon.
-    </p>
+    <div class="container">
+      <header>
+        <img
+          src="/web-app-manifest-512x512.png"
+          alt="Dito's Bartender Logo"
+          class="main-logo"
+        />
+        <h1>Dito's Bartender</h1>
+        <p>
+          Servicio de bartending móvil profesional para todo tipo de eventos.
+          Cócteles personalizados, barras temáticas y experiencias únicas.
+        </p>
+      </header>
 
-    <div class="favicon-container">
-      <div>
-        <p>Favicon .ico:</p>
-        <img src="/favicon.ico" alt="Favicon ICO" class="favicon" />
-      </div>
-      <div>
-        <p>Favicon SVG:</p>
-        <img src="/favicon.svg" alt="Favicon SVG" class="favicon" />
-      </div>
-      <div>
-        <p>Favicon PNG:</p>
-        <img src="/favicon-96x96.png" alt="Favicon PNG" class="favicon" />
-      </div>
+      <section>
+        <h2>Nuestros Favicons</h2>
+        <p>
+          Estos son los diferentes formatos de nuestro logo e iconos que
+          representan la marca Dito's Bartender en diferentes plataformas y
+          navegadores.
+        </p>
+
+        <div class="favicon-container">
+          <div class="favicon-card">
+            <p class="favicon-title">Favicon ICO</p>
+            <img src="/favicon.ico" alt="Favicon ICO" class="favicon" />
+            <p>Formato tradicional para navegadores</p>
+          </div>
+
+          <div class="favicon-card">
+            <p class="favicon-title">Favicon SVG</p>
+            <img src="/favicon.svg" alt="Favicon SVG" class="favicon" />
+            <p>Vector escalable de alta calidad</p>
+          </div>
+
+          <div class="favicon-card">
+            <p class="favicon-title">Favicon PNG</p>
+            <img src="/favicon-96x96.png" alt="Favicon PNG" class="favicon" />
+            <p>Formato PNG para compatibilidad</p>
+          </div>
+
+          <div class="favicon-card">
+            <p class="favicon-title">App Icon</p>
+            <img
+              src="/web-app-manifest-512x512.png"
+              alt="App Icon"
+              class="favicon"
+            />
+            <p>Icono de alta resolución para apps</p>
+          </div>
+        </div>
+      </section>
+
+      <a href="/" class="button">Visitar nuestra página web</a>
+
+      <footer>
+        <p>&copy; 2025 Dito's Bartender. Todos los derechos reservados.</p>
+      </footer>
     </div>
-
-    <p>
-      Visita nuestra <a href="/">página principal</a> para conocer nuestros
-      servicios de bartending.
-    </p>
   </body>
 </html>

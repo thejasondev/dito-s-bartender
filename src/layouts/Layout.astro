@@ -22,6 +22,11 @@ const {
 	preloadHeroImage = false
 } = Astro.props;
 
+// Construir URLs absolutas para las imágenes
+const siteUrl = Astro.site || new URL(Astro.url.pathname, Astro.url.origin).href;
+const absoluteImageUrl = new URL(image.startsWith('/') ? image : `/${image}`, siteUrl).href;
+const logoUrl = new URL('/web-app-manifest-512x512.png', siteUrl).href;
+
 // Determinar si es la página principal para precargar imágenes del héroe
 const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 ---
@@ -36,19 +41,22 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		<!-- Favicons -->
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="msapplication-TileImage" content={logoUrl} />
+		<meta name="msapplication-TileColor" content="#D4AF37" />
 		<meta name="theme-color" content="#D4AF37" />
 		
 		<!-- Específico para Google -->
 		<meta itemprop="name" content={title} />
 		<meta itemprop="description" content={description} />
-		<meta itemprop="image" content={new URL('/web-app-manifest-512x512.png', Astro.site || Astro.url.origin).href} />
+		<meta itemprop="image" content={logoUrl} />
 		
 		<meta name="generator" content={Astro.generator} />
 		{googleVerification && <meta name="google-site-verification" content={googleVerification} />}
-		<title>{title} | {description}</title>
+		<title>{title}</title>
 		<link rel="canonical" href={canonicalURL} />
 		<ViewTransitions />
 		
@@ -83,18 +91,27 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-		<!-- Meta para mejorar SEO y compartir en redes sociales -->
-		<meta property="og:title" content={`${title} | ${description}`} />
-		<meta property="og:description" content={description} />
+		
+		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url.href} />
-		<meta property="og:image" content={image} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={absoluteImageUrl} />
+		<meta property="og:image:alt" content={`${title} logo`} />
+		<meta property="og:image:width" content="512" />
+		<meta property="og:image:height" content="512" />
 		<meta property="og:site_name" content={title} />
 		<meta property="og:locale" content="en_US" />
+		
+		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={`${title} | ${description}`} />
+		<meta name="twitter:url" content={canonicalURL} />
+		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={image} />
+		<meta name="twitter:image" content={absoluteImageUrl} />
+		<meta name="twitter:image:alt" content={`${title} logo`} />
+		
 		<!-- Metadatos estructurados para Rich Snippets -->
 		<script type="application/ld+json">
 			{
@@ -102,9 +119,9 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 				"@type": "LocalBusiness",
 				"name": "Dito's Bartender",
 				"description": "${description}",
-				"image": "${image}",
-				"url": "${Astro.url.href}",
-				"logo": "${new URL('/web-app-manifest-512x512.png', Astro.site || Astro.url.origin).href}",
+				"image": "${absoluteImageUrl}",
+				"url": "${canonicalURL}",
+				"logo": "${logoUrl}",
 				"telephone": "+17279454200",
 				"address": {
 					"@type": "PostalAddress",
@@ -120,8 +137,10 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 				]
 			}
 		</script>
+		
 		<!-- Google Analytics -->
 		<GoogleAnalytics />
+		
 		<!-- Slot para metaetiquetas personalizadas por página -->
 		<slot name="head" />
 	</head>

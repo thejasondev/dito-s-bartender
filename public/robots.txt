@@ -1,5 +1,19 @@
 User-agent: *
 Allow: /
 
+# Permitir explícitamente acceso a recursos críticos
+Allow: /favicon.ico
+Allow: /favicon.svg
+Allow: /favicon-32x32.png
+Allow: /favicon-96x96.png
+Allow: /apple-touch-icon.png
+Allow: /web-app-manifest-192x192.png
+Allow: /web-app-manifest-512x512.png
+Allow: /google-favicon.html
+Allow: /site.webmanifest
+
+# Recursos de Imagen
+Allow: /images/
+
 # Sitemap
 Sitemap: https://ditos-bartender.vercel.app/sitemap-index.xml 
