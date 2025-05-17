@@ -5,12 +5,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import emailjs from "@emailjs/browser";
 
 const formSchema = z.object({
-  name: z.string().min(2, "El nombre es obligatorio"),
-  email: z.string().email("Dirección de correo electrónico inválida"),
-  phone: z.string().optional(),
-  subject: z.string().min(1, "El asunto es obligatorio"),
+  name: z
+    .string()
+    .min(2, "El nombre es obligatorio")
+    .regex(
+      /^[a-zA-ZÀ-ÿ\s\.\-\']+$/,
+      "El nombre solo debe contener letras, espacios y signos básicos"
+    ),
+  email: z
+    .string()
+    .email("Dirección de correo electrónico inválida")
+    .max(100, "La dirección de correo es demasiado larga"),
+  phone: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[0-9\+\-\(\)\s]{7,20}$/.test(val), {
+      message: "El número de teléfono contiene caracteres inválidos",
+    }),
+  subject: z
+    .string()
+    .min(1, "El asunto es obligatorio")
+    .max(100, "El asunto es demasiado largo"),
   event_type: z.string().min(1, "Por favor selecciona un tipo de evento"),
-  message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
+  message: z
+    .string()
+    .min(10, "El mensaje debe tener al menos 10 caracteres")
+    .max(2000, "El mensaje no puede exceder 2000 caracteres"),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -80,13 +100,18 @@ export default function ContactFormES() {
           <input
             {...register("name")}
             type="text"
+            id="name"
             className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
               errors.name ? "border-red-500" : "border-gray-300"
             }`}
             placeholder="Tú nombre"
+            autoComplete="name"
+            aria-describedby={errors.name && "name-error"}
           />
           {errors.name && (
-            <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+            <p className="mt-1 text-sm text-red-500" id="name-error">
+              {errors.name.message}
+            </p>
           )}
         </div>
         <div>
@@ -99,13 +124,19 @@ export default function ContactFormES() {
           <input
             {...register("email")}
             type="email"
+            id="email"
             className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
               errors.email ? "border-red-500" : "border-gray-300"
             }`}
             placeholder="ejemplo@dominio.com"
+            autoComplete="email"
+            spellCheck="false"
+            aria-describedby={errors.email && "email-error"}
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+            <p className="mt-1 text-sm text-red-500" id="email-error">
+              {errors.email.message}
+            </p>
           )}
         </div>
       </div>
@@ -136,10 +167,18 @@ export default function ContactFormES() {
           <input
             {...register("phone")}
             type="tel"
+            id="phone"
             className="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary"
             placeholder="(123) 456-7890"
+            autoComplete="tel"
+            aria-describedby={errors.phone && "phone-error"}
           />
         </div>
+        {errors.phone && (
+          <p className="mt-1 text-sm text-red-500" id="phone-error">
+            {errors.phone?.message}
+          </p>
+        )}
       </div>
       <div>
         <label
@@ -151,13 +190,18 @@ export default function ContactFormES() {
         <input
           {...register("subject")}
           type="text"
+          id="subject"
           className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
             errors.subject ? "border-red-500" : "border-gray-300"
           }`}
           placeholder="Consulta sobre sus servicios"
+          autoComplete="off"
+          aria-describedby={errors.subject && "subject-error"}
         />
         {errors.subject && (
-          <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>
+          <p className="mt-1 text-sm text-red-500" id="subject-error">
+            {errors.subject.message}
+          </p>
         )}
       </div>
       <div>
@@ -170,18 +214,12 @@ export default function ContactFormES() {
         <div className="relative">
           <select
             {...register("event_type")}
-            className={`w-full px-4 py-3 border-2 rounded-md bg-white text-gray-700 appearance-none cursor-pointer transition-all duration-300 hover:border-primary focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none ${
+            id="event_type"
+            className={`w-full px-4 py-3 border-2 rounded-md bg-white text-gray-700 appearance-none cursor-pointer transition-all duration-300 hover:border-primary focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none custom-select ${
               errors.event_type ? "border-red-500" : "border-gray-300"
             }`}
-            style={{
-              backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23A97142'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "right 0.5rem center",
-              backgroundSize: "1.5em 1.5em",
-              paddingRight: "2.5rem",
-            }}
             defaultValue=""
+            aria-describedby={errors.event_type && "event-type-error"}
           >
             <option value="" disabled>
               Selecciona una opción
@@ -220,7 +258,7 @@ export default function ContactFormES() {
           </div>
         </div>
         {errors.event_type && (
-          <p className="mt-1 text-sm text-red-500">
+          <p className="mt-1 text-sm text-red-500" id="event-type-error">
             {errors.event_type.message}
           </p>
         )}
@@ -234,14 +272,19 @@ export default function ContactFormES() {
         </label>
         <textarea
           {...register("message")}
+          id="message"
           rows={4}
           className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
             errors.message ? "border-red-500" : "border-gray-300"
           }`}
           placeholder="Cuéntanos sobre tu evento y requisitos..."
+          aria-describedby={errors.message && "message-error"}
+          maxLength={2000}
         />
         {errors.message && (
-          <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
+          <p className="mt-1 text-sm text-red-500" id="message-error">
+            {errors.message.message}
+          </p>
         )}
       </div>
       <button
@@ -329,6 +372,14 @@ export default function ContactFormES() {
 }
 
 const globalStyles = `
+  .custom-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23A97142'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+  
   select {
     color-scheme: light;
   }
