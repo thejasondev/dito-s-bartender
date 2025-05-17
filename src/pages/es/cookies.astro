@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { buildLocalizedURL } from '../../lib/i18n/utils';
+
+const sections = [
+  {
+    title: "¿Qué Son las Cookies?",
+    content: [
+      "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas nuestro sitio web.",
+      "Nos ayudan a mejorar tu experiencia de navegación y entender cómo utilizas nuestro sitio.",
+      "Algunas cookies son esenciales para que el sitio web funcione correctamente."
+    ]
+  },
+  {
+    title: "Tipos de Cookies que Utilizamos",
+    content: [
+      "Cookies esenciales: Necesarias para la funcionalidad básica del sitio web",
+      "Cookies de rendimiento: Nos ayudan a analizar el uso del sitio y mejorar nuestros servicios",
+      "Cookies de funcionalidad: Recuerdan tus preferencias y elecciones",
+      "Cookies de marketing: Nos ayudan a entregar contenido relevante",
+      "Cookies de terceros: Utilizadas por nuestros socios de confianza"
+    ]
+  },
+  {
+    title: "Gestión de Cookies",
+    content: [
+      "Puedes modificar la configuración de tu navegador para rechazar cookies",
+      "Puedes eliminar las cookies existentes en cualquier momento",
+      "Rechazar cookies puede afectar algunas funcionalidades del sitio web",
+      "Las cookies esenciales no pueden desactivarse ya que son necesarias para el funcionamiento del sitio"
+    ]
+  },
+  {
+    title: "Servicios de Terceros",
+    content: [
+      "Utilizamos Google Analytics para analizar el uso del sitio",
+      "Las funciones de redes sociales pueden establecer cookies si las utilizas",
+      "Los procesadores de pago pueden usar cookies para procesar transacciones",
+      "Solo utilizamos servicios de terceros de confianza"
+    ]
+  }
+];
+
+const title = "Política de Cookies";
+const description = "Política de cookies para el sitio web de Dito's Bartender";
+const canonicalURL = "https://ditos-bartender.vercel.app/es/cookies";
+
+// URLs alternativas para esta página
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const alternateUrls = {
+  en: buildLocalizedURL(siteUrl, 'en', '/cookies').toString(),
+  es: buildLocalizedURL(siteUrl, 'es', '/cookies').toString(),
+};
+---
+
+<Layout 
+  title={title} 
+  description={description}
+  canonicalURL={canonicalURL}
+  alternateUrls={alternateUrls}
+>
+  <section class="pt-32 pb-20">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h1 class="text-4xl font-bold text-gray-800 mb-8">Política de Cookies</h1>
+      <p class="text-gray-600 mb-12">
+        Última actualización: {new Date().toLocaleDateString('es-ES')}
+      </p>
+
+      <div class="space-y-12">
+        {sections.map(section => (
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+              {section.title}
+            </h2>
+            <ul class="space-y-3">
+              {section.content.map(item => (
+                <li class="text-gray-600">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout> 

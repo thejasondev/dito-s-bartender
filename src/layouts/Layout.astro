@@ -3,6 +3,8 @@ import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import LanguageRedirector from '../components/LanguageRedirector.astro';
+import { getLanguageFromURL } from '../lib/i18n/utils';
 
 interface Props {
 	title: string;
@@ -11,6 +13,10 @@ interface Props {
 	canonicalURL?: string;
 	googleVerification?: string;
 	preloadHeroImage?: boolean;
+	alternateUrls?: {
+		en?: string;
+		es?: string;
+	};
 }
 
 const { 
@@ -19,8 +25,12 @@ const {
 	image = "/web-app-manifest-512x512.png",
 	canonicalURL = Astro.url.href,
 	googleVerification = 'A7BT_C6ClgkaWHA9brgG3v0v7gG-1NeclQ6jCfvQF8U',
-	preloadHeroImage = false
+	preloadHeroImage = false,
+	alternateUrls
 } = Astro.props;
+
+// Determinar el idioma actual
+const currentLang = getLanguageFromURL(Astro.url.pathname);
 
 // Construir URLs absolutas para las imágenes
 const siteUrl = Astro.site || new URL(Astro.url.pathname, Astro.url.origin).href;
@@ -28,11 +38,11 @@ const absoluteImageUrl = new URL(image.startsWith('/') ? image : `/${image}`, si
 const logoUrl = new URL('/web-app-manifest-512x512.png', siteUrl).href;
 
 // Determinar si es la página principal para precargar imágenes del héroe
-const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '' || Astro.url.pathname === '/es/' || Astro.url.pathname === '/es';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -58,6 +68,16 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		{googleVerification && <meta name="google-site-verification" content={googleVerification} />}
 		<title>{title}</title>
 		<link rel="canonical" href={canonicalURL} />
+		
+		<!-- Enlaces de idioma alternativo -->
+		{alternateUrls?.en && (
+			<link rel="alternate" href={alternateUrls.en} hreflang="en" />
+		)}
+		{alternateUrls?.es && (
+			<link rel="alternate" href={alternateUrls.es} hreflang="es" />
+		)}
+		<link rel="alternate" href={alternateUrls?.[currentLang] || canonicalURL} hreflang="x-default" />
+		
 		<ViewTransitions />
 		
 		<!-- Precargar imágenes críticas en la página principal -->
@@ -102,7 +122,9 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		<meta property="og:image:width" content="512" />
 		<meta property="og:image:height" content="512" />
 		<meta property="og:site_name" content={title} />
-		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale" content={currentLang === 'en' ? 'en_US' : 'es_ES'} />
+		{currentLang === 'en' && <meta property="og:locale:alternate" content="es_ES" />}
+		{currentLang === 'es' && <meta property="og:locale:alternate" content="en_US" />}
 		
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
@@ -140,6 +162,9 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 		
 		<!-- Google Analytics -->
 		<GoogleAnalytics />
+		
+		<!-- Redirector de idioma -->
+		<LanguageRedirector />
 		
 		<!-- Slot para metaetiquetas personalizadas por página -->
 		<slot name="head" />

@@ -5,16 +5,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import emailjs from "@emailjs/browser";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid email address"),
+  name: z.string().min(2, "El nombre es obligatorio"),
+  email: z.string().email("Dirección de correo electrónico inválida"),
   phone: z.string().optional(),
-  subject: z.string().min(1, "Subject is required"),
-  event_type: z.string().min(1, "Please select an event type"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  subject: z.string().min(1, "El asunto es obligatorio"),
+  event_type: z.string().min(1, "Por favor selecciona un tipo de evento"),
+  message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
 });
 
 type FormData = z.infer<typeof formSchema>;
-export default function ContactForm() {
+export default function ContactFormES() {
   const [status, setStatus] = useState({
     loading: false,
     success: false,
@@ -62,7 +62,7 @@ export default function ContactForm() {
         });
       }
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Error al enviar el correo:", error);
       setStatus({ loading: false, success: false, error: true });
     }
   };
@@ -75,7 +75,7 @@ export default function ContactForm() {
             htmlFor="name"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Name
+            Nombre
           </label>
           <input
             {...register("name")}
@@ -83,7 +83,7 @@ export default function ContactForm() {
             className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
               errors.name ? "border-red-500" : "border-gray-300"
             }`}
-            placeholder="Your name"
+            placeholder="Tú nombre"
           />
           {errors.name && (
             <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
@@ -102,7 +102,7 @@ export default function ContactForm() {
             className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
               errors.email ? "border-red-500" : "border-gray-300"
             }`}
-            placeholder="example@domain.com"
+            placeholder="ejemplo@dominio.com"
           />
           {errors.email && (
             <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
@@ -114,7 +114,7 @@ export default function ContactForm() {
           htmlFor="phone"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
-          Phone (Optional)
+          Teléfono (Opcional)
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-500">
@@ -146,7 +146,7 @@ export default function ContactForm() {
           htmlFor="subject"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
-          Subject
+          Asunto
         </label>
         <input
           {...register("subject")}
@@ -154,7 +154,7 @@ export default function ContactForm() {
           className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
             errors.subject ? "border-red-500" : "border-gray-300"
           }`}
-          placeholder="Inquiry about your services"
+          placeholder="Consulta sobre sus servicios"
         />
         {errors.subject && (
           <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>
@@ -165,7 +165,7 @@ export default function ContactForm() {
           htmlFor="event_type"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
-          Event Type
+          Tipo de Evento
         </label>
         <div className="relative">
           <select
@@ -184,22 +184,22 @@ export default function ContactForm() {
             defaultValue=""
           >
             <option value="" disabled>
-              Select an option
+              Selecciona una opción
             </option>
             <option value="wedding" className="py-2 hover:bg-primary/10">
-              Wedding
+              Boda
             </option>
             <option value="corporate" className="py-2 hover:bg-primary/10">
-              Corporate
+              Corporativo
             </option>
             <option value="private" className="py-2 hover:bg-primary/10">
-              Private Event
+              Evento Privado
             </option>
             <option value="themed" className="py-2 hover:bg-primary/10">
-              Themed Party
+              Fiesta Temática
             </option>
             <option value="other" className="py-2 hover:bg-primary/10">
-              Other
+              Otro
             </option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 bg-primary text-white rounded-r-md">
@@ -230,7 +230,7 @@ export default function ContactForm() {
           htmlFor="message"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
-          Message
+          Mensaje
         </label>
         <textarea
           {...register("message")}
@@ -238,7 +238,7 @@ export default function ContactForm() {
           className={`w-full px-4 py-3 border-2 rounded-md transition-all duration-300 focus:ring-2 focus:ring-primary/20 focus:outline-none focus:border-primary hover:border-primary ${
             errors.message ? "border-red-500" : "border-gray-300"
           }`}
-          placeholder="Tell us about your event and requirements..."
+          placeholder="Cuéntanos sobre tu evento y requisitos..."
         />
         {errors.message && (
           <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
@@ -271,10 +271,10 @@ export default function ContactForm() {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-            Sending...
+            Enviando...
           </div>
         ) : (
-          "Send Message"
+          "Enviar Mensaje"
         )}
       </button>
       {status.success && (
@@ -294,9 +294,9 @@ export default function ContactForm() {
                 d="M5 13l4 4L19 7"
               ></path>
             </svg>
-            <span className="font-medium">Message sent successfully!</span>
+            <span className="font-medium">¡Mensaje enviado con éxito!</span>
           </div>
-          <p className="text-sm">We'll get back to you as soon as possible.</p>
+          <p className="text-sm">Te responderemos lo antes posible.</p>
         </div>
       )}
       {status.error && (
@@ -316,10 +316,11 @@ export default function ContactForm() {
                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
-            <span className="font-medium">Error sending message</span>
+            <span className="font-medium">Error al enviar el mensaje</span>
           </div>
           <p className="text-sm">
-            Please try again or contact us directly by phone.
+            Por favor, inténtalo de nuevo o contáctanos directamente por
+            teléfono.
           </p>
         </div>
       )}
@@ -327,7 +328,6 @@ export default function ContactForm() {
   );
 }
 
-// Se agrega el estilo global al final
 const globalStyles = `
   select {
     color-scheme: light;

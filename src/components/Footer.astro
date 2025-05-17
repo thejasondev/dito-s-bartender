@@ -1,16 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { getLanguageFromURL } from '../lib/i18n/utils';
+import { getTranslations } from '../lib/i18n/translations';
 
 const currentYear = new Date().getFullYear();
+const currentLang = getLanguageFromURL(Astro.url.pathname);
+const t = getTranslations(currentLang);
 
-const whatsappMessage = encodeURIComponent(`Hi! I’d like to get more information about your mobile bartending services.
-
-I’m interested in knowing about:
-- Availability
-- Packages and pricing
-- Types of services
-
-Thank you for your time!`);
+const whatsappMessage = encodeURIComponent(t.contact.whatsappMessage);
 
 const socialLinks = [
   { name: 'instagram', url: 'https://instagram.com/dito_mobilebar?', icon: 'mdi:instagram' },
@@ -18,29 +15,32 @@ const socialLinks = [
   { name: 'whatsapp', url: `https://wa.me/17279454200?text=${whatsappMessage}`, icon: 'mdi:whatsapp' }
 ];
 
+// URLs con prefijo de idioma si es necesario
+const langPrefix = currentLang === 'en' ? '' : '/es';
+
 const footerLinks = [
   {
-    title: 'Services',
+    title: t.footer.services,
     links: [
-      { name: 'Private Events', url: '/services#private' },
-      { name: 'Weddings', url: '/services#weddings' },
-      { name: 'Corporate', url: '/services#corporate' },
-      { name: 'Themed Parties', url: '/services#themed' },
+      { name: t.footer.privateEvents, url: `${langPrefix}/services#private` },
+      { name: t.footer.weddings, url: `${langPrefix}/services#weddings` },
+      { name: t.footer.corporate, url: `${langPrefix}/services#corporate` },
+      { name: t.footer.themedParties, url: `${langPrefix}/services#themed` },
     ]
   },
   {
-    title: 'Company',
+    title: t.footer.company,
     links: [
-      { name: 'About Us', url: '/about' },
-      { name: 'FAQ', url: '/faq' },
+      { name: t.footer.aboutUs, url: `${langPrefix}/about` },
+      { name: t.footer.faq, url: `${langPrefix}/faq` },
     ]
   },
   {
-    title: 'Legal',
+    title: t.footer.legal,
     links: [
-      { name: 'Terms & Conditions', url: '/terms' },
-      { name: 'Privacy Policy', url: '/privacy' },
-      { name: 'Cookie Policy', url: '/cookies' },
+      { name: t.footer.termsConditions, url: `${langPrefix}/terms` },
+      { name: t.footer.privacyPolicy, url: `${langPrefix}/privacy` },
+      { name: t.footer.cookiePolicy, url: `${langPrefix}/cookies` },
     ]
   }
 ];
@@ -66,7 +66,7 @@ const footerLinks = [
           <span class="text-xl font-semibold">Bartender</span>
         </div>
         <p class="text-gray-300 text-sm max-w-xs">
-          Professional mobile bartending service for all types of events. We create unique experiences through custom cocktails and themed bars.
+          {t.footer.description}
         </p>
         <div class="flex space-x-4 mt-6">
           {socialLinks.map(social => (
@@ -113,7 +113,7 @@ const footerLinks = [
     
     <!-- Copyright y créditos finales -->
     <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
-      <p>&copy; {currentYear} Dito's Bartender. All rights reserved.</p>
+      <p>&copy; {currentYear} Dito's Bartender. {t.footer.allRightsReserved}.</p>
     </div>
   </div>
 </footer>

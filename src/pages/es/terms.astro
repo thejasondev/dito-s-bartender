@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { buildLocalizedURL } from '../../lib/i18n/utils';
+
+const sections = [
+  {
+    title: "1. Servicios de Bartender Móvil",
+    content: [
+      "Dito's Bartender ofrece servicios profesionales de bartender móvil para eventos privados y corporativos.",
+      "Nos reservamos el derecho de modificar, suspender o descontinuar cualquier aspecto de nuestros servicios en cualquier momento.",
+      "Los precios están sujetos a cambios y serán confirmados al momento de la reserva.",
+      "Todos nuestros bartenders están profesionalmente capacitados y certificados en servicio responsable de alcohol."
+    ]
+  },
+  {
+    title: "2. Reservas y Pagos",
+    content: [
+      "Se requiere un depósito del 50% para asegurar la fecha de su evento.",
+      "El saldo restante debe pagarse 7 días antes del evento.",
+      "Las cancelaciones realizadas menos de 14 días antes del evento no son reembolsables.",
+      "Los depósitos son transferibles a otra fecha dentro de los 6 meses.",
+      "Aceptamos Zelle, Venmo, Cash App y efectivo. Requerimos un depósito del 50% para confirmar la reserva, y el saldo restante debe pagarse una semana antes del evento."
+    ]
+  },
+  {
+    title: "3. Requisitos del Evento",
+    content: [
+      "El cliente debe proporcionar un espacio adecuado y seguro para la instalación del bar.",
+      "Se requiere un tiempo mínimo de 2 horas para la instalación antes del inicio del evento.",
+      "El cliente es responsable de obtener los permisos necesarios y aprobaciones del lugar.",
+      "Pueden aplicarse requisitos mínimos de cantidad de invitados y duración.",
+      "Debe haber acceso a agua y electricidad en el lugar del evento."
+    ]
+  },
+  {
+    title: "4. Responsabilidad y Seguro",
+    content: [
+      "Dito's Bartender mantiene un seguro de responsabilidad civil completo.",
+      "No somos responsables por daños causados por invitados en estado de ebriedad.",
+      "Nos reservamos el derecho de negar el servicio a personas visiblemente intoxicadas.",
+      "Es posible que se requiera a los clientes firmar un acuerdo de servicio antes del evento.",
+      "Seguimos todas las regulaciones locales y estatales de servicio de alcohol."
+    ]
+  },
+  {
+    title: "5. Políticas de Servicio",
+    content: [
+      "Se requiere identificación válida para todos los invitados que consuman alcohol (solo mayores de 21 años).",
+      "Nos reservamos el derecho de verificar la identificación.",
+      "El último servicio se realizará 30 minutos antes de la hora programada de finalización.",
+      "Se pueden agregar horas adicionales durante el evento a nuestra tarifa estándar.",
+      "Todo el equipo sigue siendo propiedad de Dito's Bartender."
+    ]
+  }
+];
+
+const title = "Términos y Condiciones";
+const description = "Términos y condiciones para los servicios de bartender móvil de Dito's Bartender";
+const canonicalURL = "https://ditos-bartender.vercel.app/es/terminos";
+
+// URLs alternativas para esta página
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const alternateUrls = {
+  en: buildLocalizedURL(siteUrl, 'en', '/terms').toString(),
+  es: buildLocalizedURL(siteUrl, 'es', '/terminos').toString(),
+};
+---
+
+<Layout 
+  title={title} 
+  description={description}
+  canonicalURL={canonicalURL}
+  alternateUrls={alternateUrls}
+>
+  <section class="pt-32 pb-20">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h1 class="text-4xl font-bold text-gray-800 mb-8">Términos y Condiciones</h1>
+      <p class="text-gray-600 mb-12">
+        Última actualización: {new Date().toLocaleDateString('es-ES')}
+      </p>
+
+      <div class="space-y-12">
+        {sections.map(section => (
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+              {section.title}
+            </h2>
+            <ul class="space-y-3">
+              {section.content.map(item => (
+                <li class="text-gray-600">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout> 

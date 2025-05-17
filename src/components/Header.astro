@@ -1,27 +1,32 @@
 ---
 import { Icon } from 'astro-icon/components';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLanguageFromURL } from '../lib/i18n/utils';
+import { getTranslations } from '../lib/i18n/translations';
+
+const currentPath = Astro.url.pathname;
+const currentLang = getLanguageFromURL(currentPath);
+const t = getTranslations(currentLang);
 
 const navItems = [
-  { name: 'Home', url: '/' },
-  { name: 'Services', url: '/services' },
-  { name: 'About', url: '/about' },
-  { name: 'Gallery', url: '/gallery' },
-  { name: 'FAQ', url: '/faq' },
-  { name: 'Contact', url: '/contact' },
+  { name: t.navigation.home, url: currentLang === 'en' ? '/' : '/es/' },
+  { name: t.navigation.services, url: currentLang === 'en' ? '/services' : '/es/services' },
+  { name: t.navigation.about, url: currentLang === 'en' ? '/about' : '/es/about' },
+  { name: t.navigation.gallery, url: currentLang === 'en' ? '/gallery' : '/es/gallery' },
+  { name: t.navigation.faq, url: currentLang === 'en' ? '/faq' : '/es/faq' },
+  { name: t.navigation.contact, url: currentLang === 'en' ? '/contact' : '/es/contact' },
 ];
 
 const socialLinks = [
   { name: 'Instagram', icon: 'mdi:instagram', url: 'https://instagram.com/dito_mobilebar?' },
   { name: 'Facebook', icon: 'mdi:facebook', url: 'https://facebook.com/share/12KUW1sGc7W/?' },
 ];
-
-const currentPath = Astro.url.pathname;
 ---
 
 <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
   <div class="container mx-auto px-4 py-3">
     <div class="flex justify-between items-center">
-      <a href="/" class="flex items-center gap-2">
+      <a href={currentLang === 'en' ? '/' : '/es/'} class="flex items-center gap-2">
         <span class="text-2xl font-bold text-primary">Dito's</span>
         <span class="text-xl font-semibold text-secondary">Bartender</span>
       </a>
@@ -49,20 +54,26 @@ const currentPath = Astro.url.pathname;
             class:list={[
               'transition duration-300 hover:text-primary relative py-2',
               { 
-                'text-primary font-medium': currentPath === item.url
+                'text-primary font-medium': currentPath === item.url || 
+                  (item.url === '/' && currentPath === '') || 
+                  (item.url === '/es/' && currentPath === '/es')
               }
             ]}
           >
             {item.name}
-            {currentPath === item.url && (
+            {(currentPath === item.url || 
+              (item.url === '/' && currentPath === '') || 
+              (item.url === '/es/' && currentPath === '/es')) && (
               <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
             )}
           </a>
         ))}
         
+        <LanguageSwitcher />
+        
         <a href="tel:+1(727)945-4200" class="font-medium text-white bg-primary px-4 py-2 rounded-md hover:bg-primary-dark transition duration-300 flex items-center gap-1">
           <Icon name="mdi:phone" class="w-4 h-4" />
-          <span>Llamar ahora</span>
+          <span>{t.navigation.callNow}</span>
         </a>
       </nav>
     </div>
@@ -89,7 +100,9 @@ const currentPath = Astro.url.pathname;
             class:list={[
               'mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-100 py-2 border-b border-gray-100',
               { 
-                'text-primary font-medium': currentPath === item.url
+                'text-primary font-medium': currentPath === item.url || 
+                  (item.url === '/' && currentPath === '') || 
+                  (item.url === '/es/' && currentPath === '/es')
               }
             ]}
             style={`transition-delay: ${100 + index * 50}ms`}
@@ -99,7 +112,7 @@ const currentPath = Astro.url.pathname;
         ))}
         
         <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-400 pt-2">
-          <p class="text-xs text-gray-500 mb-2">Síguenos</p>
+          <p class="text-xs text-gray-500 mb-2">{t.footer.followUs}</p>
           <div class="flex gap-4">
             {socialLinks.map(link => (
               <a 
@@ -112,21 +125,23 @@ const currentPath = Astro.url.pathname;
             ))}
           </div>
         </div>
+        
+        <LanguageSwitcher isMobile={true} />
       </div>
     </div>
     
     <div class="mt-auto p-6">
       <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-500">
-        <p class="text-sm text-gray-500">¿Necesitas ayuda?</p>
+        <p class="text-sm text-gray-500">{t.footer.needHelp}</p>
         <div class="flex gap-3 mt-2">
           <a href="tel:+1(727)945-4200" class="flex items-center gap-1 text-primary hover:underline">
             <Icon name="mdi:phone" class="w-4 h-4" />
-            <span>Llamar</span>
+            <span>{t.footer.call}</span>
           </a>
           <span class="text-gray-300">|</span>
-          <a href={`https://wa.me/+17279454200?text=${encodeURIComponent("Hi! I'm interested in hiring your bartending services for my event. I’d like to get more information.")}`} class="flex items-center gap-1 text-primary hover:underline">
+          <a href={`https://wa.me/+17279454200?text=${encodeURIComponent(t.contact.whatsappMessage)}`} class="flex items-center gap-1 text-primary hover:underline">
             <Icon name="mdi:whatsapp" class="w-4 h-4" />
-            <span>Mensaje</span>
+            <span>{t.footer.message}</span>
           </a>
         </div>
       </div>
@@ -135,8 +150,8 @@ const currentPath = Astro.url.pathname;
           <div class="flex items-center gap-2">
             <Icon name="mdi:clock-outline" class="w-5 h-5 text-primary" />
             <div>
-              <p class="text-xs text-gray-500">Horario de atención</p>
-              <p class="text-sm font-medium">Lun-Sáb: 9am-9pm</p>
+              <p class="text-xs text-gray-500">{t.footer.businessHours}</p>
+              <p class="text-sm font-medium">{t.footer.monSat}</p>
             </div>
           </div>
         </div>

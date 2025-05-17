@@ -1,0 +1,129 @@
+---
+import { Icon } from 'astro-icon/components';
+import { languages, defaultLang } from '../lib/i18n/translations';
+import { getLanguageFromURL, getLocalizedURL } from '../lib/i18n/utils';
+
+const currentPath = Astro.url.pathname;
+const currentLang = getLanguageFromURL(currentPath);
+
+interface Props {
+  isMobile?: boolean;
+}
+
+const { isMobile = false } = Astro.props;
+---
+
+{!isMobile ? (
+  <div class="relative group">
+    <button 
+      class="flex items-center gap-1 text-sm font-medium hover:text-primary transition-colors duration-300"
+      aria-label="Toggle language menu"
+      aria-expanded="false"
+      aria-controls="language-dropdown"
+    >
+      <Icon name="mdi:translate" class="w-5 h-5" />
+      <span class="uppercase">{currentLang}</span>
+      <Icon name="mdi:chevron-down" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
+    </button>
+    
+    <div 
+      id="language-dropdown" 
+      class="absolute top-full right-0 mt-2 w-36 bg-white shadow-md rounded-md overflow-hidden transform origin-top scale-95 opacity-0 invisible transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 group-hover:visible z-50"
+    >
+      <div class="py-1">
+        {languages.map(lang => (
+          <a
+            href={getLocalizedURL(Astro.url, lang)}
+            class:list={[
+              'block px-4 py-2 text-sm hover:bg-gray-100 transition-colors duration-150',
+              { 'text-primary font-medium': lang === currentLang }
+            ]}
+            aria-current={lang === currentLang ? 'page' : undefined}
+            data-lang={lang}
+          >
+            <span>{lang === 'en' ? 'English' : 'Español'}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+) : (
+  <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-700 pt-4 border-t border-gray-100">
+    <p class="text-xs text-gray-500 mb-2">Idioma / Language</p>
+    <div class="flex gap-3">
+      {languages.map(lang => (
+        <a 
+          href={getLocalizedURL(Astro.url, lang)}
+          class:list={[
+            'flex items-center gap-1 text-sm',
+            { 'text-primary font-medium': lang === currentLang, 'text-gray-700': lang !== currentLang }
+          ]}
+          data-lang={lang}
+        >
+          <span>{lang === 'en' ? 'English' : 'Español'}</span>
+          {lang === currentLang && (
+            <Icon name="mdi:check" class="w-4 h-4" />
+          )}
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<script>
+  // Funcionalidad para manejar el dropdown en dispositivos móviles con eventos táctiles
+  document.addEventListener('astro:page-load', () => {
+    const langButton = document.querySelector('[aria-controls="language-dropdown"]');
+    const langDropdown = document.getElementById('language-dropdown');
+    
+    if (langButton && langDropdown) {
+      // Solo para dispositivos táctiles, activar el menú al tocar el botón
+      if (window.matchMedia('(pointer: coarse)').matches) {
+        langButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          const isExpanded = langButton.getAttribute('aria-expanded') === 'true';
+          
+          langButton.setAttribute('aria-expanded', (!isExpanded).toString());
+          
+          if (!isExpanded) {
+            langDropdown.classList.add('opacity-100', 'scale-100', 'visible');
+            langDropdown.classList.remove('opacity-0', 'scale-95', 'invisible');
+          } else {
+            langDropdown.classList.remove('opacity-100', 'scale-100', 'visible');
+            langDropdown.classList.add('opacity-0', 'scale-95', 'invisible');
+          }
+        });
+        
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', (e) => {
+          if (!langButton.contains(e.target as Node) && !langDropdown.contains(e.target as Node)) {
+            langButton.setAttribute('aria-expanded', 'false');
+            langDropdown.classList.remove('opacity-100', 'scale-100', 'visible');
+            langDropdown.classList.add('opacity-0', 'scale-95', 'invisible');
+          }
+        });
+      }
+    }
+    
+    // Guardar la preferencia de idioma cuando el usuario cambia el idioma
+    const languageLinks = document.querySelectorAll('a[data-lang]');
+    languageLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const lang = link.getAttribute('data-lang');
+        if (lang) {
+          // Guardar en una cookie que expira en 30 días
+          const expiryDate = new Date();
+          expiryDate.setDate(expiryDate.getDate() + 30);
+          document.cookie = `preferredLanguage=${lang}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Lax`;
+          
+          // También guardar en localStorage como respaldo
+          try {
+            localStorage.setItem('preferredLanguage', lang);
+          } catch (e) {
+            // Silenciar errores si localStorage no está disponible
+          }
+        }
+      });
+    });
+  });
+</script> 

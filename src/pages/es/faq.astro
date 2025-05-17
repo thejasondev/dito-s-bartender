@@ -1,0 +1,185 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { buildLocalizedURL } from '../../lib/i18n/utils';
+
+// URLs alternativas para esta página
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const alternateUrls = {
+  en: buildLocalizedURL(siteUrl, 'en', '/faq').toString(),
+  es: buildLocalizedURL(siteUrl, 'es', '/faq').toString(),
+};
+
+// Categorías y preguntas frecuentes
+const faqCategories = [
+  {
+    title: "Servicios y reservas",
+    faqs: [
+      {
+        question: "¿Qué servicios de bartending ofreces?",
+        answer: "Ofrecemos servicios profesionales de bartending móvil para todo tipo de eventos, desde bodas y cumpleaños hasta eventos corporativos y activaciones de marca. Nuestro servicio incluye bartenders cualificados, barras móviles personalizables, cócteles de firma, ingredientes frescos, y menús personalizados."
+      },
+      {
+        question: "¿Cuál es tu área de servicio?",
+        answer: "Operamos principalmente en Dunedin, Clearwater, Tampa, Largo, St Pete, y Palm Harbor. Para eventos fuera de estas áreas, por favor contáctanos para verificar disponibilidad y posibles cargos adicionales por desplazamiento."
+      },
+      {
+        question: "¿Con cuánta anticipación debo reservar?",
+        answer: "Recomendamos reservar nuestros servicios con al menos 4-6 semanas de anticipación, especialmente para eventos en temporada alta (primavera y otoño) y fines de semana. Para eventos más grandes como bodas, sugerimos contactarnos con 2-3 meses de antelación para garantizar disponibilidad."
+      },
+      {
+        question: "¿Qué pasa si necesito cancelar o reprogramar mi evento?",
+        answer: "Entendemos que los planes pueden cambiar. Nuestra política de cancelación permite un reembolso completo si se cancela con al menos 30 días de anticipación. Las cancelaciones entre 15-29 días están sujetas a un cargo del 50% del depósito. Cancelaciones con menos de 15 días de anticipación no son reembolsables. La reprogramación está sujeta a disponibilidad."
+      }
+    ]
+  },
+  {
+    title: "Logística y detalles del evento",
+    faqs: [
+      {
+        question: "¿Qué incluye el servicio básico de bartending?",
+        answer: "Nuestro paquete básico incluye bartenders profesionales, barra móvil estándar, ingredientes y mezclas para los cócteles seleccionados, hielo, cristalería, servilletas, y montaje/desmontaje. Los paquetes específicos varían en duración, número de bartenders y selección de cócteles."
+      },
+      {
+        question: "¿Ofrecen barras temáticas?",
+        answer: "¡Sí! Podemos personalizar completamente el aspecto de nuestra barra móvil y crear menús de cócteles que complementen el tema de tu evento. Ya sea una boda elegante, una fiesta tropical o un evento corporativo con la marca de la empresa, podemos adaptarnos a tus necesidades específicas."
+      },
+      {
+        question: "¿Necesitamos proporcionar el alcohol o ustedes lo proveen?",
+        answer: "Ofrecemos ambas opciones. Podemos encargarnos de todo el alcohol e ingredientes como parte de nuestro servicio completo, o podemos trabajar con el alcohol que tú proporciones. Si eliges proporcionar tu propio alcohol, te daremos una lista de recomendaciones basada en tu menú de cócteles y número de invitados."
+      },
+      {
+        question: "¿Qué tan temprano llegan para configurar la barra?",
+        answer: "Normalmente llegamos 1-2 horas antes del inicio del evento para asegurar que todo esté perfectamente preparado. Para eventos más grandes o configuraciones más complejas, podríamos necesitar más tiempo. Esto lo discutiremos durante la planificación de tu evento."
+      }
+    ]
+  },
+  {
+    title: "Opciones de menú y personalización",
+    faqs: [
+      {
+        question: "¿Ofrecen cócteles personalizados para eventos?",
+        answer: "¡Absolutamente! Nos encanta crear cócteles de firma personalizados que reflejen la personalidad de los anfitriones o el tema del evento. Podemos trabajar contigo para desarrollar bebidas únicas con nombres especiales que sean significativos para ti o tu organización."
+      },
+      {
+        question: "¿Pueden acomodar necesidades dietéticas o alergias?",
+        answer: "Sí, podemos crear bebidas que se adapten a diversas restricciones dietéticas, incluyendo opciones sin gluten, bajas en azúcar, veganas, y más. También podemos ofrecer alternativas sin alcohol igual de deliciosas y elaboradas que nuestros cócteles con alcohol."
+      },
+      {
+        question: "¿Ofrecen degustaciones previas al evento?",
+        answer: "Sí, ofrecemos degustaciones para eventos grandes como bodas o fiestas corporativas importantes. La degustación te permite probar diferentes opciones y afinar tu selección de cócteles. Las degustaciones tienen un costo que se puede aplicar hacia tu evento si confirmas nuestro servicio."
+      }
+    ]
+  },
+  {
+    title: "Precios y pagos",
+    faqs: [
+      {
+        question: "¿Cómo se estructuran sus precios?",
+        answer: "Nuestros precios se basan en varios factores: duración del evento, número de invitados, complejidad del menú de cócteles, número de bartenders necesarios, y si proporcionamos el alcohol o no. Ofrecemos paquetes estandarizados que pueden personalizarse según tus necesidades. Contáctanos para una cotización detallada."
+      },
+      {
+        question: "¿Qué depósito se requiere para reservar la fecha?",
+        answer: "Requerimos un depósito no reembolsable del 25% del total estimado para asegurar tu fecha. El 75% restante se debe pagar una semana antes del evento. También pedimos una tarjeta de crédito en archivo para posibles extensiones de tiempo o adiciones de último minuto."
+      },
+      {
+        question: "¿Hay algún cargo adicional que deba tener en cuenta?",
+        answer: "Posibles cargos adicionales incluyen: tarifa de viaje para ubicaciones fuera de nuestra área de servicio principal, horas extra más allá del tiempo contratado, solicitudes especiales de bebidas premium, personal adicional para eventos más grandes, y un cargo por servicio del 18% que se agrega a todos los paquetes."
+      }
+    ]
+  }
+];
+---
+
+<Layout 
+  title="Preguntas Frecuentes | Dito's Bartender" 
+  description="Encuentra respuestas a las preguntas más comunes sobre nuestros servicios de bartender móvil, desde opciones de paquetes hasta logística del evento."
+  alternateUrls={alternateUrls}
+>
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Preguntas Frecuentes</h1>
+        <p class="text-xl text-white/80">
+          Encuentra respuestas a las preguntas más comunes sobre nuestros servicios de bartender móvil.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        {faqCategories.map((category, categoryIndex) => (
+          <div class="mb-12 last:mb-0">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b border-gray-200" id={`category-${categoryIndex}`}>{category.title}</h2>
+            <div class="space-y-6">
+              {category.faqs.map((faq, faqIndex) => (
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
+                  <details class="group" id={`faq-${categoryIndex}-${faqIndex}`}>
+                    <summary class="flex justify-between items-center p-6 cursor-pointer">
+                      <h3 class="text-lg font-semibold pr-8">{faq.question}</h3>
+                      <span class="transition-transform duration-300 group-open:rotate-180">
+                        <Icon name="mdi:chevron-down" class="w-6 h-6 text-primary" />
+                      </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-600">
+                      <p>{faq.answer}</p>
+                    </div>
+                  </details>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">¿No encuentras lo que buscas?</h2>
+        <p class="text-xl text-gray-600 mb-8">
+          Contáctanos directamente y estaremos encantados de responder cualquier otra pregunta que tengas.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/es/contact" 
+            class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-md transition-colors duration-300"
+          >
+            Contactar
+          </a>
+          <a 
+            href="https://wa.me/17279454200?text=Hola!%20Tengo%20una%20pregunta%20sobre%20sus%20servicios%20de%20bartender." 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="bg-transparent hover:bg-white/10 border-2 border-primary text-primary font-semibold px-8 py-4 rounded-md transition-colors duration-300 flex items-center justify-center"
+          >
+            <Icon name="mdi:whatsapp" class="w-5 h-5 mr-2" /> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Abrir el elemento FAQ si la URL tiene un hash
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.location.hash) {
+        const id = window.location.hash.substring(1);
+        const element = document.getElementById(id);
+        if (element && element.tagName === 'DETAILS') {
+          element.setAttribute('open', '');
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else if (element) {
+          // Si es una categoría, desplazarse a ella
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  </script>
+</Layout> 

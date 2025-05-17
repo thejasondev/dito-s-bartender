@@ -1,0 +1,71 @@
+---
+const faqs = [
+  {
+    question: '¿Cuál es su área de cobertura de servicio?',
+    answer: 'Ofrecemos nuestros servicios en Dunedin, Clearwater, Tampa, Largo, St Pete y Palm Harbor. Para eventos fuera de las áreas metropolitanas principales, contáctanos para verificar disponibilidad y posibles cargos adicionales por desplazamiento.'
+  },
+  {
+    question: '¿Con cuánta anticipación debo reservar?',
+    answer: 'Recomendamos reservar con 4-6 semanas de anticipación, especialmente para fechas de alta demanda como fines de semana o temporada de bodas. Para eventos más grandes o durante temporada alta, es aconsejable reservar con 2-3 meses de antelación.'
+  },
+  {
+    question: '¿Qué incluye el servicio básico?',
+    answer: 'Nuestro servicio básico incluye bartenders profesionales, barra móvil, cristalería, hielo, ingredientes para cócteles y montaje/desmontaje. Ofrecemos paquetes adicionales con opciones como barras temáticas, cócteles exclusivos y más.'
+  },
+  {
+    question: '¿Puedo personalizar el menú de cócteles para mi evento?',
+    answer: 'Absolutamente. Trabajamos contigo para crear un menú de cócteles que se adapte a tus preferencias, temática del evento y perfil de los invitados. Ofrecemos degustaciones para eventos grandes o bodas.'
+  },
+  {
+    question: '¿Cuál es la duración del servicio?',
+    answer: 'Nuestros paquetes estándar tienen una duración de 4 horas. Puedes extender el servicio por horas adicionales con un cargo extra, que debe ser acordado con anticipación.'
+  },
+  {
+    question: '¿Qué métodos de pago aceptan?',
+    answer: 'Aceptamos Zelle, Venmo, Cash App y efectivo. Requerimos un depósito del 50% para confirmar la reserva, y el saldo restante debe pagarse una semana antes del evento.'
+  }
+];
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Preguntas Frecuentes</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Respondemos tus dudas sobre nuestro servicio de bartender móvil para que puedas planificar tu evento con total tranquilidad.
+      </p>
+    </div>
+    
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-6">
+        {faqs.map((faq, index) => (
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <details class="group">
+              <summary class="flex justify-between items-center p-6 cursor-pointer">
+                <h3 class="text-lg font-semibold">{faq.question}</h3>
+                <span class="transition-transform duration-300 group-open:rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <p class="text-gray-600 mb-4">¿No encuentras respuesta a tu pregunta?</p>
+        <a 
+          href="/es/contacto" 
+          class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
+        >
+          Contáctanos
+        </a>
+      </div>
+    </div>
+  </div>
+</section> 

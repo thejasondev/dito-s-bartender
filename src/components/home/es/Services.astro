@@ -1,0 +1,70 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const services = [
+  {
+    icon: 'mdi:glass-wine',
+    title: 'Eventos Privados',
+    description: 'Celebraciones íntimas con cócteles personalizados que sorprenderán a tus invitados.',
+    link: '/es/servicios#private'
+  },
+  {
+    icon: 'mdi:ring',
+    title: 'Bodas',
+    description: 'Crea momentos mágicos con barras temáticas y cócteles que complementen tu día especial.',
+    link: '/es/servicios#weddings'
+  },
+  {
+    icon: 'mdi:office-building',
+    title: 'Corporativo',
+    description: 'Impresiona a clientes y colegas con un servicio profesional y sofisticado.',
+    link: '/es/servicios#corporate'
+  },
+  {
+    icon: 'mdi:party-popper',
+    title: 'Fiestas Temáticas',
+    description: 'Refuerza la temática de tu evento con cócteles y decoración perfectamente coordinados.',
+    link: '/es/servicios#themed'
+  }
+];
+---
+
+<section id="services" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Nuestros Servicios</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Ofrecemos experiencias de bartender personalizadas para todo tipo de eventos, adaptándonos a tus necesidades y superando tus expectativas.
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {services.map(service => (
+        <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2">
+          <div class="text-primary mb-4">
+            <Icon name={service.icon} class="w-12 h-12" />
+          </div>
+          <h3 class="text-xl font-bold mb-3">{service.title}</h3>
+          <p class="text-gray-600 mb-4">{service.description}</p>
+          <a 
+            href={service.link} 
+            class="text-primary hover:text-primary-dark font-medium inline-flex items-center transition-colors duration-300"
+          >
+            Ver más
+            <Icon name="mdi:arrow-right" class="w-5 h-5 ml-1" />
+          </a>
+        </div>
+      ))}
+    </div>
+    
+    <div class="text-center mt-12">
+      <a 
+        href="/es/servicios" 
+        class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center justify-center"
+      >
+        Ver todos los servicios
+        <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+      </a>
+    </div>
+  </div>
+</section> 

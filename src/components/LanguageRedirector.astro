@@ -1,0 +1,63 @@
+---
+import { defaultLang, languages } from '../lib/i18n/translations';
+import type { SupportedLanguage } from '../lib/i18n/translations';
+
+// Este componente se debe incluir en el Layout principal para manejar
+// redirecciones de idioma en el lado del cliente
+---
+
+<script>
+  // Ejecutar solo una vez al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    // Verificar si estamos en una ruta sin prefijo de idioma
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const supportedLanguages = ['en', 'es'];
+    
+    // Si ya estamos en una ruta con prefijo de idioma, no redireccionar
+    if (pathSegments.length > 0 && supportedLanguages.includes(pathSegments[0])) {
+      return;
+    }
+    
+    // Función para obtener valor de una cookie
+    function getCookie(name: string): string | null {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        const cookieValue = parts.pop();
+        return cookieValue ? cookieValue.split(';').shift() || null : null;
+      }
+      return null;
+    }
+    
+    // Intento 1: Obtener idioma de cookies
+    const cookieLang = getCookie('preferredLanguage');
+    if (cookieLang && supportedLanguages.includes(cookieLang) && cookieLang !== 'en') {
+      window.location.href = `/${cookieLang}${window.location.pathname}`;
+      return;
+    }
+    
+    // Intento 2: Obtener idioma de localStorage
+    const storedLang = localStorage.getItem('preferredLanguage');
+    if (storedLang && supportedLanguages.includes(storedLang) && storedLang !== 'en') {
+      window.location.href = `/${storedLang}${window.location.pathname}`;
+      return;
+    }
+    
+    // Intento 3: Obtener idioma del navegador
+    const browserLang = navigator.language.split('-')[0];
+    if (browserLang === 'es') {
+      // Establecer cookie y localStorage para futuras visitas
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 30);
+      document.cookie = `preferredLanguage=es; expires=${expiryDate.toUTCString()}; path=/; SameSite=Lax`;
+      
+      try {
+        localStorage.setItem('preferredLanguage', 'es');
+      } catch (e) {
+        // Silenciar errores si localStorage no está disponible
+      }
+      
+      window.location.href = `/es${window.location.pathname}`;
+    }
+  });
+</script> 

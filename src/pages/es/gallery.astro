@@ -1,16 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import OptimizedImage from '../components/OptimizedImage.astro';
-import { getGalleryImages } from '../lib/gallery';
-import { buildLocalizedURL } from '../lib/i18n/utils';
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import OptimizedImage from '../../components/OptimizedImage.astro';
+import { buildLocalizedURL } from '../../lib/i18n/utils';
+import { getGalleryImages } from '../../lib/gallery';
 
 const categories = [
-  { id: 'all', name: 'All' },
-  { id: 'weddings', name: 'Weddings' },
-  { id: 'corporate', name: 'Corporate' },
-  { id: 'private', name: 'Private Events' },
-  { id: 'themed', name: 'Themed Events' },
-  { id: 'cocktails', name: 'Cocktails' }
+  { id: 'all', name: 'Todas' },
+  { id: 'weddings', name: 'Bodas' },
+  { id: 'corporate', name: 'Corporativo' },
+  { id: 'private', name: 'Eventos Privados' },
+  { id: 'themed', name: 'Temáticos' },
+  { id: 'cocktails', name: 'Cócteles' }
 ];
 
 // URLs alternativas para esta página
@@ -29,17 +30,17 @@ const lazyLoadedImages = galleryImages.slice(6);
 ---
 
 <Layout 
-  title="Gallery" 
-  description="Explore our gallery of images and discover the magic of our mobile bartending services in action."
+  title="Galería" 
+  description="Explora nuestra galería de imágenes y descubre la magia de nuestros servicios de bartender móvil en acción."
   alternateUrls={alternateUrls}
 >
   <!-- Hero Section -->
   <section class="pt-32 pb-20 bg-primary text-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">Gallery</h1>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Galería</h1>
         <p class="text-xl text-white/80">
-          Explore our collection of images and discover the magic of our mobile bartending services in action.
+          Explora nuestra colección de imágenes y descubre la magia de nuestros servicios de bartender móvil en acción.
         </p>
       </div>
     </div>
@@ -119,22 +120,22 @@ const lazyLoadedImages = galleryImages.slice(6);
   <section class="py-20 bg-secondary text-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to create your own memorable event?</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para crear tu propio evento memorable?</h2>
         <p class="text-xl text-white/80 mb-8">
-          Let us help you design a unique experience for you and your guests.
+          Permítenos ayudarte a diseñar una experiencia única para ti y tus invitados.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
-            href="/contact" 
+            href="/es/contact" 
             class="bg-accent hover:bg-accent-dark text-secondary font-semibold px-8 py-4 rounded-md transition-colors duration-300"
           >
-            Request a Quote
+            Solicitar Cotización
           </a>
           <a 
-            href="/services" 
+            href="/es/services" 
             class="bg-transparent hover:bg-white/10 border-2 border-white text-white font-semibold px-8 py-4 rounded-md transition-colors duration-300"
           >
-            View Services
+            Ver Servicios
           </a>
         </div>
       </div>
@@ -143,7 +144,7 @@ const lazyLoadedImages = galleryImages.slice(6);
 </Layout>
 
 <script>
-  import { initGallery } from '../lib/gallery';
+  import { initGallery } from '../../lib/gallery';
   document.addEventListener('DOMContentLoaded', initGallery);
 
   // Implementar carga progresiva para las imágenes que entran en el viewport
@@ -192,6 +193,4 @@ const lazyLoadedImages = galleryImages.slice(6);
   .scale-100 {
     transform: scale(1);
   }
-</style>
-
-
+</style> 

@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/home/es/Hero.astro';
+import Services from '../../components/home/es/Services.astro';
+import About from '../../components/home/es/About.astro';
+import Gallery from '../../components/home/es/Gallery.astro';
+import Faq from '../../components/home/es/Faq.astro';
+import Contact from '../../components/home/es/Contact.astro';
+import Cta from '../../components/home/es/Cta.astro';
+import { buildLocalizedURL } from '../../lib/i18n/utils';
+
+// Metadatos para SEO
+const title = "Dito's Bartender";
+const description = "Servicio profesional de bartender móvil que transforma cualquier ocasión en una experiencia inolvidable. Cócteles personalizados, barras temáticas y experiencias únicas para bodas, fiestas y eventos corporativos.";
+const canonicalURL = "https://ditos-bartender.vercel.app/es/";
+// Código de verificación de Google Search Console
+const googleVerification = "A7BT_C6ClgkaWHA9brgG3v0v7gG-1NeclQ6jCfvQF8U";
+
+// URLs alternativas para esta página
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const alternateUrls = {
+  en: buildLocalizedURL(siteUrl, 'en', '/').toString(),
+  es: buildLocalizedURL(siteUrl, 'es', '/').toString(),
+};
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  googleVerification={googleVerification}
+  alternateUrls={alternateUrls}
+>
+	<Hero />
+	<Services />
+	<About />
+	<Gallery />
+	<Faq />
+	<Contact />
+	<Cta />
+</Layout> 
