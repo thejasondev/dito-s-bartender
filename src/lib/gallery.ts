@@ -113,6 +113,15 @@ export const getGalleryImages = (): GalleryImage[] => {
 };
 
 export const initGallery = (): void => {
+  // Esperamos a que todo el DOM esté cargado para evitar problemas de timing
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGalleryElements);
+  } else {
+    initGalleryElements();
+  }
+};
+
+const initGalleryElements = (): void => {
   const filterButtons =
     document.querySelectorAll<HTMLButtonElement>(".filter-btn");
   const galleryItems = document.querySelectorAll<GalleryItem>(".gallery-item");
@@ -185,8 +194,37 @@ export const initGallery = (): void => {
   let currentIndex = 0;
   let visibleItems: GalleryItem[] = Array.from(galleryItems);
 
+  // Configurar la observación de las imágenes para la carga progresiva
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+
+  // Observer para el efecto de carga inicial
+  const initialObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const item = entry.target as GalleryItem;
+        setTimeout(() => {
+          item.classList.remove("opacity-0", "scale-95");
+          item.classList.add("opacity-100", "scale-100");
+        }, parseInt(item.getAttribute("data-index") || "0") * 30);
+        observer.unobserve(item);
+      }
+    });
+  }, observerOptions);
+
+  // Añadir índices a los elementos de la galería
+  galleryItems.forEach((item, index) => {
+    item.setAttribute("data-index", index.toString());
+    // Observar el elemento para la carga inicial
+    initialObserver.observe(item);
+  });
+
   const showItem = (item: GalleryItem, delay: number = 0): Promise<void> => {
     return new Promise((resolve) => {
+      // Asegurarse de que el elemento sea visible
       item.style.display = "";
 
       // Aplicar un pequeño retraso para escalonar las animaciones
@@ -198,13 +236,19 @@ export const initGallery = (): void => {
           item.classList.add("opacity-100", "scale-100");
 
           // Esperar a que termine la animación antes de resolver
-          item.addEventListener(
-            "transitionend",
-            () => {
-              resolve();
-            },
-            { once: true }
-          );
+          const transitionEndHandler = () => {
+            resolve();
+          };
+
+          item.addEventListener("transitionend", transitionEndHandler, {
+            once: true,
+          });
+
+          // Establecer un timeout como respaldo en caso de que el evento transitionend no se dispare
+          setTimeout(() => {
+            item.removeEventListener("transitionend", transitionEndHandler);
+            resolve();
+          }, 500);
         });
       }, delay);
     });
@@ -217,34 +261,38 @@ export const initGallery = (): void => {
         item.classList.add("opacity-0", "scale-95");
 
         // Esperar a que termine la animación antes de ocultar
-        item.addEventListener(
-          "transitionend",
-          () => {
-            if (item.classList.contains("opacity-0")) {
-              item.style.display = "none";
-            }
-            resolve();
-          },
-          { once: true }
-        );
+        const transitionEndHandler = () => {
+          if (item.classList.contains("opacity-0")) {
+            item.style.display = "none";
+          }
+          resolve();
+        };
+
+        item.addEventListener("transitionend", transitionEndHandler, {
+          once: true,
+        });
+
+        // Establecer un timeout como respaldo en caso de que el evento transitionend no se dispare
+        setTimeout(() => {
+          item.removeEventListener("transitionend", transitionEndHandler);
+          if (item.classList.contains("opacity-0")) {
+            item.style.display = "none";
+          }
+          resolve();
+        }, 500);
       }, delay);
     });
   };
 
   const updateActiveButton = (clickedButton: HTMLButtonElement): void => {
     filterButtons.forEach((btn) => {
-      const isActive = btn === clickedButton;
-      btn.classList.toggle("bg-primary", isActive);
-      btn.classList.toggle("text-white", isActive);
-      btn.classList.toggle("border-primary", isActive);
-
-      // Si no está activo, asegurarse de que tiene el estilo correcto
-      if (!isActive) {
-        btn.classList.add("text-primary");
-      } else {
-        btn.classList.remove("text-primary");
-      }
+      btn.classList.remove("bg-primary", "text-white");
+      btn.classList.add("text-primary");
     });
+
+    // Activar el botón clickeado
+    clickedButton.classList.add("bg-primary", "text-white");
+    clickedButton.classList.remove("text-primary");
   };
 
   const filterGallery = async (category: string): Promise<void> => {
@@ -252,6 +300,8 @@ export const initGallery = (): void => {
 
     animationInProgress = true;
     currentCategory = category;
+
+    console.log(`Filtrando por categoría: ${category}`);
 
     // Identificar qué elementos deben mostrarse y cuáles ocultarse
     const itemsToShow: GalleryItem[] = [];
@@ -265,6 +315,10 @@ export const initGallery = (): void => {
         itemsToHide.push(item);
       }
     });
+
+    console.log(
+      `Elementos a mostrar: ${itemsToShow.length}, Elementos a ocultar: ${itemsToHide.length}`
+    );
 
     // Primero ocultar los elementos que no corresponden a la categoría
     const hidePromises = itemsToHide.map((item, index) =>
@@ -334,34 +388,28 @@ export const initGallery = (): void => {
     openLightbox(currentIndex);
   }
 
-  // Mostrar todos los items al inicio con un efecto escalonado
-  const initialShowPromises = Array.from(galleryItems).map((item, index) => {
-    return showItem(item, index * 30);
-  });
-
-  Promise.all(initialShowPromises).then(() => {
-    // Activar el botón "all" por defecto
-    const allButton = Array.from(filterButtons).find(
-      (btn) => btn.dataset.category === "all"
-    );
-    if (allButton) {
-      updateActiveButton(allButton);
-    }
-  });
-
   // Configurar listeners de los botones de filtro
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const category = button.dataset.category;
       if (!category) return;
 
+      console.log(`Botón de filtro clickeado: ${category}`);
       updateActiveButton(button);
       filterGallery(category);
     });
   });
 
+  // Asegurarse de que el botón "all" esté activo por defecto
+  const allButton = Array.from(filterButtons).find(
+    (btn) => btn.dataset.category === "all"
+  );
+  if (allButton) {
+    updateActiveButton(allButton);
+  }
+
   // Configurar listeners para el lightbox
-  galleryItems.forEach((item, index) => {
+  galleryItems.forEach((item) => {
     item.addEventListener("click", () => {
       const visibleIndex = visibleItems.indexOf(item);
       if (visibleIndex !== -1) {

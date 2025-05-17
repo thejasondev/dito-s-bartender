@@ -39,6 +39,11 @@ const logoUrl = new URL('/web-app-manifest-512x512.png', siteUrl).href;
 
 // Determinar si es la página principal para precargar imágenes del héroe
 const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '' || Astro.url.pathname === '/es/' || Astro.url.pathname === '/es';
+
+// Construir el título de la página
+const pageTitle = isHomePage 
+	? `${title} | Mobile Bar` 
+	: `${title} | Dito's Bartender`;
 ---
 
 <!doctype html>
@@ -60,13 +65,13 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '' || As
 		<meta name="theme-color" content="#D4AF37" />
 		
 		<!-- Específico para Google -->
-		<meta itemprop="name" content={title} />
+		<meta itemprop="name" content={pageTitle} />
 		<meta itemprop="description" content={description} />
 		<meta itemprop="image" content={logoUrl} />
 		
 		<meta name="generator" content={Astro.generator} />
 		{googleVerification && <meta name="google-site-verification" content={googleVerification} />}
-		<title>{title}</title>
+		<title>{pageTitle}</title>
 		<link rel="canonical" href={canonicalURL} />
 		
 		<!-- Enlaces de idioma alternativo -->
@@ -115,13 +120,13 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '' || As
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:title" content={title} />
+		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={absoluteImageUrl} />
-		<meta property="og:image:alt" content={`${title} logo`} />
+		<meta property="og:image:alt" content={`${pageTitle} logo`} />
 		<meta property="og:image:width" content="512" />
 		<meta property="og:image:height" content="512" />
-		<meta property="og:site_name" content={title} />
+		<meta property="og:site_name" content={pageTitle} />
 		<meta property="og:locale" content={currentLang === 'en' ? 'en_US' : 'es_ES'} />
 		{currentLang === 'en' && <meta property="og:locale:alternate" content="es_ES" />}
 		{currentLang === 'es' && <meta property="og:locale:alternate" content="en_US" />}
@@ -129,10 +134,10 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '' || As
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:url" content={canonicalURL} />
-		<meta name="twitter:title" content={title} />
+		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={absoluteImageUrl} />
-		<meta name="twitter:image:alt" content={`${title} logo`} />
+		<meta name="twitter:image:alt" content={`${pageTitle} logo`} />
 		
 		<!-- Metadatos estructurados para Rich Snippets -->
 		<script type="application/ld+json">
@@ -140,6 +145,7 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '' || As
 				"@context": "https://schema.org",
 				"@type": "LocalBusiness",
 				"name": "Dito's Bartender",
+				"alternateName": "${pageTitle}",
 				"description": "${description}",
 				"image": "${absoluteImageUrl}",
 				"url": "${canonicalURL}",

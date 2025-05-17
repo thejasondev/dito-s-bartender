@@ -145,31 +145,13 @@ const lazyLoadedImages = galleryImages.slice(6);
 
 <script>
   import { initGallery } from '../../lib/gallery';
-  document.addEventListener('DOMContentLoaded', initGallery);
-
-  // Implementar carga progresiva para las imágenes que entran en el viewport
+  
+  // Inicializar la galería cuando el DOM está completamente cargado
   document.addEventListener('astro:page-load', () => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const item = entry.target;
-          item.classList.remove('opacity-0', 'scale-95');
-          item.classList.add('opacity-100', 'scale-100');
-          observer.unobserve(item);
-        }
-      });
-    }, observerOptions);
-
-    // Observar todos los elementos de la galería
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      observer.observe(item);
-    });
+    // Iniciar la galería después de un pequeño retraso para asegurar que todo esté preparado
+    setTimeout(() => {
+      initGallery();
+    }, 100);
   });
 </script>
 
