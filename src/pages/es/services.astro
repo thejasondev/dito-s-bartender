@@ -200,41 +200,60 @@ const packages = [
         </p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {packages.map(pkg => (
-          <div class={`bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 ${pkg.popular ? 'ring-2 ring-accent relative' : ''}`}>
-            {pkg.popular && (
-              <div class="absolute top-0 right-0 bg-accent text-secondary font-semibold px-4 py-1">
-                Más popular
-              </div>
-            )}
-            <div class="p-8">
-              <h3 class="text-2xl font-bold mb-2">{pkg.name}</h3>
-              <div class="text-3xl font-bold text-primary mb-4">{pkg.price}</div>
-              <p class="text-gray-600 mb-6">{pkg.description}</p>
-              <ul class="space-y-3 mb-8">
-                {pkg.features.map(feature => (
-                  <li class="flex items-start">
-                    <Icon name="mdi:check-circle" class="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
-                    <span class="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              <a 
-                href="/es/contact" 
-                class="block text-center bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
-              >
-                Solicitar este paquete
-              </a>
-            </div>
+      <div class="relative">
+        <!-- Coming Soon Overlay -->
+        <div class="absolute inset-0 bg-secondary/70 backdrop-blur-sm z-10 rounded-lg flex flex-col items-center justify-center text-white px-4">
+          <div class="bg-primary/90 p-6 md:p-8 rounded-lg text-center max-w-lg transform rotate-[-2deg] shadow-xl border-2 border-accent">
+            <Icon name="mdi:clock-outline" class="w-16 h-16 mx-auto mb-4 text-accent" />
+            <h3 class="text-2xl md:text-3xl font-bold mb-2">Próximamente</h3>
+            <p class="text-lg mb-4">Nuestras opciones de paquetes están siendo perfeccionadas para brindarte la mejor experiencia.</p>
+            <a 
+              href="/es/contact" 
+              class="bg-accent hover:bg-accent-dark text-secondary font-semibold px-6 py-3 rounded-md transition-colors duration-300 inline-flex items-center"
+            >
+              Solicitar Cotización Personalizada
+              <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+            </a>
           </div>
-        ))}
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 opacity-40 blur-[1px]">
+          {packages.map(pkg => (
+            <div class={`bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 ${pkg.popular ? 'ring-2 ring-accent relative' : ''}`}>
+              {pkg.popular && (
+                <div class="absolute top-0 right-0 bg-accent text-secondary font-semibold px-4 py-1">
+                  Más popular
+                </div>
+              )}
+              <div class="p-8">
+                <h3 class="text-2xl font-bold mb-2">{pkg.name}</h3>
+                <div class="text-3xl font-bold text-primary mb-4">{pkg.price}</div>
+                <p class="text-gray-600 mb-6">{pkg.description}</p>
+                <ul class="space-y-3 mb-8">
+                  {pkg.features.map(feature => (
+                    <li class="flex items-start">
+                      <Icon name="mdi:check-circle" class="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                      <span class="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a 
+                  href="/es/contact" 
+                  class="block text-center bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
+                >
+                  Solicitar este paquete
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div class="text-center mt-12">
+      
+      <div class="text-center mt-16">
         <p class="text-gray-600 mb-4">¿No encuentras lo que buscas? Podemos crear un paquete personalizado para ti.</p>
         <a 
           href="/es/contact" 
-          class="inline-flex items-center text-primary hover:text-primary-dark font-semibold"
+          class="bg-transparent hover:bg-primary text-primary hover:text-white border border-primary font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center"
         >
           Contáctanos para una cotización personalizada
           <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
