@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import OptimizedImage from '../../components/OptimizedImage.astro';
+import { buildLocalizedURL } from '../../lib/i18n/utils';
+
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const alternateUrls = {
+  en: buildLocalizedURL(siteUrl, 'en', '/services/menu').toString(),
+  es: buildLocalizedURL(siteUrl, 'es', '/services/menu').toString(),
+};
+
+const cocktails = [
+  {
+    category: 'Classics',
+    items: [
+      {
+        name: 'Old Fashioned',
+        description: 'Bourbon, sugar, Angostura bitters, orange',
+        preparation: [
+          'Muddle sugar with bitters and a splash of water',
+          'Add ice and bourbon',
+          'Stir until chilled',
+          'Garnish with orange peel'
+        ]
+      },
+      {
+        name: 'Mojito',
+        description: 'White rum, fresh mint, lime, sugar, soda',
+        preparation: [
+          'Muddle mint with sugar and lime',
+          'Add rum and ice',
+          'Top with soda',
+          'Garnish with fresh mint'
+        ]
+      },
+      {
+        name: 'Margarita',
+        description: 'Tequila, triple sec, fresh lime, salt',
+        preparation: [
+          'Rim glass with salt',
+          'Mix tequila, triple sec and lime with ice',
+          'Shake vigorously',
+          'Serve in rimmed glass'
+        ]
+      }
+    ]
+  },
+  {
+    category: 'Dito\'s Specialties',
+    items: [
+      {
+        name: 'Tropical Paradise',
+        description: 'Aged rum, pineapple, coconut, passion fruit, tropical garnish',
+        preparation: [
+          'Mix rum with fresh juices',
+          'Add coconut cream',
+          'Shake with ice',
+          'Serve with tropical garnish'
+        ]
+      },
+      {
+        name: 'Spicy Mango Tequila',
+        description: 'Tequila, mango, chili, lime, tajín',
+        preparation: [
+          'Mix tequila with mango puree',
+          'Add lime juice and a touch of chili',
+          'Shake with ice',
+          'Garnish with tajín and mango'
+        ]
+      }
+    ]
+  }
+];
+---
+
+<Layout 
+  title="Cocktail Menu | Dito's Bartender"
+  description="Explore our menu of classic cocktails and exclusive specialties. Each drink is carefully crafted with the finest ingredients."
+  alternateUrls={alternateUrls}
+>
+  <section class="pt-32 pb-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Dito's Menu</h1>
+        <p class="text-xl text-white/80">
+          Discover our selection of craft cocktails, prepared with premium ingredients and exceptional techniques.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      {cocktails.map((category) => (
+        <div class="mb-16 last:mb-0">
+          <h2 class="text-3xl font-bold mb-8 text-center">{category.category}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {category.items.map((cocktail) => (
+              <div class="bg-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform duration-300">
+                <h3 class="text-xl font-bold mb-3">{cocktail.name}</h3>
+                <p class="text-gray-600 mb-4">{cocktail.description}</p>
+                <div class="space-y-2">
+                  <h4 class="font-semibold text-primary">Preparation:</h4>
+                  <ol class="list-decimal list-inside text-sm text-gray-600 space-y-1">
+                    {cocktail.preparation.map((step) => (
+                      <li>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Need a Custom Cocktail?</h2>
+        <p class="text-gray-600 mb-8">
+          We can create exclusive cocktails for your event. Contact us to discuss your ideas and preferences.
+        </p>
+        <a 
+          href="/contact" 
+          class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center"
+        >
+          Request a Quote
+          <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

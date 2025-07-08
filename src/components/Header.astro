@@ -10,11 +10,28 @@ const t = getTranslations(currentLang);
 
 const navItems = [
   { name: t.navigation.home, url: currentLang === 'en' ? '/' : '/es/' },
-  { name: t.navigation.services, url: currentLang === 'en' ? '/services' : '/es/services' },
+  { 
+    name: t.navigation.services, 
+    url: currentLang === 'en' ? '/services' : '/es/services',
+    submenu: [
+      { 
+        name: t.navigation.plans, 
+        url: currentLang === 'en' ? '/services/plans' : '/es/services/plans' 
+      },
+      { 
+        name: t.navigation.menu, 
+        url: currentLang === 'en' ? '/services/menu' : '/es/services/menu' 
+      },
+      { 
+        name: t.navigation.cocktails, 
+        url: currentLang === 'en' ? '/services/cocktails' : '/es/services/cocktails' 
+      }
+    ]
+  },
   { name: t.navigation.about, url: currentLang === 'en' ? '/about' : '/es/about' },
   { name: t.navigation.gallery, url: currentLang === 'en' ? '/gallery' : '/es/gallery' },
   { name: t.navigation.faq, url: currentLang === 'en' ? '/faq' : '/es/faq' },
-  { name: t.navigation.contact, url: currentLang === 'en' ? '/contact' : '/es/contact' },
+  { name: t.navigation.contact, url: currentLang === 'en' ? '/contact' : '/es/contact' }
 ];
 
 const socialLinks = [
@@ -30,7 +47,73 @@ const socialLinks = [
         <span class="text-2xl font-bold text-primary">Dito's</span>
         <span class="text-xl font-semibold text-secondary">Bartender</span>
       </a>
-      
+
+      <!-- Desktop navigation -->
+      <nav class="hidden lg:flex items-center space-x-6">
+        {navItems.map(item => (
+          <div class="relative group">
+            <a 
+              href={item.url}
+              class:list={[
+                'transition duration-300 relative py-2 inline-flex items-center gap-1',
+                { 
+                  'text-primary font-medium': currentPath === item.url || 
+                    (item.url === '/' && currentPath === '') || 
+                    (item.url === '/es/' && currentPath === '/es') ||
+                    (item.submenu && item.submenu.some(subItem => currentPath === subItem.url))
+                }
+              ]}
+            >
+              <span>{item.name}</span>
+              {item.submenu && (
+                <Icon 
+                  name="mdi:chevron-down" 
+                  class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180" 
+                  aria-hidden="true"
+                />
+              )}
+            </a>
+            
+            {item.submenu && (
+              <div class="absolute left-0 mt-1 w-56 bg-white rounded-md shadow-lg opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
+                <div class="py-2">
+                  {item.submenu.map(subItem => (
+                    <a
+                      href={subItem.url}
+                      class:list={[
+                        'block px-4 py-2.5 text-sm transition-colors duration-200 hover:bg-primary/5 relative group/item',
+                        {
+                          'text-primary font-medium': currentPath === subItem.url,
+                          'text-gray-700': currentPath !== subItem.url
+                        }
+                      ]}
+                    >
+                      <div class="flex items-center justify-between">
+                        <span>{subItem.name}</span>
+                        <Icon 
+                          name="mdi:arrow-right" 
+                          class="w-4 h-4 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-200" 
+                        />
+                      </div>
+                      {currentPath === subItem.url && (
+                        <span class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r"></span>
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+        
+        <LanguageSwitcher />
+        
+        <a href="tel:+1(727)945-4200" class="font-medium text-white bg-primary px-4 py-2 rounded-md hover:bg-primary-dark transition duration-300 flex items-center gap-1">
+          <Icon name="mdi:phone" class="w-4 h-4" />
+          <span>{t.navigation.callNow}</span>
+        </a>
+      </nav>
+
       <!-- Mobile menu button -->
       <button 
         id="menu-toggle" 
@@ -45,37 +128,6 @@ const socialLinks = [
           <span id="hamburger-bottom" class="absolute h-0.5 w-6 bg-gray-700 transform transition duration-300 ease-in-out"></span>
         </div>
       </button>
-      
-      <!-- Desktop navigation -->
-      <nav class="hidden lg:flex items-center space-x-6">
-        {navItems.map(item => (
-          <a 
-            href={item.url} 
-            class:list={[
-              'transition duration-300 hover:text-primary relative py-2',
-              { 
-                'text-primary font-medium': currentPath === item.url || 
-                  (item.url === '/' && currentPath === '') || 
-                  (item.url === '/es/' && currentPath === '/es')
-              }
-            ]}
-          >
-            {item.name}
-            {(currentPath === item.url || 
-              (item.url === '/' && currentPath === '') || 
-              (item.url === '/es/' && currentPath === '/es')) && (
-              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
-            )}
-          </a>
-        ))}
-        
-        <LanguageSwitcher />
-        
-        <a href="tel:+1(727)945-4200" class="font-medium text-white bg-primary px-4 py-2 rounded-md hover:bg-primary-dark transition duration-300 flex items-center gap-1">
-          <Icon name="mdi:phone" class="w-4 h-4" />
-          <span>{t.navigation.callNow}</span>
-        </a>
-      </nav>
     </div>
   </div>
   
@@ -85,55 +137,97 @@ const socialLinks = [
     class="lg:hidden fixed inset-0 bg-black/0 backdrop-blur-0 opacity-0 -z-10 transition-all duration-500 ease-in-out"
     aria-hidden="true"
   ></div>
-  
+
   <!-- Mobile navigation -->
   <nav 
     id="mobile-menu" 
-    class="lg:hidden fixed top-0 right-0 h-screen w-3/4 max-w-xs bg-white shadow-2xl transform translate-x-full transition-transform duration-500 ease-in-out z-20 flex flex-col"
+    class="lg:hidden fixed top-0 right-0 h-screen w-3/4 max-w-xs bg-white shadow-2xl transform translate-x-full transition-transform duration-500 ease-in-out z-20 flex flex-col overflow-y-auto"
     aria-hidden="true"
   >
     <div class="p-6 mt-12">
-      <div class="flex flex-col space-y-6">
+      <div class="flex flex-col space-y-2">
         {navItems.map((item, index) => (
-          <a 
-            href={item.url} 
-            class:list={[
-              'mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-100 py-2 border-b border-gray-100',
-              { 
-                'text-primary font-medium': currentPath === item.url || 
-                  (item.url === '/' && currentPath === '') || 
-                  (item.url === '/es/' && currentPath === '/es')
-              }
-            ]}
-            style={`transition-delay: ${100 + index * 50}ms`}
-          >
-            {item.name}
-          </a>
-        ))}
-        
-        <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-400 pt-2">
-          <p class="text-xs text-gray-500 mb-2">{t.footer.followUs}</p>
-          <div class="flex gap-4">
-            {socialLinks.map(link => (
+          <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300">
+            {item.submenu ? (
+              <div>
+                <button
+                  type="button"
+                  class:list={[
+                    'w-full flex justify-between items-center py-3 border-b border-gray-100',
+                    {
+                      'text-primary font-medium': currentPath.includes(item.url) ||
+                        item.submenu.some(subItem => currentPath === subItem.url)
+                    }
+                  ]}
+                  onclick={`document.getElementById('submenu-${index}').classList.toggle('hidden');
+                           this.querySelector('.submenu-icon').classList.toggle('rotate-180')`}
+                  aria-expanded="false"
+                  aria-controls={`submenu-${index}`}
+                >
+                  <span>{item.name}</span>
+                  <Icon name="mdi:chevron-down" class="w-5 h-5 submenu-icon transition-transform duration-300" />
+                </button>
+                <div id={`submenu-${index}`} class="hidden pl-4 py-2 space-y-2">
+                  {item.submenu.map(subItem => (
+                    <a
+                      href={subItem.url}
+                      class:list={[
+                        'flex items-center justify-between py-2 text-sm transition-colors duration-200',
+                        {
+                          'text-primary font-medium': currentPath === subItem.url,
+                          'text-gray-700 hover:text-primary': currentPath !== subItem.url
+                        }
+                      ]}
+                    >
+                      <span>{subItem.name}</span>
+                      <Icon name="mdi:arrow-right" class="w-4 h-4 opacity-50" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
               <a 
-                href={link.url}
-                aria-label={link.name}
-                class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-primary hover:text-white transition duration-300"
+                href={item.url} 
+                class:list={[
+                  'block py-3 border-b border-gray-100',
+                  { 
+                    'text-primary font-medium': currentPath === item.url || 
+                      (item.url === '/' && currentPath === '') || 
+                      (item.url === '/es/' && currentPath === '/es')
+                  }
+                ]}
               >
-                <Icon name={link.icon} class="w-4 h-4" />
+                {item.name}
               </a>
-            ))}
+            )}
           </div>
-        </div>
-        
-        <LanguageSwitcher isMobile={true} />
+        ))}
       </div>
+
+      <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-400 pt-6">
+        <p class="text-xs text-gray-500 mb-2">{t.footer.followUs}</p>
+        <div class="flex gap-4">
+          {socialLinks.map(link => (
+            <a 
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.name}
+              class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-primary hover:text-white transition duration-300"
+            >
+              <Icon name={link.icon} class="w-4 h-4" />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <LanguageSwitcher isMobile={true} />
     </div>
-    
-    <div class="mt-auto p-6">
+
+    <div class="mt-auto p-6 border-t border-gray-100">
       <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300 delay-500">
-        <p class="text-sm text-gray-500">{t.footer.needHelp}</p>
-        <div class="flex gap-3 mt-2">
+        <p class="text-sm text-gray-500 mb-2">{t.footer.needHelp}</p>
+        <div class="flex gap-3">
           <a href="tel:+1(727)945-4200" class="flex items-center gap-1 text-primary hover:underline">
             <Icon name="mdi:phone" class="w-4 h-4" />
             <span>{t.footer.call}</span>
@@ -144,7 +238,6 @@ const socialLinks = [
             <span>{t.footer.message}</span>
           </a>
         </div>
-      </div>
       </div>
     </div>
   </nav>
@@ -199,8 +292,10 @@ const socialLinks = [
           
           // Animar los items uno por uno
           setTimeout(() => {
-            mobileNavItems.forEach(item => {
-              item.setAttribute('style', 'transform: translateX(0); opacity: 1');
+            mobileNavItems.forEach((item, index) => {
+              setTimeout(() => {
+                item.setAttribute('style', 'transform: translateX(0); opacity: 1');
+              }, index * 50);
             });
           }, 200);
           
@@ -210,14 +305,14 @@ const socialLinks = [
           hamburgerBottom.setAttribute('style', 'transform: translateY(0) rotate(-45deg)');
         }
       });
-      
+
       // Cerrar el menú al hacer clic en el overlay
       mobileOverlay.addEventListener('click', () => {
         menuToggle.click();
       });
       
-      // Cerrar el menú cuando se hace clic en un enlace
-      const mobileLinks = mobileMenu.querySelectorAll('a');
+      // Cerrar el menú cuando se hace clic en un enlace que no tiene submenú
+      const mobileLinks = mobileMenu.querySelectorAll('a:not([data-has-submenu])');
       mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
           menuToggle.click();

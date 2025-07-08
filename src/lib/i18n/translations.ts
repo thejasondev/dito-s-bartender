@@ -7,6 +7,9 @@ export interface Translations {
     faq: string;
     contact: string;
     callNow: string;
+    menu: string;
+    cocktails: string;
+    plans: string;
   };
   footer: {
     services: string;
@@ -57,6 +60,9 @@ export const translations: Record<SupportedLanguage, Translations> = {
       faq: "FAQ",
       contact: "Contact",
       callNow: "Call Now",
+      menu: "Dito's Menu",
+      cocktails: "Our Cocktails",
+      plans: "Dito's Plans",
     },
     footer: {
       services: "Services",
@@ -98,6 +104,9 @@ export const translations: Record<SupportedLanguage, Translations> = {
       faq: "Preguntas",
       contact: "Contacto",
       callNow: "Llamar Ahora",
+      menu: "Menú Dito's",
+      cocktails: "Nuestros Cócteles",
+      plans: "Planes Dito's",
     },
     footer: {
       services: "Servicios",

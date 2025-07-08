@@ -1,0 +1,136 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import OptimizedImage from '../../../components/OptimizedImage.astro';
+import { buildLocalizedURL } from '../../../lib/i18n/utils';
+
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const alternateUrls = {
+  en: buildLocalizedURL(siteUrl, 'en', '/services/menu').toString(),
+  es: buildLocalizedURL(siteUrl, 'es', '/services/menu').toString(),
+};
+
+const cocktails = [
+  {
+    category: 'Clásicos',
+    items: [
+      {
+        name: 'Old Fashioned',
+        description: 'Bourbon, azúcar, bitters Angostura, naranja',
+        preparation: [
+          'Macerar el azúcar con bitters y un chorrito de agua',
+          'Agregar hielo y bourbon',
+          'Remover hasta enfriar',
+          'Decorar con cáscara de naranja'
+        ]
+      },
+      {
+        name: 'Mojito',
+        description: 'Ron blanco, menta fresca, limón, azúcar, soda',
+        preparation: [
+          'Macerar la menta con azúcar y limón',
+          'Agregar ron y hielo',
+          'Completar con soda',
+          'Decorar con menta fresca'
+        ]
+      },
+      {
+        name: 'Margarita',
+        description: 'Tequila, triple sec, limón fresco, sal',
+        preparation: [
+          'Escarchar el vaso con sal',
+          'Mezclar tequila, triple sec y limón con hielo',
+          'Agitar vigorosamente',
+          'Servir en copa escarchada'
+        ]
+      }
+    ]
+  },
+  {
+    category: 'Especialidades Dito\'s',
+    items: [
+      {
+        name: 'Tropical Paradise',
+        description: 'Ron añejo, piña, coco, maracuyá, decoración tropical',
+        preparation: [
+          'Mezclar ron con jugos frescos',
+          'Agregar crema de coco',
+          'Agitar con hielo',
+          'Servir con decoración tropical'
+        ]
+      },
+      {
+        name: 'Spicy Mango Tequila',
+        description: 'Tequila, mango, chile, limón, tajín',
+        preparation: [
+          'Mezclar tequila con puré de mango',
+          'Agregar jugo de limón y un toque de chile',
+          'Agitar con hielo',
+          'Decorar con tajín y mango'
+        ]
+      }
+    ]
+  }
+];
+---
+
+<Layout 
+  title="Menú de Cócteles | Dito's Bartender"
+  description="Explora nuestro menú de cócteles clásicos y especialidades exclusivas. Cada bebida está cuidadosamente elaborada con los mejores ingredientes."
+  alternateUrls={alternateUrls}
+>
+  <section class="pt-32 pb-20 bg-primary text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Menú Dito's</h1>
+        <p class="text-xl text-white/80">
+          Descubre nuestra selección de cócteles artesanales, preparados con ingredientes premium y técnicas excepcionales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      {cocktails.map((category) => (
+        <div class="mb-16 last:mb-0">
+          <h2 class="text-3xl font-bold mb-8 text-center">{category.category}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {category.items.map((cocktail) => (
+              <div class="bg-white rounded-lg shadow-lg p-6 hover:-translate-y-1 transition-transform duration-300">
+                <h3 class="text-xl font-bold mb-3">{cocktail.name}</h3>
+                <p class="text-gray-600 mb-4">{cocktail.description}</p>
+                <div class="space-y-2">
+                  <h4 class="font-semibold text-primary">Preparación:</h4>
+                  <ol class="list-decimal list-inside text-sm text-gray-600 space-y-1">
+                    {cocktail.preparation.map((step) => (
+                      <li>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">¿Necesitas un cóctel personalizado?</h2>
+        <p class="text-gray-600 mb-8">
+          Podemos crear cócteles exclusivos para tu evento. Contáctanos para discutir tus ideas y preferencias.
+        </p>
+        <a 
+          href="/es/contact" 
+          class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center"
+        >
+          Solicitar cotización
+          <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
