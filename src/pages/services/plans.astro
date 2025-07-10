@@ -183,17 +183,15 @@ const packages = [
                 ))}
               </ul>
               <div class="space-y-4">
-                <a 
-                  href="/contact" 
-                  class="bg-primary/90 hover:bg-primary text-white font-semibold px-8 py-3 rounded-md transition-all duration-300 inline-flex items-center group relative overflow-hidden"
+                <button 
+                  disabled
+                  class="bg-gray-400 text-white font-semibold px-8 py-3 rounded-md cursor-not-allowed opacity-75 inline-flex items-center group relative overflow-hidden"
                 >
                   <span class="relative z-10">Check Availability</span>
-                  <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform relative z-10" />
-                  <div class="absolute inset-0 bg-gradient-to-r from-primary to-primary-dark transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                </a>
-                <p class="text-sm text-gray-500 italic">
-                  <Icon name="mdi:information" class="w-4 h-4 inline-block mr-1" />
-                  Sign up to be notified when this service becomes available
+                  <Icon name="mdi:clock" class="w-5 h-5 ml-2 animate-pulse" />
+                </button>
+                <p class="text-sm text-gray-500 italic flex items-center">
+                  This service will be available soon. We're working to provide you with the best experience!
                 </p>
               </div>
             </div>
