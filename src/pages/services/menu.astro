@@ -72,6 +72,44 @@ const cocktails = [
     ]
   }
 ];
+
+const menus = [
+  {
+    name: 'Classic Cocktails Menu',
+    image: '/images/cocktail.webp',
+    placeholder: '/images/placeholders/cocktail-placeholder.webp',
+    description: 'Our selection of traditional cocktails, crafted with technique and passion.',
+    pdfUrl: '/images/menu\'s/classics.pdf'
+  },
+  {
+    name: 'Specialties Menu',
+    image: '/images/exclusive_cocktail.webp',
+    placeholder: '/images/placeholders/exclusive_cocktail-placeholder.webp',
+    description: 'Discover our exclusive creations and signature drinks.',
+    pdfUrl: '/images/menu\'s/specialties.pdf'
+  },
+  {
+    name: 'Wedding Menu',
+    image: '/images/cocktail_presentation.webp',
+    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
+    description: 'Cocktails specially designed for your special day.',
+    pdfUrl: '/images/menu\'s/weddings.pdf'
+  },
+  {
+    name: 'Corporate Menu',
+    image: '/images/trago.webp',
+    placeholder: '/images/placeholders/trago-placeholder.webp',
+    description: 'Premium options for business events.',
+    pdfUrl: '/images/menu\'s/corporate.pdf'
+  },
+  {
+    name: 'Non-Alcoholic Menu',
+    image: '/images/cocktail_presentation.webp',
+    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
+    description: 'Delicious alcohol-free options for all tastes.',
+    pdfUrl: '/images/menu\'s/non-alcoholic.pdf'
+  }
+];
 ---
 
 <Layout 
@@ -82,15 +120,59 @@ const cocktails = [
   <section class="pt-32 pb-20 bg-primary text-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">Dito's Menu</h1>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Dito's Menus</h1>
         <p class="text-xl text-white/80">
-          Discover our selection of craft cocktails, prepared with premium ingredients and exceptional techniques.
+          Discover our selection of specialized menus. Download the PDF of each menu to explore all our options.
         </p>
       </div>
     </div>
   </section>
 
+  <!-- Menus Section -->
   <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {menus.map((menu) => (
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+            <div class="relative h-64 overflow-hidden">
+              <OptimizedImage 
+                src={menu.image}
+                alt={menu.name}
+                width={600}
+                height={400}
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+                placeholder={menu.placeholder}
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <p class="text-sm">{menu.description}</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-4">{menu.name}</h3>
+              <a 
+                href={menu.pdfUrl}
+                download
+                class="inline-flex items-center justify-center w-full bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-md transition-colors duration-300 group"
+              >
+                <Icon name="mdi:file-pdf-box" class="w-5 h-5 mr-2" />
+                <span>Download PDF</span>
+                <Icon 
+                  name="mdi:download" 
+                  class="w-5 h-5 ml-2 transform group-hover:translate-y-1 transition-transform" 
+                />
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cocktails Grid Section -->
+  <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       {cocktails.map((category) => (
         <div class="mb-16 last:mb-0">
@@ -116,20 +198,29 @@ const cocktails = [
     </div>
   </section>
 
-  <section class="py-20 bg-gray-50">
+  <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-6">Need a Custom Cocktail?</h2>
+        <h2 class="text-3xl font-bold mb-6">Need a Custom Menu?</h2>
         <p class="text-gray-600 mb-8">
-          We can create exclusive cocktails for your event. Contact us to discuss your ideas and preferences.
+          We can create an exclusive menu for your event. Contact us to discuss your ideas and preferences.
         </p>
-        <a 
-          href="/contact" 
-          class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center"
-        >
-          Request a Quote
-          <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
-        </a>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="bg-accent hover:bg-accent-dark text-secondary font-semibold px-8 py-4 rounded-md transition-colors duration-300 inline-flex items-center justify-center"
+          >
+            Request a Quote
+            <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+          </a>
+          <a 
+            href="/services/cocktails" 
+            class="bg-transparent hover:bg-white/10 border-2 border-primary text-primary hover:text-primary font-semibold px-8 py-4 rounded-md transition-colors duration-300 inline-flex items-center justify-center"
+          >
+            View Cocktail Gallery
+            <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+          </a>
+        </div>
       </div>
     </div>
   </section>

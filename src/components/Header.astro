@@ -11,8 +11,9 @@ const t = getTranslations(currentLang);
 const navItems = [
   { name: t.navigation.home, url: currentLang === 'en' ? '/' : '/es/' },
   { 
-    name: t.navigation.services, 
-    url: currentLang === 'en' ? '/services' : '/es/services',
+    name: t.navigation.services,
+    url: '#',
+    isDropdownOnly: true,
     submenu: [
       { 
         name: t.navigation.plans, 
@@ -52,27 +53,47 @@ const socialLinks = [
       <nav class="hidden lg:flex items-center space-x-6">
         {navItems.map(item => (
           <div class="relative group">
-            <a 
-              href={item.url}
-              class:list={[
-                'transition duration-300 relative py-2 inline-flex items-center gap-1',
-                { 
-                  'text-primary font-medium': currentPath === item.url || 
-                    (item.url === '/' && currentPath === '') || 
-                    (item.url === '/es/' && currentPath === '/es') ||
-                    (item.submenu && item.submenu.some(subItem => currentPath === subItem.url))
-                }
-              ]}
-            >
-              <span>{item.name}</span>
-              {item.submenu && (
-                <Icon 
-                  name="mdi:chevron-down" 
-                  class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180" 
-                  aria-hidden="true"
-                />
-              )}
-            </a>
+            {item.isDropdownOnly ? (
+              <button 
+                type="button"
+                class:list={[
+                  'transition duration-300 relative py-2 inline-flex items-center gap-1 cursor-default',
+                  { 
+                    'text-primary font-medium': item.submenu && item.submenu.some(subItem => currentPath === subItem.url)
+                  }
+                ]}
+              >
+                <span>{item.name}</span>
+                {item.submenu && (
+                  <Icon 
+                    name="mdi:chevron-down" 
+                    class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180" 
+                    aria-hidden="true"
+                  />
+                )}
+              </button>
+            ) : (
+              <a 
+                href={item.url}
+                class:list={[
+                  'transition duration-300 relative py-2 inline-flex items-center gap-1',
+                  { 
+                    'text-primary font-medium': currentPath === item.url || 
+                      (item.url === '/' && currentPath === '') || 
+                      (item.url === '/es/' && currentPath === '/es')
+                  }
+                ]}
+              >
+                <span>{item.name}</span>
+                {item.submenu && (
+                  <Icon 
+                    name="mdi:chevron-down" 
+                    class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180" 
+                    aria-hidden="true"
+                  />
+                )}
+              </a>
+            )}
             
             {item.submenu && (
               <div class="absolute left-0 mt-1 w-56 bg-white rounded-md shadow-lg opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
@@ -148,15 +169,13 @@ const socialLinks = [
       <div class="flex flex-col space-y-2">
         {navItems.map((item, index) => (
           <div class="mobile-nav-item transform translate-x-8 opacity-0 transition-all duration-300">
-            {item.submenu ? (
+            {item.isDropdownOnly ? (
               <div>
-                <button
-                  type="button"
+                <div
                   class:list={[
-                    'w-full flex justify-between items-center py-3 border-b border-gray-100',
+                    'w-full flex justify-between items-center py-3 border-b border-gray-100 cursor-default',
                     {
-                      'text-primary font-medium': currentPath.includes(item.url) ||
-                        item.submenu.some(subItem => currentPath === subItem.url)
+                      'text-primary font-medium': item.submenu && item.submenu.some(subItem => currentPath === subItem.url)
                     }
                   ]}
                   onclick={`document.getElementById('submenu-${index}').classList.toggle('hidden');
@@ -166,7 +185,7 @@ const socialLinks = [
                 >
                   <span>{item.name}</span>
                   <Icon name="mdi:chevron-down" class="w-5 h-5 submenu-icon transition-transform duration-300" />
-                </button>
+                </div>
                 <div id={`submenu-${index}`} class="hidden pl-4 py-2 space-y-2">
                   {item.submenu.map(subItem => (
                     <a

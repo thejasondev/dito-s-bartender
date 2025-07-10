@@ -2,9 +2,9 @@
 import { Icon } from 'astro-icon/components';
 import ContactForm from '../ContactForm';
 
-const whatsappMessage = encodeURIComponent(`Hi! I’d like to get more information about your mobile bartending services.
+const whatsappMessage = encodeURIComponent(`Hi! I'd like to get more information about your mobile bartending services.
 
-I’m interested in knowing about:
+I'm interested in knowing about:
 - Availability
 - Packages and pricing
 - Types of services
@@ -16,100 +16,156 @@ const contactInfo = [
     icon: 'mdi:phone',
     title: 'Phone',
     content: '+1(727)945-4200',
-    link: 'tel:7279454200'
+    link: 'tel:7279454200',
+    color: 'from-blue-500 to-blue-600'
   },
   {
     icon: 'mdi:whatsapp',
     title: 'WhatsApp',
     content: '+1(727)945-4200',
-    link: `https://wa.me/17279454200?text=${whatsappMessage}`
+    link: `https://wa.me/17279454200?text=${whatsappMessage}`,
+    color: 'from-green-500 to-green-600'
   },
   {
     icon: 'mdi:instagram',
     title: 'Instagram',
     content: '@dito_mobilebar',
-    link: 'https://instagram.com/dito_mobilebar?'
+    link: 'https://instagram.com/dito_mobilebar?',
+    color: 'from-purple-500 to-pink-500'
   },
   {
     icon: 'mdi:facebook',
     title: 'Facebook',
     content: 'Dito Mobile Bar',
-    link: 'https://facebook.com/share/12KUW1sGc7W/?'
+    link: 'https://facebook.com/share/12KUW1sGc7W/?',
+    color: 'from-blue-600 to-blue-700'
   },
   {
     icon: 'mdi:map-marker',
     title: 'Location',
     content: 'Dunedin, FL',
-    link: 'https://maps.google.com/?q=Dunedin,FL'
+    link: 'https://maps.google.com/?q=Dunedin,FL',
+    color: 'from-red-500 to-red-600'
   },
   {
     icon: 'mdi:clock',
     title: 'Business Hours',
     content: 'Mon - Fri: 9:00 AM - 6:00 PM',
+    color: 'from-amber-500 to-amber-600'
   }
 ];
 
+const benefits = [
+  {
+    icon: 'mdi:account-check',
+    title: 'Expert Bartenders',
+    description: 'Professional bartenders with extensive experience'
+  },
+  {
+    icon: 'mdi:glass-cocktail',
+    title: 'Custom Cocktails',
+    description: 'Custom cocktails based on your preferences'
+  },
+  {
+    icon: 'mdi:palette',
+    title: 'Themed Bars',
+    description: 'Themed mobile bars and coordinated decor'
+  },
+  {
+    icon: 'mdi:leaf',
+    title: 'Quality Ingredients',
+    description: 'Fresh, high-quality ingredients'
+  },
+  {
+    icon: 'mdi:star',
+    title: 'Personal Touch',
+    description: 'Personalized service and attention to detail'
+  }
+];
 ---
 
-<section class="py-20 bg-primary text-white">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
+<section class="py-20 bg-gradient-to-br from-primary via-primary to-primary-dark text-white relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(var(--color-accent-rgb),0.1),transparent_70%)] pointer-events-none"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="text-center mb-16 max-w-3xl mx-auto">
+      <div class="inline-block bg-white/10 px-6 py-2 rounded-full mb-6 backdrop-blur-sm">
+        <span class="text-accent font-medium">Let's Create Something Amazing</span>
+      </div>
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
-      <p class="text-white/80 max-w-2xl mx-auto">
+      <p class="text-white/80">
         Ready to elevate your next event? Get in touch with us for more information or to request a personalized quote.
       </p>
     </div>
     
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
       {contactInfo.map(item => (
         <a 
           href={item.link} 
-          class="bg-primary-dark rounded-lg p-6 text-center hover:bg-primary-light transition-colors duration-300"
-          target="_blank"
+          class="group relative overflow-hidden rounded-xl bg-white/10 backdrop-blur-sm p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          target={item.link ? "_blank" : undefined}
+          rel={item.link ? "noopener noreferrer" : undefined}
         >
-          <div class="text-accent mb-4">
-            <Icon name={item.icon} class="w-12 h-12 mx-auto" />
+          <div class={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-1 ${item.color}`}></div>
+          <div class="relative z-10">
+            <div class="text-accent mb-4 transform transition-transform duration-300 group-hover:scale-110">
+              <Icon name={item.icon} class="w-12 h-12 mx-auto" />
+            </div>
+            <h3 class="text-lg font-bold mb-2">{item.title}</h3>
+            <p class="text-white/90 text-sm">{item.content}</p>
           </div>
-          <h3 class="text-lg font-bold mb-2">{item.title}</h3>
-          <p class="text-white/80 text-sm">{item.content}</p>
         </a>
       ))}
     </div>
     
-    <div class="bg-white rounded-lg shadow-xl overflow-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-2">
-        <div class="p-8 lg:p-12">
-          <h3 class="text-2xl font-bold text-gray-800 mb-6">Request a Quote</h3>
-          <ContactForm client:load />
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-300">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+        <div class="p-6 sm:p-8 lg:p-12 bg-white/5">
+          <div class="max-w-md mx-auto">
+            <h3 class="text-2xl font-bold mb-6">Request a Quote</h3>
+            <ContactForm client:load />
+          </div>
         </div>
-        <div class="bg-secondary p-8 lg:p-12 flex flex-col justify-center">
-          <h3 class="text-2xl font-bold text-white mb-6">Why Choose Us?</h3>
-          <ul class="space-y-4">
-            <li class="flex items-start">
-              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
-              <span class="text-white/80">Professional bartenders with extensive experience</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
-              <span class="text-white/80">Custom cocktails based on your preferences</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
-              <span class="text-white/80">Themed mobile bars and coordinated decor</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
-              <span class="text-white/80">Fresh, high-quality ingredients</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent mr-2 flex-shrink-0 mt-0.5" />
-              <span class="text-white/80">Personalized service and attention to detail</span>
-            </li>
-          </ul>
+        <div class="bg-secondary/90 backdrop-blur-sm p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
+          <h3 class="text-2xl font-bold mb-8">Why Choose Us?</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+            {benefits.map(benefit => (
+              <div class="flex items-start transform hover:-translate-x-1 transition-transform duration-300">
+                <div class="bg-accent/20 rounded-full p-2 mr-4 flex-shrink-0">
+                  <Icon name={benefit.icon} class="w-6 h-6 text-accent" />
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">{benefit.title}</h4>
+                  <p class="text-white/80 text-sm">{benefit.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
 </section>
+
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .contact-card {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+</style>
 
 
