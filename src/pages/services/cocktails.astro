@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import OptimizedImage from '../../components/OptimizedImage.astro';
 import { buildLocalizedURL } from '../../lib/i18n/utils';
+import { cocktails, getCategories } from '../../data/cocktails';
 
 const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const alternateUrls = {
@@ -10,46 +11,7 @@ const alternateUrls = {
   es: buildLocalizedURL(siteUrl, 'es', '/services/cocktails').toString(),
 };
 
-const cocktailGallery = [
-  {
-    name: 'Old Fashioned',
-    image: '/images/cocktail.webp',
-    placeholder: '/images/placeholders/cocktail-placeholder.webp',
-    description: 'A timeless classic served with a touch of elegance',
-    ingredients: ['Bourbon whiskey', 'Sugar', 'Angostura bitters', 'Orange'],
-    category: 'Classics',
-    tags: ['Strong', 'Sophisticated', 'Whiskey-based']
-  },
-  {
-    name: 'Artisanal Mojito',
-    image: '/images/trago.webp',
-    placeholder: '/images/placeholders/trago-placeholder.webp',
-    description: 'Refreshing and aromatic, perfect for any occasion',
-    ingredients: ['White rum', 'Fresh mint', 'Lime', 'Sugar', 'Soda'],
-    category: 'Refreshing',
-    tags: ['Fresh', 'Citrus', 'Rum-based']
-  },
-  {
-    name: 'Tropical Paradise',
-    image: '/images/cocktail_presentation.webp',
-    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
-    description: 'A burst of tropical flavors in every sip',
-    ingredients: ['Aged rum', 'Pineapple juice', 'Coconut cream', 'Passion fruit'],
-    category: 'Specialties',
-    tags: ['Tropical', 'Sweet', 'Signature']
-  },
-  {
-    name: 'Exclusive Cocktail',
-    image: '/images/exclusive_cocktail.webp',
-    placeholder: '/images/placeholders/exclusive_cocktail-placeholder.webp',
-    description: 'Our special creation for exclusive events',
-    ingredients: ['Premium gin', 'St. Germain liqueur', 'Elderflower', 'Lemon'],
-    category: 'Premium',
-    tags: ['Exclusive', 'Premium', 'Signature']
-  }
-];
-
-const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category))];
+const categories = getCategories();
 ---
 
 <Layout 
@@ -78,7 +40,7 @@ const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category
       <div class="flex flex-wrap gap-4 justify-center mb-12">
         <button
           class="category-filter active bg-primary text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg"
-          data-category="todos"
+          data-category="All"
         >
           All
         </button>
@@ -94,7 +56,7 @@ const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category
 
       <!-- Cocktails grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 cocktail-grid">
-        {cocktailGallery.map((cocktail) => (
+        {cocktails.map((cocktail) => (
           <div 
             class="group relative overflow-hidden rounded-xl shadow-xl cocktail-card transform transition-all duration-500 hover:-translate-y-2"
             data-category={cocktail.category}
@@ -185,7 +147,7 @@ const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category
         // Filter cocktails
         cocktailCards.forEach(card => {
           const cardCategory = card.getAttribute('data-category');
-          if (category === 'todos' || cardCategory === category) {
+          if (category === 'All' || cardCategory === category) {
             card.style.setProperty('display', 'block');
             setTimeout(() => card.style.setProperty('opacity', '1'), 10);
           } else {

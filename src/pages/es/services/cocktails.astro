@@ -3,6 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import OptimizedImage from '../../../components/OptimizedImage.astro';
 import { buildLocalizedURL } from '../../../lib/i18n/utils';
+import { cocktails as cocktailsData, getCategories } from '../../../data/cocktails.es';
 
 const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const alternateUrls = {
@@ -10,46 +11,7 @@ const alternateUrls = {
   es: buildLocalizedURL(siteUrl, 'es', '/services/cocktails').toString(),
 };
 
-const cocktailGallery = [
-  {
-    name: 'Old Fashioned',
-    image: '/images/cocktail.webp',
-    placeholder: '/images/placeholders/cocktail-placeholder.webp',
-    description: 'Un clásico atemporal servido con un toque de elegancia',
-    ingredients: ['Bourbon whiskey', 'Azúcar', 'Angostura bitters', 'Naranja'],
-    category: 'Clásicos',
-    tags: ['Fuerte', 'Sofisticado', 'Con whiskey']
-  },
-  {
-    name: 'Mojito Artesanal',
-    image: '/images/trago.webp',
-    placeholder: '/images/placeholders/trago-placeholder.webp',
-    description: 'Refrescante y aromático, perfecto para cualquier ocasión',
-    ingredients: ['Ron blanco', 'Menta fresca', 'Lima', 'Azúcar', 'Soda'],
-    category: 'Refrescantes',
-    tags: ['Refrescante', 'Cítrico', 'Con ron']
-  },
-  {
-    name: 'Tropical Paradise',
-    image: '/images/cocktail_presentation.webp',
-    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
-    description: 'Una explosión de sabores tropicales en cada sorbo',
-    ingredients: ['Ron añejo', 'Jugo de piña', 'Crema de coco', 'Maracuyá'],
-    category: 'Especialidades',
-    tags: ['Tropical', 'Dulce', 'Signature']
-  },
-  {
-    name: 'Exclusive Cocktail',
-    image: '/images/exclusive_cocktail.webp',
-    placeholder: '/images/placeholders/exclusive_cocktail-placeholder.webp',
-    description: 'Nuestra creación especial para eventos exclusivos',
-    ingredients: ['Gin premium', 'Licor St. Germain', 'Flor de saúco', 'Limón'],
-    category: 'Premium',
-    tags: ['Exclusivo', 'Premium', 'Signature']
-  }
-];
-
-const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category))];
+const categories = getCategories();
 ---
 
 <Layout 
@@ -62,7 +24,7 @@ const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category
     <div class="container mx-auto px-4 relative z-10">
       <div class="max-w-3xl mx-auto text-center">
         <div class="inline-block bg-white/10 px-6 py-2 rounded-full mb-6 backdrop-blur-sm">
-          <span class="text-accent font-medium">Mixología de autor</span>
+          <span class="text-accent font-medium">Mixología de Autor</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Nuestros Cócteles</h1>
         <p class="text-xl text-white/80">
@@ -94,7 +56,7 @@ const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category
 
       <!-- Grid de cócteles -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 cocktail-grid">
-        {cocktailGallery.map((cocktail) => (
+        {cocktailsData.map((cocktail) => (
           <div 
             class="group relative overflow-hidden rounded-xl shadow-xl cocktail-card transform transition-all duration-500 hover:-translate-y-2"
             data-category={cocktail.category}
@@ -140,7 +102,7 @@ const categories = [...new Set(cocktailGallery.map(cocktail => cocktail.category
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-6">¿Listo para impresionar a tus invitados?</h2>
+        <h2 class="text-3xl font-bold mb-6">¿Listo para sorprender a tus invitados?</h2>
         <p class="text-gray-600 mb-8">
           Nuestros bartenders expertos pueden crear estas y muchas más creaciones únicas para tu evento.
         </p>
