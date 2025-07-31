@@ -16,32 +16,42 @@ const cocktails = [
     items: [
       {
         name: 'Old Fashioned',
-        description: 'Bourbon, azúcar, bitters Angostura, naranja',
+        description: 'El cóctel clásico por excelencia con Bourbon, Angostura y naranja',
         preparation: [
-          'Macerar el azúcar con bitters y un chorrito de agua',
-          'Agregar hielo y bourbon',
-          'Remover hasta enfriar',
-          'Decorar con cáscara de naranja'
+          'Macerar el terrón de azúcar con bitters y un toque de agua',
+          'Agregar bourbon premium y hielo',
+          'Remover hasta el punto perfecto de enfriamiento',
+          'Exprimir aceites de naranja y decorar con la cáscara'
         ]
       },
       {
-        name: 'Mojito',
-        description: 'Ron blanco, menta fresca, limón, azúcar, soda',
+        name: 'Mojito Cubano',
+        description: 'El auténtico mojito con ron cubano, menta fresca y lima',
         preparation: [
-          'Macerar la menta con azúcar y limón',
-          'Agregar ron y hielo',
-          'Completar con soda',
-          'Decorar con menta fresca'
+          'Macerar suavemente la menta fresca con azúcar y lima',
+          'Agregar ron cubano y hielo triturado',
+          'Completar con un toque de soda',
+          'Decorar con ramo de menta'
         ]
       },
       {
-        name: 'Margarita',
-        description: 'Tequila, triple sec, limón fresco, sal',
+        name: 'Margarita Clásica',
+        description: 'El balance perfecto entre tequila, triple sec y lima fresca',
         preparation: [
-          'Escarchar el vaso con sal',
-          'Mezclar tequila, triple sec y limón con hielo',
-          'Agitar vigorosamente',
-          'Servir en copa escarchada'
+          'Escarchar la copa con sal premium',
+          'Combinar tequila, triple sec y jugo de lima fresco',
+          'Agitar vigorosamente con hielo',
+          'Colar en la copa y decorar con rodaja de lima'
+        ]
+      },
+      {
+        name: 'Gin Tonic',
+        description: 'El clásico equilibrado con gin premium y toques botánicos',
+        preparation: [
+          'Llenar copa balón con hielo premium',
+          'Verter la medida de gin',
+          'Agregar agua tónica premium',
+          'Decorar con botánicos seleccionados'
         ]
       }
     ]
@@ -50,23 +60,58 @@ const cocktails = [
     category: 'Especialidades Dito\'s',
     items: [
       {
-        name: 'Tropical Paradise',
-        description: 'Ron añejo, piña, coco, maracuyá, decoración tropical',
+        name: 'Mentirita',
+        description: 'Nuestro cóctel signature con ron especiado, cítricos, hierbas y el toque secreto de Dito\'s',
         preparation: [
-          'Mezclar ron con jugos frescos',
-          'Agregar crema de coco',
-          'Agitar con hielo',
-          'Servir con decoración tropical'
+          'Combinar nuestra mezcla secreta de especias con ron premium',
+          'Agregar jugos cítricos frescos y hierbas',
+          'Agitar con bitters exóticos',
+          'Servir con decoración signature'
         ]
       },
       {
-        name: 'Spicy Mango Tequila',
-        description: 'Tequila, mango, chile, limón, tajín',
+        name: 'Pink Perfection',
+        description: 'Elegante cóctel rosado con gin, frutos rojos y flores comestibles',
         preparation: [
-          'Mezclar tequila con puré de mango',
-          'Agregar jugo de limón y un toque de chile',
-          'Agitar con hielo',
-          'Decorar con tajín y mango'
+          'Infusionar gin rosa con frutos rojos de temporada',
+          'Agregar tónica premium y elementos florales',
+          'Remover suavemente para combinar',
+          'Decorar con flores comestibles'
+        ]
+      },
+      {
+        name: 'Pasión Pisco',
+        description: 'Una explosión de maracuyá con pisco peruano y cítricos',
+        preparation: [
+          'Macerar maracuyá fresco',
+          'Agregar pisco premium y jugo de lima',
+          'Agitar con jarabe simple',
+          'Servir con decoración de maracuyá'
+        ]
+      }
+    ]
+  },
+  {
+    category: 'Refrescantes',
+    items: [
+      {
+        name: 'Hugo Spritz',
+        description: 'Elegante spritz con flor de saúco, prosecco y menta fresca',
+        preparation: [
+          'Verter licor de saúco sobre hielo',
+          'Agregar prosecco bien frío',
+          'Completar con un toque de soda',
+          'Decorar con menta y lima'
+        ]
+      },
+      {
+        name: 'Shine Watermelon',
+        description: 'Mezcla refrescante de vodka, sandía fresca y menta',
+        preparation: [
+          'Macerar trozos de sandía fresca',
+          'Agregar vodka premium y jugo de lima',
+          'Agitar con hielo y colar',
+          'Decorar con menta y sandía'
         ]
       }
     ]
@@ -75,39 +120,39 @@ const cocktails = [
 
 const menus = [
   {
-    name: 'Menú de Cócteles Clásicos',
-    image: '/images/cocktail.webp',
-    placeholder: '/images/placeholders/cocktail-placeholder.webp',
-    description: 'Nuestra selección de cócteles tradicionales, elaborados con técnica y pasión.',
-    pdfUrl: '/images/menu\'s/clasicos.pdf'
+    name: 'Clásicos & Contemporáneos',
+    image: '/images/menu\'s/menu1.webp',
+    placeholder: '/images/placeholders/menus/menu1-placeholder.webp',
+    description: 'Una selección curada de clásicos atemporales y sus interpretaciones modernas.',
+    pdfUrl: '/images/menu\'s/pdf/menu1.pdf'
   },
   {
-    name: 'Menú de Especialidades',
-    image: '/images/exclusive_cocktail.webp',
-    placeholder: '/images/placeholders/exclusive_cocktail-placeholder.webp',
-    description: 'Descubre nuestras creaciones exclusivas y signaturas.',
-    pdfUrl: '/images/menu\'s/especialidades.pdf'
+    name: 'Colección de Verano',
+    image: '/images/menu\'s/menu2.webp',
+    placeholder: '/images/placeholders/menus/menu2-placeholder.webp',
+    description: 'Una selección curada de cócteles refrescantes y vibrantes para el verano.',
+    pdfUrl: '/images/menu\'s/pdf/menu2.pdf'
   },
   {
-    name: 'Menú de Bodas',
-    image: '/images/cocktail_presentation.webp',
-    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
-    description: 'Cócteles especialmente diseñados para tu día especial.',
-    pdfUrl: '/images/menu\'s/bodas.pdf'
+    name: 'Especialidades Dito\'s',
+    image: '/images/menu\'s/menu3.webp',
+    placeholder: '/images/placeholders/menus/menu3-placeholder.webp',
+    description: 'Creaciones de cócteles elevadas con sabores y presentaciones únicas.',
+    pdfUrl: '/images/menu\'s/pdf/menu3.pdf'
   },
   {
-    name: 'Menú Corporativo',
-    image: '/images/trago.webp',
-    placeholder: '/images/placeholders/trago-placeholder.webp',
-    description: 'Opciones premium para eventos empresariales.',
-    pdfUrl: '/images/menu\'s/corporativo.pdf'
+    name: 'Especiales de Temporada',
+    image: '/images/menu\'s/menu4.webp',
+    placeholder: '/images/placeholders/menus/menu4-placeholder.webp',
+    description: 'Cócteles de temporada elaborados con ingredientes frescos y locales.',
+    pdfUrl: '/images/menu\'s/pdf/menu4.pdf'
   },
   {
-    name: 'Menú Sin Alcohol',
-    image: '/images/cocktail_presentation.webp',
-    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
-    description: 'Deliciosas opciones sin alcohol para todos los gustos.',
-    pdfUrl: '/images/menu\'s/sin-alcohol.pdf'
+    name: 'Bebidas de Bienvenida',
+    image: '/images/menu\'s/menu_welcome.webp',
+    placeholder: '/images/placeholders/menus/menu_welcome-placeholder.webp',
+    description: 'Cócteles de recepción perfectos para dar la bienvenida a tus invitados con estilo.',
+    pdfUrl: '/images/menu\'s/pdf/menu_welcome.pdf'
   }
 ];
 ---

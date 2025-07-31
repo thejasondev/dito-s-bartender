@@ -16,32 +16,42 @@ const cocktails = [
     items: [
       {
         name: 'Old Fashioned',
-        description: 'Bourbon, sugar, Angostura bitters, orange',
+        description: 'The quintessential classic cocktail with Bourbon, Angostura bitters, and orange',
         preparation: [
-          'Muddle sugar with bitters and a splash of water',
-          'Add ice and bourbon',
-          'Stir until chilled',
-          'Garnish with orange peel'
+          'Muddle sugar cube with bitters and a splash of water',
+          'Add premium bourbon and ice',
+          'Stir until perfectly chilled',
+          'Express orange oils and garnish with peel'
         ]
       },
       {
-        name: 'Mojito',
-        description: 'White rum, fresh mint, lime, sugar, soda',
+        name: 'Cuban Mojito',
+        description: 'The authentic mojito with Cuban rum, fresh mint, and lime',
         preparation: [
-          'Muddle mint with sugar and lime',
-          'Add rum and ice',
-          'Top with soda',
-          'Garnish with fresh mint'
+          'Gently muddle fresh mint with sugar and lime',
+          'Add Cuban rum and crushed ice',
+          'Top with a splash of soda',
+          'Garnish with mint bouquet'
         ]
       },
       {
-        name: 'Margarita',
-        description: 'Tequila, triple sec, fresh lime, salt',
+        name: 'Classic Margarita',
+        description: 'The perfect balance of tequila, triple sec, and fresh lime',
         preparation: [
-          'Rim glass with salt',
-          'Mix tequila, triple sec and lime with ice',
-          'Shake vigorously',
-          'Serve in rimmed glass'
+          'Salt rim the glass with premium salt',
+          'Combine tequila, triple sec, and fresh lime juice',
+          'Shake vigorously with ice',
+          'Strain into glass and garnish with lime wheel'
+        ]
+      },
+      {
+        name: 'Gin Tonic',
+        description: 'The balanced classic with premium gin and botanical touches',
+        preparation: [
+          'Fill balloon glass with premium ice',
+          'Pour measured gin',
+          'Add premium tonic water',
+          'Garnish with selected botanicals'
         ]
       }
     ]
@@ -50,23 +60,58 @@ const cocktails = [
     category: 'Dito\'s Specialties',
     items: [
       {
-        name: 'Tropical Paradise',
-        description: 'Aged rum, pineapple, coconut, passion fruit, tropical garnish',
+        name: 'Mentirita',
+        description: 'Our signature cocktail with spiced rum, citrus, herbs, and Dito\'s secret touch',
         preparation: [
-          'Mix rum with fresh juices',
-          'Add coconut cream',
-          'Shake with ice',
-          'Serve with tropical garnish'
+          'Combine our secret spice blend with premium rum',
+          'Add fresh citrus juices and herbs',
+          'Shake with exotic bitters',
+          'Serve with signature garnish'
         ]
       },
       {
-        name: 'Spicy Mango Tequila',
-        description: 'Tequila, mango, chili, lime, tajín',
+        name: 'Pink Perfection',
+        description: 'Elegant pink cocktail with gin, red berries, and edible flowers',
         preparation: [
-          'Mix tequila with mango puree',
-          'Add lime juice and a touch of chili',
-          'Shake with ice',
-          'Garnish with tajín and mango'
+          'Infuse pink gin with seasonal berries',
+          'Add premium tonic and floral elements',
+          'Gently stir to combine',
+          'Garnish with edible flowers'
+        ]
+      },
+      {
+        name: 'Pasión Pisco',
+        description: 'A passion fruit explosion with Peruvian pisco and citrus',
+        preparation: [
+          'Muddle fresh passion fruit',
+          'Add premium pisco and lime juice',
+          'Shake with simple syrup',
+          'Serve with passion fruit garnish'
+        ]
+      }
+    ]
+  },
+  {
+    category: 'Refreshing',
+    items: [
+      {
+        name: 'Hugo Spritz',
+        description: 'Elegant spritz with elderflower, prosecco, and fresh mint',
+        preparation: [
+          'Pour elderflower liqueur over ice',
+          'Add chilled prosecco',
+          'Top with a splash of soda',
+          'Garnish with mint and lime'
+        ]
+      },
+      {
+        name: 'Shine Watermelon',
+        description: 'Refreshing blend of vodka, fresh watermelon, and mint',
+        preparation: [
+          'Muddle fresh watermelon chunks',
+          'Add premium vodka and lime juice',
+          'Shake with ice and strain',
+          'Garnish with mint and watermelon'
         ]
       }
     ]
@@ -75,39 +120,39 @@ const cocktails = [
 
 const menus = [
   {
-    name: 'Classic Cocktails Menu',
-    image: '/images/cocktail.webp',
-    placeholder: '/images/placeholders/cocktail-placeholder.webp',
-    description: 'Our selection of traditional cocktails, crafted with technique and passion.',
-    pdfUrl: '/images/menu\'s/classics.pdf'
+    name: 'Classic & Contemporary',
+    image: '/images/menu\'s/menu1.webp',
+    placeholder: '/images/placeholders/menus/menu1-placeholder.webp',
+    description: 'A curated selection of timeless classics and modern interpretations.',
+    pdfUrl: '/images/menu\'s/pdf/menu1.pdf'
   },
   {
-    name: 'Specialties Menu',
-    image: '/images/exclusive_cocktail.webp',
-    placeholder: '/images/placeholders/exclusive_cocktail-placeholder.webp',
-    description: 'Discover our exclusive creations and signature drinks.',
-    pdfUrl: '/images/menu\'s/specialties.pdf'
+    name: 'Summer Collection',
+    image: '/images/menu\'s/menu2.webp',
+    placeholder: '/images/placeholders/menus/menu2-placeholder.webp',
+    description: 'A curated selection of refreshing and vibrant cocktails for summer.',
+    pdfUrl: '/images/menu\'s/pdf/menu2.pdf'
   },
   {
-    name: 'Wedding Menu',
-    image: '/images/cocktail_presentation.webp',
-    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
-    description: 'Cocktails specially designed for your special day.',
-    pdfUrl: '/images/menu\'s/weddings.pdf'
+    name: 'Dito\'s Specialties',
+    image: '/images/menu\'s/menu3.webp',
+    placeholder: '/images/placeholders/menus/menu3-placeholder.webp',
+    description: 'Elevated cocktail creations with unique flavors and presentations.',
+    pdfUrl: '/images/menu\'s/pdf/menu3.pdf'
   },
   {
-    name: 'Corporate Menu',
-    image: '/images/trago.webp',
-    placeholder: '/images/placeholders/trago-placeholder.webp',
-    description: 'Premium options for business events.',
-    pdfUrl: '/images/menu\'s/corporate.pdf'
+    name: 'Seasonal Specials',
+    image: '/images/menu\'s/menu4.webp',
+    placeholder: '/images/placeholders/menus/menu4-placeholder.webp',
+    description: 'Seasonal cocktails crafted with fresh, local ingredients.',
+    pdfUrl: '/images/menu\'s/pdf/menu4.pdf'
   },
   {
-    name: 'Non-Alcoholic Menu',
-    image: '/images/cocktail_presentation.webp',
-    placeholder: '/images/placeholders/cocktail_presentation-placeholder.webp',
-    description: 'Delicious alcohol-free options for all tastes.',
-    pdfUrl: '/images/menu\'s/non-alcoholic.pdf'
+    name: 'Welcome Drinks',
+    image: '/images/menu\'s/menu_welcome.webp',
+    placeholder: '/images/placeholders/menus/menu_welcome-placeholder.webp',
+    description: 'Perfect reception cocktails to welcome your guests in style.',
+    pdfUrl: '/images/menu\'s/pdf/menu_welcome.pdf'
   }
 ];
 ---

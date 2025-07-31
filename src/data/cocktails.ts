@@ -8,8 +8,8 @@ export const cocktails: Cocktail[] = [
     description:
       "A perfect blend of Aperol's bitterness with tropical mango sweetness",
     ingredients: ["Aperol", "Fresh Mango", "Lime Juice", "Simple Syrup"],
-    category: "Signature",
-    tags: ["Refreshing", "Fruity", "Signature"],
+    category: "Refreshing",
+    tags: ["Refreshing", "Fruity", "Exotic"],
   },
   {
     name: "Aperol Spritz",
@@ -27,7 +27,7 @@ export const cocktails: Cocktail[] = [
     placeholder: "/images/placeholders/cran_drunk-placeholder.webp",
     description: "A sophisticated blend of cranberry and premium spirits",
     ingredients: ["Vodka", "Cranberry Juice", "Lime", "Simple Syrup"],
-    category: "Signature",
+    category: "Dito's Specialties",
     tags: ["Fruity", "Elegant", "Signature"],
   },
   {
@@ -82,8 +82,8 @@ export const cocktails: Cocktail[] = [
     placeholder: "/images/placeholders/grape_rosa-placeholder.webp",
     description: "Elegant pink cocktail with fresh grapes",
     ingredients: ["Vodka", "Rosé Wine", "Grapes", "Soda Water"],
-    category: "Signature",
-    tags: ["Elegant", "Fruity", "Signature"],
+    category: "Refreshing",
+    tags: ["Elegant", "Fruity", "Refreshing"],
   },
   {
     name: "Havana Margarita",
@@ -181,7 +181,7 @@ export const cocktails: Cocktail[] = [
     placeholder: "/images/placeholders/pink_perfection-placeholder.webp",
     description: "A pink cocktail as beautiful as it is delicious",
     ingredients: ["Pink Gin", "Tonic", "Red Berries", "Edible Flowers"],
-    category: "Signature",
+    category: "Dito's Specialties",
     tags: ["Elegant", "Floral", "Premium"],
   },
   {
