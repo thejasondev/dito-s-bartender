@@ -20,7 +20,7 @@ async function generatePlaceholder(inputPath, outputPath) {
   }
 }
 
-async function processImages() {
+async function processSpecificImages() {
   const imagesDir = resolve(__dirname, "..", "public", "images");
   const placeholdersDir = resolve(
     __dirname,
@@ -31,7 +31,7 @@ async function processImages() {
   );
 
   // Lista de imágenes específicas a procesar
-  const imagesToProcess = ["trailer_bar.webp"];
+  const imagesToProcess = ["bartender.webp", "bar_table.webp", "drink.webp"];
 
   try {
     console.log("📂 Directorio de imágenes:", imagesDir);
@@ -40,23 +40,21 @@ async function processImages() {
     // Asegurarse de que existe el directorio de placeholders
     await fs.mkdir(placeholdersDir, { recursive: true });
 
-    // Procesar solo las imágenes específicas
-    console.log(`🔍 Procesando ${imagesToProcess.length} imágenes específicas`);
-
     // Procesar cada imagen específica
     for (const file of imagesToProcess) {
       const inputPath = join(imagesDir, file);
-      const outputName = file.replace(".webp", "-placeholder.webp");
-      const outputPath = join(placeholdersDir, outputName);
+      const outputPath = join(
+        placeholdersDir,
+        file.replace(".webp", "-placeholder.webp")
+      );
 
       await generatePlaceholder(inputPath, outputPath);
     }
 
     console.log("✨ Proceso completado");
   } catch (error) {
-    console.error("❌ Error general:", error);
-    console.error(error);
+    console.error("❌ Error:", error);
   }
 }
 
-processImages();
+processSpecificImages();

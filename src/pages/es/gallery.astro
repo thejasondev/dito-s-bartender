@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 import OptimizedImage from '../../components/OptimizedImage.astro';
 import { buildLocalizedURL } from '../../lib/i18n/utils';
-import { getGalleryImages } from '../../lib/gallery';
+import { getGalleryImages } from '../../lib/gallery_es';
 
 const categories = [
   { id: 'all', name: 'Todas' },
@@ -144,7 +144,7 @@ const lazyLoadedImages = galleryImages.slice(6);
 </Layout>
 
 <script>
-  import { initGallery } from '../../lib/gallery';
+  import { initGallery } from '../../lib/gallery_es';
   
   // Inicializar la galería cuando el DOM está completamente cargado
   document.addEventListener('astro:page-load', () => {
