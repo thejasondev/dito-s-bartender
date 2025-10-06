@@ -25,7 +25,7 @@ export const getGalleryImages = (): GalleryImage[] => {
     {
       src: "/images/trago.webp",
       alt: "Cóctel exclusivo",
-      title: "Cóctel Signature",
+      title: "Cóctel Personalizado",
       category: "cocktails",
       description: "Cócteles artesanales elaborados con maestría",
       placeholder: "/images/placeholders/trago-placeholder.webp",

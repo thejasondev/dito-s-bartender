@@ -1,0 +1,359 @@
+---
+import { Icon } from 'astro-icon/components';
+import OptimizedImage from './OptimizedImage.astro';
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div
+  id={id}
+  class="lightbox fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Visor de imágenes"
+>
+  <div class="relative w-full h-full flex items-center justify-center">
+    <!-- Controles superiores -->
+    <div class="absolute top-4 right-4 z-10 flex items-center gap-4">
+      <button
+        class="lightbox-close p-2 text-white/80 hover:text-white transition-colors"
+        aria-label="Cerrar visor"
+      >
+        <Icon name="mdi:close" class="w-8 h-8" />
+      </button>
+    </div>
+
+    <!-- Contenedor principal de la imagen -->
+    <div class="w-full h-full flex items-center justify-center relative">
+      <!-- Imagen actual -->
+      <div class="lightbox-content w-full h-full flex items-center justify-center px-4 md:px-8 lg:px-12">
+        <div class="relative max-w-[95vw] md:max-w-[85vw] lg:max-w-[1200px] max-h-[85vh] lg:max-h-[80vh]">
+          <img
+            src=""
+            alt=""
+            width="1200"
+            height="800"
+            class="w-auto h-auto max-w-full max-h-full object-contain opacity-0 transition-opacity duration-300 rounded-lg shadow-2xl"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <!-- Info de la imagen con diseño optimizado para móvil/tablet -->
+      <div class="absolute bottom-0 left-0 right-0 w-full">
+        <div class="bg-gradient-to-t from-black/95 via-black/70 to-transparent opacity-0 transition-all duration-300 ease-in-out">
+          <div class="container mx-auto px-4 md:px-6 py-4 md:py-6 backdrop-blur-sm">
+            <div class="max-w-4xl mx-auto">
+              <h3 class="text-white text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 leading-tight"></h3>
+              <p class="text-white/90 text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3 sm:line-clamp-none"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegación -->
+      <button
+        class="lightbox-prev absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 p-2 text-white/80 hover:text-white transition-all duration-300 transform hover:scale-110 backdrop-blur-sm bg-black/20 rounded-full hidden md:flex items-center justify-center"
+        aria-label="Imagen anterior"
+      >
+        <Icon name="mdi:chevron-left" class="w-8 h-8 md:w-10 md:h-10" />
+      </button>
+      <button
+        class="lightbox-next absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 p-2 text-white/80 hover:text-white transition-all duration-300 transform hover:scale-110 backdrop-blur-sm bg-black/20 rounded-full hidden md:flex items-center justify-center"
+        aria-label="Siguiente imagen"
+      >
+        <Icon name="mdi:chevron-right" class="w-8 h-8 md:w-10 md:h-10" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  class Lightbox {
+    element: HTMLElement;
+    images: HTMLElement[];
+    currentIndex: number = 0;
+    imageElement: HTMLImageElement;
+    titleElement: HTMLHeadingElement;
+    descriptionElement: HTMLParagraphElement;
+    contentWrapper: HTMLElement;
+    infoWrapper: HTMLElement;
+    isAnimating: boolean = false;
+    touchStartX: number = 0;
+    touchEndX: number = 0;
+
+    constructor(element: HTMLElement) {
+      this.element = element;
+      this.images = Array.from(document.querySelectorAll('.gallery-item'));
+      this.imageElement = element.querySelector('.lightbox-content img')!;
+      this.titleElement = element.querySelector('.max-w-4xl h3')!;
+      this.descriptionElement = element.querySelector('.max-w-4xl p')!;
+      this.contentWrapper = element.querySelector('.lightbox-content')!;
+      this.infoWrapper = element.querySelector('.bg-gradient-to-t')!;
+      this.init();
+    }
+
+    init() {
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      // Abrir lightbox al hacer clic en las imágenes de la galería
+      this.images.forEach((image, index) => {
+        image.addEventListener('click', () => this.open(index));
+      });
+
+      // Cerrar
+      this.element.querySelector('.lightbox-close')?.addEventListener('click', () => this.close());
+
+      // Navegación con botones
+      this.element.querySelector('.lightbox-prev')?.addEventListener('click', () => this.prev());
+      this.element.querySelector('.lightbox-next')?.addEventListener('click', () => this.next());
+
+      // Navegación con teclado
+      document.addEventListener('keydown', (e) => {
+        if (!this.element.classList.contains('hidden')) {
+          if (e.key === 'Escape') this.close();
+          if (e.key === 'ArrowLeft') this.prev();
+          if (e.key === 'ArrowRight') this.next();
+        }
+      });
+
+      // Gestos táctiles
+      this.element.addEventListener('touchstart', (e) => {
+        this.touchStartX = e.touches[0].clientX;
+      });
+
+      this.element.addEventListener('touchmove', (e) => {
+        if (this.isAnimating) return;
+        const currentX = e.touches[0].clientX;
+        const diff = this.touchStartX - currentX;
+        const threshold = 50;
+
+        if (Math.abs(diff) > threshold) {
+          if (diff > 0) {
+            this.next();
+          } else {
+            this.prev();
+          }
+          this.touchStartX = currentX;
+        }
+      });
+    }
+
+    open(index: number) {
+      this.currentIndex = index;
+      this.element.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      this.show(index);
+    }
+
+    close() {
+      this.element.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    async show(index: number) {
+      if (this.isAnimating) return;
+      this.isAnimating = true;
+
+      const image = this.images[index];
+      const img = image.querySelector('img');
+      const title = image.querySelector('h3')?.textContent;
+      const description = image.querySelector('p')?.textContent;
+
+      // Iniciar transición suave
+      this.imageElement.style.opacity = '0';
+      this.infoWrapper.style.opacity = '0';
+      this.titleElement.style.opacity = '0';
+      this.descriptionElement.style.opacity = '0';
+      this.infoWrapper.classList.remove('info-appear');
+
+      // Esperar la transición de fade out
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      // Actualizar contenido con imagen de alta calidad
+      if (img) {
+        // Obtener la URL original
+        const imgSrc = img.src;
+        const originalSrc = imgSrc.replace('/placeholders/', '/').replace('-placeholder', '');
+        
+        // Cargar imagen optimizada
+        this.imageElement.src = originalSrc;
+        this.imageElement.alt = img.alt;
+        
+        // Precargar siguiente imagen para transición fluida
+        if (this.currentIndex < this.images.length - 1) {
+          const nextImage = this.images[this.currentIndex + 1].querySelector('img');
+          if (nextImage) {
+            const nextSrc = nextImage.src;
+            const nextOriginalSrc = nextSrc.replace('/placeholders/', '/').replace('-placeholder', '');
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = nextOriginalSrc;
+            document.head.appendChild(link);
+          }
+        }
+      }
+
+      // Actualizar información con animación
+      const hasTitle = Boolean(title);
+      const hasDescription = Boolean(description);
+
+      // Actualizar contenido
+      this.titleElement.textContent = title || '';
+      this.descriptionElement.textContent = description || '';
+      
+      // Mostrar u ocultar contenedores según el contenido
+      this.titleElement.style.display = hasTitle ? 'block' : 'none';
+      this.descriptionElement.style.display = hasDescription ? 'block' : 'none';
+      
+      // Si hay título o descripción, mostrar el contenedor de información
+      this.infoWrapper.style.display = (hasTitle || hasDescription) ? 'block' : 'none';
+      
+      // Aplicar animaciones de entrada
+      requestAnimationFrame(() => {
+        this.imageElement.style.opacity = '1';
+        
+        if (hasTitle || hasDescription) {
+          this.infoWrapper.style.opacity = '1';
+          this.titleElement.style.opacity = '1';
+          this.descriptionElement.style.opacity = '1';
+          this.infoWrapper.classList.add('info-appear');
+        }
+      });
+
+      // Actualizar índice actual
+      this.currentIndex = index;
+
+      await new Promise(resolve => setTimeout(resolve, 300));
+      this.isAnimating = false;
+    }
+
+    prev() {
+      if (this.currentIndex > 0) {
+        this.show(this.currentIndex - 1);
+      }
+    }
+
+    next() {
+      if (this.currentIndex < this.images.length - 1) {
+        this.show(this.currentIndex + 1);
+      }
+    }
+  }
+
+  // Inicializar el Lightbox
+  document.addEventListener('astro:page-load', () => {
+    const lightboxElement = document.querySelector('.lightbox');
+    if (lightboxElement) {
+      new Lightbox(lightboxElement as HTMLElement);
+    }
+  });
+</script>
+
+<style>
+  .lightbox {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Ajustes responsivos para la información */
+  .lightbox-content img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Ajustes para pantallas grandes */
+  @media (min-width: 1024px) {
+    .lightbox-content img {
+      max-height: 85vh;
+      transform: scale(1);
+    }
+  }
+
+  /* Ajustes para tablets */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .lightbox-content img {
+      max-height: 80vh;
+      transform: scale(0.98);
+    }
+  }
+
+  /* Ajustes para móviles */
+  @media (max-width: 767px) {
+    .lightbox-content img {
+      max-height: 70vh;
+      transform: scale(0.95);
+    }
+  }
+
+  /* Animaciones y transiciones para la información */
+  .info-appear {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Transiciones suaves para título y descripción */
+  .max-w-4xl h3,
+  .max-w-4xl p {
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity, transform;
+  }
+
+  /* Ajustes de espaciado para mejor legibilidad */
+  .max-w-4xl {
+    padding-bottom: env(safe-area-inset-bottom, 1rem);
+  }
+
+  /* Estilos responsivos para el lightbox */
+  @media (min-width: 1024px) {
+    .lightbox-content img {
+      max-height: 80vh;
+      max-width: 90vw;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .lightbox-content img {
+      max-height: 85vh;
+      max-width: 85vw;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .lightbox-content img {
+      max-height: 75vh;
+      max-width: 95vw;
+    }
+  }
+
+  /* Ajustes para mantener la calidad de imagen */
+  .lightbox-content img {
+    image-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+  }
+</style>

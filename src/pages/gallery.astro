@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import OptimizedImage from '../components/OptimizedImage.astro';
+import Lightbox from '../components/Lightbox.astro';
 import { getGalleryImages } from '../lib/gallery';
 import { buildLocalizedURL } from '../lib/i18n/utils';
 
@@ -140,6 +141,7 @@ const lazyLoadedImages = galleryImages.slice(6);
       </div>
     </div>
   </section>
+  <Lightbox id="gallery-lightbox" />
 </Layout>
 
 <script>
