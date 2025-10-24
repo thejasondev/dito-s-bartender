@@ -48,60 +48,63 @@ const FormInput = memo(
   )
 );
 
-const FormSelect = memo(
+const EventTypeSelector = memo(
   ({
     label,
     error,
     options,
+    value,
+    onChange,
     ...props
   }: {
     label: string;
     error?: string;
-    options: Array<{ value: string; label: string }>;
+    options: Array<{ value: string; label: string; icon: React.ReactNode; description: string }>;
+    value: string;
+    onChange: (value: string) => void;
     [key: string]: any;
   }) => (
     <div>
-      <label
-        htmlFor={props.id}
-        className="block text-sm font-medium text-gray-700 mb-1"
-      >
+      <label className="block text-sm font-medium text-gray-700 mb-3">
         {label}
       </label>
-      <div className="relative">
-        <select
-          {...props}
-          className={`w-full px-4 py-3 border-2 rounded-md bg-white text-gray-700 appearance-none 
-        cursor-pointer transition-all duration-300 hover:border-primary focus:ring-2 
-        focus:ring-primary/20 focus:border-primary focus:outline-none custom-select select-custom
-        ${error ? "border-red-500" : "border-gray-300"}`}
-        >
-          <option value="" disabled>
-            Selecciona una opción
-          </option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value} className="py-2">
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 bg-primary text-white rounded-r-md">
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        {options.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            onClick={() => onChange(option.value)}
+            className={`relative p-4 rounded-lg border-2 transition-all duration-300 hover:scale-105 hover:shadow-md group
+              ${value === option.value 
+                ? 'border-primary bg-primary/5 shadow-md' 
+                : 'border-gray-300 hover:border-primary/50 bg-white'
+              }
+            `}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </div>
+            <div className="flex flex-col items-center text-center space-y-2">
+              <div className={`transition-colors duration-300 ${
+                value === option.value ? 'text-primary' : 'text-gray-500 group-hover:text-primary'
+              }`}>
+                {option.icon}
+              </div>
+              <span className={`text-sm font-medium transition-colors duration-300 ${
+                value === option.value ? 'text-primary' : 'text-gray-700'
+              }`}>
+                {option.label}
+              </span>
+              {value === option.value && (
+                <div className="absolute top-2 right-2">
+                  <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              )}
+            </div>
+          </button>
+        ))}
       </div>
       {error && (
-        <p className="mt-1 text-sm text-red-500" id={`${props.id}-error`}>
+        <p className="mt-2 text-sm text-red-500" id={`${props.id}-error`}>
           {error}
         </p>
       )}
@@ -194,11 +197,56 @@ const formSchema = z.object({
 });
 
 const eventTypeOptions = [
-  { value: "wedding", label: "Boda" },
-  { value: "corporate", label: "Corporativo" },
-  { value: "private", label: "Evento Privado" },
-  { value: "themed", label: "Fiesta Temática" },
-  { value: "other", label: "Otro" },
+  { 
+    value: "wedding", 
+    label: "Boda",
+    description: "Celebra tu día especial",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    )
+  },
+  { 
+    value: "corporate", 
+    label: "Corporativo",
+    description: "Eventos profesionales",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    )
+  },
+  { 
+    value: "private", 
+    label: "Privado",
+    description: "Reuniones íntimas",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    )
+  },
+  { 
+    value: "themed", 
+    label: "Temático",
+    description: "Celebraciones únicas",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+      </svg>
+    )
+  },
+  { 
+    value: "other", 
+    label: "Otro",
+    description: "Eventos personalizados",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      </svg>
+    )
+  },
 ];
 
 type FormData = z.infer<typeof formSchema>;
@@ -209,6 +257,7 @@ const ContactFormES = () => {
     success: false,
     error: false,
   });
+  const [selectedEventType, setSelectedEventType] = useState("");
 
   const {
     register,
@@ -318,13 +367,17 @@ const ContactFormES = () => {
         error={errors.subject?.message}
       />
 
-      <FormSelect
-        {...register("event_type")}
-        id="event_type"
+      <EventTypeSelector
         label="Tipo de Evento"
         options={eventTypeOptions}
+        value={selectedEventType}
+        onChange={(value) => {
+          setSelectedEventType(value);
+          register("event_type").onChange({ target: { value, name: "event_type" } });
+        }}
         error={errors.event_type?.message}
       />
+      <input type="hidden" {...register("event_type")} value={selectedEventType} />
 
       <div>
         <label

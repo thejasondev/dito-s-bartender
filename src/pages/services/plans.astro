@@ -80,54 +80,122 @@ const services = [
 
 const packages = [
   {
-    name: 'Basic',
-    price: '$450',
-    description: 'Ideal for small events up to 50 people',
+    name: 'Shots Suitcase',
+    price: '$60',
+    priceLabel: 'starting price',
+    description: 'Perfect to kick off the party with tequila or vodka',
     features: [
-      '4 hours of service',
-      '1 professional bartender',
-      'Standard mobile bar',
-      '4 cocktails of your choice',
-      '1 Water station',
-      'Ingredients and glassware',
-      'Ice'
+      '24 Shots of your preferred Spiritz',
+      'With Lime-Lemon-Orange finish and Salted Rim',
+      'Contact for scheduling'
     ],
-    popular: false
+    popular: false,
+    category: 'addon'
+  },
+  {
+    name: 'Champagne Welcome',
+    price: '$80',
+    priceLabel: 'starting price',
+    description: 'Welcome your guests with elegance (50 people)',
+    features: [
+      'All your guests will be welcomed with a glass',
+      'Quality champagne or prosecco',
+      'Contact for scheduling'
+    ],
+    popular: false,
+    category: 'addon'
+  },
+  {
+    name: 'Customized',
+    price: '$500',
+    priceLabel: 'starting price',
+    description: 'Customizable package according to your needs',
+    features: [
+      'Personalized service',
+      'Adaptable to your event',
+      'Contact for scheduling'
+    ],
+    popular: false,
+    category: 'customized'
+  },
+  {
+    name: 'Dito\'s Party',
+    price: '$750',
+    priceLabel: 'starting price',
+    description: 'Ideal for medium events (50-100 guests)',
+    features: [
+      'Choose 4 cocktails from our varied menu',
+      'Mobile bar with company logo',
+      'Ice',
+      'Plastic glassware',
+      'Water/infusion station',
+      'Contact for scheduling'
+    ],
+    popular: false,
+    category: 'standard'
   },
   {
     name: 'Premium',
-    price: '$700',
-    description: 'Perfect for medium events up to 100 people',
+    price: '$1,050',
+    priceLabel: 'starting price',
+    description: 'The complete experience (50-120 guests)',
     features: [
-      '5 hours of service',
-      '2 professional bartenders',
-      'Customized mobile bar',
-      '5 cocktails of your choice',
-      'Personalized signature cocktail',
-      'Premium ingredients and glassware',
-      'Ice and cocktail garnishes',
-      'Custom printed menu'
+      'Choose 5 cocktails. Personalized cocktail menu',
+      'High-quality ingredients and garnishes',
+      'Ice',
+      'Water/infusion station',
+      'Option of two different Beer and Wine bottles',
+      'Premium plastic glassware',
+      'Mobile bar with company logo',
+      'Contact for scheduling'
     ],
-    popular: true
-  },
-  {
-    name: 'Deluxe',
-    price: '$1,200',
-    description: 'The complete experience for large events up to 200 people',
-    features: [
-      '6 hours of service',
-      '3 professional bartenders',
-      'Premium mobile bar with lighting',
-      '7 cocktails of your choice',
-      '2 personalized signature cocktails',
-      'Luxury ingredients and glassware',
-      'Infused water station',
-      'Themed bar decoration',
-      'Special effects'
-    ],
-    popular: false
+    popular: true,
+    category: 'premium'
   }
 ];
+
+const additionalInfo = [
+  'Starting prices may not include all fees that the provider may charge.',
+];
+
+// WhatsApp contact number
+const whatsappNumber = '+17279454200';
+
+// Function to create WhatsApp message
+function createWhatsAppMessage(packageName: string, price: string, description: string): string {
+  const message = `Hello!
+
+I'm interested in the *${packageName}* package from Dito's Bartender.
+
+ *Package details:*
+• Name: ${packageName}
+• Price: ${price}
+• Description: ${description}
+
+Could you provide me with more information about availability and additional details?
+
+Thank you!`;
+  
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+// Function to create service WhatsApp message
+function createServiceWhatsAppMessage(serviceName: string, description: string): string {
+  const message = `Hello!
+
+I'm interested in the *${serviceName}* service from Dito's Bartender.
+
+ *Requested service:*
+• ${serviceName}
+• ${description}
+
+Could you provide me with more information about availability, pricing and service details?
+
+Thank you!`;
+  
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
 ---
 
 <Layout 
@@ -151,24 +219,14 @@ const packages = [
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <div class="inline-block bg-accent/10 text-accent px-6 py-2 rounded-full mb-4">
-          <span class="inline-flex items-center">
-            <Icon name="mdi:clock-outline" class="w-5 h-5 mr-2 animate-pulse" />
-            Coming Soon
-          </span>
-        </div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">
-          We are perfecting every detail to provide you with the best service. Meanwhile, explore our options and let us know what interests you.
+          Personalized bartending experiences for every occasion. Discover how we can make your event extraordinary.
         </p>
       </div>
 
       {services.map((service, index) => (
         <div id={service.id} class="py-16 border-b border-gray-200 last:border-0 relative">
-          <div class="absolute -rotate-12 top-4 right-4 z-10">
-            <div class="bg-accent text-secondary px-4 py-1 rounded shadow-lg transform hover:scale-105 transition-transform">
-              <span class="text-sm font-semibold">Coming Soon</span>
-            </div>
-          </div>
           
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class={index % 2 === 0 ? 'order-2 lg:order-1' : 'order-2'}>
@@ -183,15 +241,19 @@ const packages = [
                 ))}
               </ul>
               <div class="space-y-4">
-                <button 
-                  disabled
-                  class="bg-gray-400 text-white font-semibold px-8 py-3 rounded-md cursor-not-allowed opacity-75 inline-flex items-center group relative overflow-hidden"
+                <a 
+                  href={createServiceWhatsAppMessage(service.title, service.description)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center group"
                 >
-                  <span class="relative z-10">Check Availability</span>
-                  <Icon name="mdi:clock" class="w-5 h-5 ml-2 animate-pulse" />
-                </button>
-                <p class="text-sm text-gray-500 italic flex items-center">
-                  This service will be available soon. We're working to provide you with the best experience!
+                  <Icon name="mdi:whatsapp" class="w-5 h-5 mr-2" />
+                  <span class="relative z-10">{service.cta}</span>
+                  <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <p class="text-sm text-gray-600 flex items-center">
+                  <Icon name="mdi:whatsapp" class="w-4 h-4 mr-2 text-green-500" />
+                  Direct WhatsApp contact for immediate response
                 </p>
               </div>
             </div>
@@ -207,7 +269,7 @@ const packages = [
                 placeholder={service.placeholder}
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                <span class="text-white text-lg font-semibold">Coming Soon</span>
+                <span class="text-white text-lg font-semibold">Available Now!</span>
               </div>
             </div>
           </div>
@@ -226,34 +288,64 @@ const packages = [
         </p>
       </div>
       
-      <div class="relative">
-        <!-- Coming Soon Overlay -->
-        <div class="absolute inset-0 bg-secondary/70 backdrop-blur-sm z-10 rounded-lg flex flex-col items-center justify-center text-white px-4">
-          <div class="bg-primary/90 p-6 md:p-8 rounded-lg text-center max-w-lg transform rotate-[-2deg] shadow-xl border-2 border-accent">
-            <Icon name="mdi:clock-outline" class="w-16 h-16 mx-auto mb-4 text-accent" />
-            <h3 class="text-2xl md:text-3xl font-bold mb-2">Coming Soon</h3>
-            <p class="text-lg mb-4">Our package options are being refined to provide you with the best experience.</p>
-            <a 
-              href="/contact" 
-              class="bg-accent hover:bg-accent-dark text-secondary font-semibold px-6 py-3 rounded-md transition-colors duration-300 inline-flex items-center"
-            >
-              Request Custom Quote
-              <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
-            </a>
+      <!-- Package Categories -->
+      <div class="mb-12">
+        <!-- Add-ons Section -->
+        <div class="mb-16">
+          <h3 class="text-2xl font-bold text-center mb-8">Special Add-ons</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {packages.filter(pkg => pkg.category === 'addon').map(pkg => (
+              <div class="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-accent/20 hover:border-accent/40 transition-all duration-300 hover:-translate-y-1">
+                <div class="p-6">
+                  <h4 class="text-xl font-bold mb-2">{pkg.name}</h4>
+                  <div class="flex items-baseline mb-4">
+                    <span class="text-3xl font-bold text-primary">{pkg.price}</span>
+                    <span class="text-gray-500 ml-2">{pkg.priceLabel}</span>
+                  </div>
+                  <p class="text-gray-600 mb-6">{pkg.description}</p>
+                  <ul class="space-y-2 mb-6">
+                    {pkg.features.map(feature => (
+                      <li class="flex items-start text-sm">
+                        <Icon name="mdi:check-circle" class="w-4 h-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                        <span class="text-gray-600">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a 
+                    href={createWhatsAppMessage(pkg.name, pkg.price, pkg.description)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="w-full text-center bg-accent hover:bg-accent-dark text-secondary font-semibold px-4 py-2 rounded-md transition-colors duration-300 inline-flex items-center justify-center"
+                  >
+                    <Icon name="mdi:whatsapp" class="w-4 h-4 mr-2" />
+                    Add to my event
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 opacity-40 blur-[1px]">
-          {packages.map(pkg => (
-            <div class={`bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 ${pkg.popular ? 'ring-2 ring-accent relative' : ''}`}>
+
+        <!-- Main Packages -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {packages.filter(pkg => pkg.category !== 'addon').map(pkg => (
+            <div class={`bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 ${pkg.popular ? 'ring-2 ring-accent relative scale-105' : ''}`}>
               {pkg.popular && (
-                <div class="absolute top-0 right-0 bg-accent text-secondary font-semibold px-4 py-1">
-                  Most popular
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                  <div class="bg-accent text-secondary font-semibold px-6 py-2 rounded-full shadow-lg">
+                    <span class="flex items-center">
+                      <Icon name="mdi:star" class="w-4 h-4 mr-1" />
+                      Most Popular
+                    </span>
+                  </div>
                 </div>
               )}
               <div class="p-8">
                 <h3 class="text-2xl font-bold mb-2">{pkg.name}</h3>
-                <div class="text-3xl font-bold text-primary mb-4">{pkg.price}</div>
+                <div class="flex items-baseline mb-4">
+                  <span class="text-3xl font-bold text-primary">{pkg.price}</span>
+                  <span class="text-gray-500 ml-2">{pkg.priceLabel}</span>
+                </div>
                 <p class="text-gray-600 mb-6">{pkg.description}</p>
                 <ul class="space-y-3 mb-8">
                   {pkg.features.map(feature => (
@@ -264,24 +356,43 @@ const packages = [
                   ))}
                 </ul>
                 <a 
-                  href="/contact" 
-                  class={`w-full block text-center font-semibold px-6 py-3 rounded-md transition-colors duration-300 ${pkg.popular ? 'bg-accent hover:bg-accent-dark text-secondary' : 'bg-primary hover:bg-primary-dark text-white'}`}
+                  href={createWhatsAppMessage(pkg.name, pkg.price, pkg.description)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={`w-full text-center font-semibold px-6 py-3 rounded-md transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center ${pkg.popular ? 'bg-accent hover:bg-accent-dark text-secondary shadow-lg' : 'bg-primary hover:bg-primary-dark text-white'}`}
                 >
-                  Request this package
+                  <Icon name="mdi:whatsapp" class="w-4 h-4 mr-2" />
+                  Request Quote
                 </a>
               </div>
             </div>
           ))}
         </div>
+        
+        <!-- Additional Information -->
+        <div class="mt-12 bg-gray-100 rounded-lg p-6">
+          <h4 class="font-semibold text-gray-800 mb-4">Important Information:</h4>
+          <ul class="space-y-2">
+            {additionalInfo.map(info => (
+              <li class="flex items-start text-gray-600">
+                <Icon name="mdi:information-outline" class="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                <span>{info}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       
       <div class="text-center mt-16">
-        <p class="text-gray-600 mb-4">Need a custom package?</p>
+        <p class="text-gray-600 mb-4">Can't find what you're looking for? We can create a custom package for you.</p>
         <a 
-          href="/contact" 
+          href={createWhatsAppMessage('Custom Quote', 'Price on request', 'Completely personalized service according to specific event needs')}
+          target="_blank"
+          rel="noopener noreferrer"
           class="bg-transparent hover:bg-primary text-primary hover:text-white border border-primary font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center"
         >
-          Contact us for a tailored quote
+          <Icon name="mdi:whatsapp" class="w-5 h-5 mr-2" />
+          Contact us for a personalized quote
           <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
         </a>
       </div>
@@ -298,9 +409,12 @@ const packages = [
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
-            href="/contact" 
-            class="bg-accent hover:bg-accent-dark text-secondary font-semibold px-8 py-4 rounded-md transition-colors duration-300"
+            href={createWhatsAppMessage('General Inquiry', 'Price on request', 'General information request about mobile bartending services')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-accent hover:bg-accent-dark text-secondary font-semibold px-8 py-4 rounded-md transition-colors duration-300 inline-flex items-center"
           >
+            <Icon name="mdi:whatsapp" class="w-5 h-5 mr-2" />
             Request a Quote
           </a>
           <a 
