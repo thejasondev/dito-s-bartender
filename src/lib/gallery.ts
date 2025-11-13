@@ -133,6 +133,30 @@ export const getGalleryImages = (): GalleryImage[] => {
       description: "Making a cocktail",
       placeholder: "/images/placeholders/make_cocktail2-placeholder.webp",
     },
+    {
+      src: "/images/halloween1.webp",
+      alt: "Halloween themed party with spooky cocktails",
+      title: "Halloween Party",
+      category: "themed",
+      description: "Creative Halloween-themed cocktails and decorations",
+      placeholder: "/images/placeholders/halloween1-placeholder.webp",
+    },
+    {
+      src: "/images/halloween2.webp",
+      alt: "Halloween cocktails with creative decorations",
+      title: "Halloween Cocktails",
+      category: "themed",
+      description: "Spooky themed bar setup for Halloween celebration",
+      placeholder: "/images/placeholders/halloween2-placeholder.webp",
+    },
+    {
+      src: "/images/halloween3.webp",
+      alt: "Halloween event atmosphere with themed bar",
+      title: "Halloween Event",
+      category: "themed",
+      description: "Complete Halloween themed event setup",
+      placeholder: "/images/placeholders/halloween3-placeholder.webp",
+    },
   ];
 };
 

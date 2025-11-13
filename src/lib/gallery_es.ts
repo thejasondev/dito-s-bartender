@@ -134,6 +134,30 @@ export const getGalleryImages = (): GalleryImage[] => {
       description: "Preparando un cóctel",
       placeholder: "/images/placeholders/make_cocktail2-placeholder.webp",
     },
+    {
+      src: "/images/halloween1.webp",
+      alt: "Fiesta temática de Halloween con cócteles espeluznantes",
+      title: "Fiesta de Halloween",
+      category: "themed",
+      description: "Cócteles creativos con temática de Halloween y decoraciones",
+      placeholder: "/images/placeholders/halloween1-placeholder.webp",
+    },
+    {
+      src: "/images/halloween2.webp",
+      alt: "Cócteles de Halloween con decoraciones creativas",
+      title: "Cócteles de Halloween",
+      category: "themed",
+      description: "Bar temático espeluznante para celebración de Halloween",
+      placeholder: "/images/placeholders/halloween2-placeholder.webp",
+    },
+    {
+      src: "/images/halloween3.webp",
+      alt: "Ambiente de evento de Halloween con bar temático",
+      title: "Evento de Halloween",
+      category: "themed",
+      description: "Montaje completo de evento temático de Halloween",
+      placeholder: "/images/placeholders/halloween3-placeholder.webp",
+    },
   ];
 };
 

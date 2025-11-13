@@ -69,11 +69,16 @@ This website is built with the following technologies:
 3. Create a `.env` file in the root directory with the following variables:
 
    ```
-   PUBLIC_EMAILJS_SERVICE_ID=your_service_id
-   PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
-   PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+   # EmailJS Configuration (Server-side only - DO NOT use PUBLIC_ prefix)
+   EMAILJS_SERVICE_ID=your_service_id
+   EMAILJS_TEMPLATE_ID=your_template_id
+   EMAILJS_PUBLIC_KEY=your_public_key
+   
+   # Google Analytics (Optional)
    PUBLIC_GA_MEASUREMENT_ID=your_ga_id
    ```
+   
+   **⚠️ Important**: Do NOT prefix EmailJS variables with `PUBLIC_`. These are server-only variables for security.
 
 4. Start the development server
 
@@ -122,10 +127,12 @@ This website is deployed on [Vercel](https://vercel.com/) with continuous deploy
 
 Ensure the following environment variables are set in your Vercel project settings:
 
-- `PUBLIC_EMAILJS_SERVICE_ID`
-- `PUBLIC_EMAILJS_TEMPLATE_ID`
-- `PUBLIC_EMAILJS_PUBLIC_KEY`
-- `PUBLIC_GA_MEASUREMENT_ID`
+- `EMAILJS_SERVICE_ID` (without PUBLIC_ prefix)
+- `EMAILJS_TEMPLATE_ID` (without PUBLIC_ prefix)
+- `EMAILJS_PUBLIC_KEY` (without PUBLIC_ prefix)
+- `PUBLIC_GA_MEASUREMENT_ID` (optional)
+
+**🔒 Security Note**: The EmailJS variables are now server-side only for enhanced security. See [SECURITY.md](SECURITY.md) for detailed configuration.
 
 ## SEO Optimization
 

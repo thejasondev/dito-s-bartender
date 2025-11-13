@@ -1,8 +1,7 @@
 import { useState, useEffect, memo } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import emailjs from "@emailjs/browser";
+import { z } from "zod";
 
 // Componentes de UI reutilizables
 const FormInput = memo(
@@ -269,30 +268,36 @@ const ContactFormES = () => {
     mode: "onChange", // Validación en tiempo real
   });
 
-  useEffect(() => {
-    emailjs.init(import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY);
-  }, []);
+  // No se necesita useEffect para inicializar EmailJS
 
   const onSubmit = async (data: FormData) => {
     setStatus({ loading: true, success: false, error: false });
     try {
-      await emailjs.send(
-        import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
-        import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: data.name,
-          from_email: data.email,
-          to_email: "ditosbartender@gmail.com",
-          phone: data.phone,
+      // Enviar datos al endpoint seguro de la API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone || '',
           subject: data.subject,
           event_type: data.event_type,
           message: data.message,
-        },
-        import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY
-      );
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al enviar el correo');
+      }
 
       setStatus({ loading: false, success: true, error: false });
       reset();
+      setSelectedEventType('');
 
       // Google Analytics event
       if (typeof window !== "undefined" && window.gtag) {
