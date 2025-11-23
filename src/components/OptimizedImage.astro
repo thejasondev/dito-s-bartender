@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   src: string;
   alt: string;
@@ -9,123 +11,50 @@ interface Props {
   decoding?: 'async' | 'auto' | 'sync';
   fetchpriority?: 'high' | 'low' | 'auto';
   quality?: number;
-  sizes?: string;
-  srcset?: string;
-  placeholder?: string;
+  aspectRatio?: string;
 }
 
 const { 
   src, 
   alt, 
-  width, 
-  height, 
+  width = 800, 
+  height = 533,
   class: className = '',
   loading = 'lazy',
   decoding = 'async',
   fetchpriority,
-  sizes,
-  srcset,
-  placeholder
+  quality = 80,
+  aspectRatio = '3/2'
 } = Astro.props;
 
-// Si hay un placeholder, preparamos para la carga progresiva
-const hasPlaceholder = !!placeholder;
+// Generar sizes responsive
+const sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
+
+// Generar widths para srcset (responsive breakpoints)
+const widths = [400, 600, 800, 1200];
 ---
 
-{hasPlaceholder ? (
-  <div class="progressive-img-container">
-    <img 
-      src={placeholder} 
-      alt={alt} 
-      width={width} 
-      height={height} 
-      class={`placeholder ${className}`}
-      aria-hidden="true"
-      loading="eager"
-      decoding="async"
-    />
-    <img 
-      src={src} 
-      alt={alt} 
-      width={width} 
-      height={height} 
-      class={`main-image ${className}`}
-      loading={loading}
-      decoding={decoding}
-      fetchpriority={fetchpriority}
-      sizes={sizes}
-      srcset={srcset}
-      onload="this.classList.add('loaded'); this.previousElementSibling.classList.add('hidden')"
-    />
-  </div>
-) : (
-  <img 
-    src={src} 
-    alt={alt} 
-    width={width} 
-    height={height} 
-    class={className}
-    loading={loading}
-    decoding={decoding}
-    fetchpriority={fetchpriority}
-    sizes={sizes}
-    srcset={srcset}
-  />
-)}
+<Image
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  widths={widths}
+  sizes={sizes}
+  class={className}
+  loading={loading}
+  decoding={decoding}
+  fetchpriority={fetchpriority}
+  quality={quality}
+  format="webp"
+  style={`aspect-ratio: ${aspectRatio};`}
+/>
 
 <style>
   img {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
-  
-  .progressive-img-container {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    filter: blur(10px);
-    transform: scale(1.05);
-    transition: opacity 0.5s ease-in-out;
-    object-fit: cover;
-  }
-  
-  .main-image {
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    object-fit: cover;
-  }
-  
-  .main-image.loaded {
-    opacity: 1;
-  }
-  
-  .placeholder.hidden {
-    opacity: 0;
-  }
 </style>
-
-<script>
-  // Para navegadores que no ejecutan JavaScript, aseguramos que la imagen principal sea visible
-  document.addEventListener('astro:page-load', () => {
-    const mainImages = document.querySelectorAll('.main-image:not(.loaded)');
-    mainImages.forEach(img => {
-      img.classList.add('loaded');
-      const placeholder = img.previousElementSibling;
-      if (placeholder?.classList.contains('placeholder')) {
-        placeholder.classList.add('hidden');
-      }
-    });
-  });
-</script> 

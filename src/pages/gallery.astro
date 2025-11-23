@@ -72,14 +72,13 @@ const lazyLoadedImages = galleryImages.slice(6);
             data-category={image.category}
           >
             <OptimizedImage 
-              src={image.src || "/placeholder.svg"} 
+              src={image.src} 
               alt={image.alt} 
-              width={600} 
-              height={400}
+              width={800} 
+              height={533}
               class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
               loading={index < 3 ? "eager" : "lazy"}
               fetchpriority={index < 3 ? "high" : "auto"}
-              placeholder={image.placeholder}
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
               <h3 class="text-white text-xl font-semibold">{image.title || image.alt}</h3>
@@ -96,13 +95,12 @@ const lazyLoadedImages = galleryImages.slice(6);
             data-category={image.category}
           >
             <OptimizedImage 
-              src={image.src || "/placeholder.svg"} 
+              src={image.src} 
               alt={image.alt} 
-              width={600} 
-              height={400}
+              width={800} 
+              height={533}
               class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
               loading="lazy"
-              placeholder={image.placeholder}
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
               <h3 class="text-white text-xl font-semibold">{image.title || image.alt}</h3>

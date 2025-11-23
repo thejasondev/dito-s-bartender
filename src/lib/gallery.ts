@@ -8,7 +8,6 @@ export interface GalleryImage {
   category: string;
   title?: string;
   description?: string;
-  placeholder?: string;
 }
 
 export const getGalleryImages = (): GalleryImage[] => {
@@ -19,7 +18,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Mobile Bar Setup",
       category: "corporate",
       description: "Professional mobile bar setup for corporate events",
-      placeholder: "/images/placeholders/trailer_bar-placeholder.webp",
     },
     {
       src: "/images/trago.webp",
@@ -27,7 +25,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Signature Cocktail",
       category: "cocktails",
       description: "Handcrafted signature cocktails",
-      placeholder: "/images/placeholders/trago-placeholder.webp",
     },
     {
       src: "/images/boda.webp",
@@ -35,7 +32,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Wedding Bar",
       category: "weddings",
       description: "Themed bar for wedding",
-      placeholder: "/images/placeholders/boda-placeholder.webp",
     },
     {
       src: "/images/bartender.webp",
@@ -43,7 +39,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Private Event",
       category: "private",
       description: "Bartending service at private party",
-      placeholder: "/images/placeholders/bartender-placeholder.webp",
     },
     {
       src: "/images/cocktail.webp",
@@ -51,7 +46,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Cocktail Presentation",
       category: "cocktails",
       description: "Cocktail presentation detail",
-      placeholder: "/images/placeholders/cocktail-placeholder.webp",
     },
     {
       src: "/images/foto2.webp",
@@ -59,7 +53,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Themed Event",
       category: "themed",
       description: "Mobile bar decorated for themed event",
-      placeholder: "/images/placeholders/foto2-placeholder.webp",
     },
     {
       src: "/images/drink.webp",
@@ -67,7 +60,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Colorful Drink",
       category: "cocktails",
       description: "Colorful cocktail drink",
-      placeholder: "/images/placeholders/drink-placeholder.webp",
     },
     {
       src: "/images/bar_wedding.webp",
@@ -75,7 +67,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Wedding Service",
       category: "weddings",
       description: "Bartender preparing cocktail at wedding",
-      placeholder: "/images/placeholders/bar_wedding-placeholder.webp",
     },
     {
       src: "/images/foto1.webp",
@@ -83,7 +74,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Corporate Cocktails",
       category: "cocktails",
       description: "Custom cocktails for corporate event",
-      placeholder: "/images/placeholders/foto1-placeholder.webp",
     },
     {
       src: "/images/foto3.webp",
@@ -91,7 +81,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Private Event Bar",
       category: "private",
       description: "Mobile bar at private event",
-      placeholder: "/images/placeholders/foto3-placeholder.webp",
     },
     {
       src: "/images/foto6.webp",
@@ -99,7 +88,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Special Decoration",
       category: "cocktails",
       description: "Signature cocktail with special decoration",
-      placeholder: "/images/placeholders/foto6-placeholder.webp",
     },
     {
       src: "/images/foto5.webp",
@@ -107,7 +95,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Themed Party",
       category: "themed",
       description: "Themed bar for Halloween party",
-      placeholder: "/images/placeholders/foto5-placeholder.webp",
     },
     {
       src: "/images/foto7.webp",
@@ -115,7 +102,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Corporate Service",
       category: "cocktails",
       description: "Bartending service for corporate event",
-      placeholder: "/images/placeholders/foto7-placeholder.webp",
     },
     {
       src: "/images/bar_table.webp",
@@ -123,7 +109,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Bar Themed",
       category: "themed",
       description: "Bar themed for any party",
-      placeholder: "/images/placeholders/bar_table-placeholder.webp",
     },
     {
       src: "/images/make_cocktail2.webp",
@@ -131,7 +116,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Make Cocktail",
       category: "cocktails",
       description: "Making a cocktail",
-      placeholder: "/images/placeholders/make_cocktail2-placeholder.webp",
     },
     {
       src: "/images/halloween1.webp",
@@ -139,7 +123,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Halloween Party",
       category: "themed",
       description: "Creative Halloween-themed cocktails and decorations",
-      placeholder: "/images/placeholders/halloween1-placeholder.webp",
     },
     {
       src: "/images/halloween2.webp",
@@ -147,7 +130,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Halloween Cocktails",
       category: "themed",
       description: "Spooky themed bar setup for Halloween celebration",
-      placeholder: "/images/placeholders/halloween2-placeholder.webp",
     },
     {
       src: "/images/halloween3.webp",
@@ -155,7 +137,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       title: "Halloween Event",
       category: "themed",
       description: "Complete Halloween themed event setup",
-      placeholder: "/images/placeholders/halloween3-placeholder.webp",
     },
   ];
 };

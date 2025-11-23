@@ -8,7 +8,6 @@ export interface GalleryImage {
   category: string;
   title?: string;
   description?: string;
-  placeholder?: string;
 }
 
 export const getGalleryImages = (): GalleryImage[] => {
@@ -20,7 +19,6 @@ export const getGalleryImages = (): GalleryImage[] => {
       category: "corporate",
       description:
         "Servicio de bar móvil profesional para eventos empresariales",
-      placeholder: "/images/placeholders/trailer_bar-placeholder.webp",
     },
     {
       src: "/images/trago.webp",
@@ -139,7 +137,8 @@ export const getGalleryImages = (): GalleryImage[] => {
       alt: "Fiesta temática de Halloween con cócteles espeluznantes",
       title: "Fiesta de Halloween",
       category: "themed",
-      description: "Cócteles creativos con temática de Halloween y decoraciones",
+      description:
+        "Cócteles creativos con temática de Halloween y decoraciones",
       placeholder: "/images/placeholders/halloween1-placeholder.webp",
     },
     {

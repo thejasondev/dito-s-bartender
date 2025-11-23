@@ -15,6 +15,21 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  image: {
+    // Configuración de optimización de imágenes
+    domains: [],
+    remotePatterns: [],
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+      config: {
+        limitInputPixels: false,
+      },
+    },
+    // Formatos de salida optimizados
+    format: ["webp", "avif"],
+    // Calidad de compresión
+    quality: 80,
+  },
   integrations: [
     tailwind(),
     icon(),
