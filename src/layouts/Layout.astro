@@ -7,6 +7,12 @@ import LanguageRedirector from '../components/LanguageRedirector.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { getLanguageFromURL } from '../lib/i18n/utils';
 
+// ============ CHRISTMAS THEME IMPORTS (Remove after season) ============
+import Snowfall from '../components/christmas/Snowfall.astro';
+import ChristmasToggle from '../components/christmas/ChristmasToggle.astro';
+import '../styles/christmas.css';
+// ========================================================================
+
 interface Props {
 	title: string;
 	description?: string;
@@ -190,6 +196,11 @@ const pageTitle = isHomePage
 				? "¡Hola! Estoy interesado en contratar sus servicios de bartender para mi evento. Me gustaría obtener más información."
 				: "Hi! I'm interested in hiring your bartending services for my event. I'd like to get more information."}
 		/>
+		
+		<!-- ============ CHRISTMAS THEME COMPONENTS (Remove after season) ============ -->
+		<Snowfall density="medium" />
+		<ChristmasToggle />
+		<!-- ========================================================================== -->
 
 		<script>
 			// Script para animaciones al hacer scroll

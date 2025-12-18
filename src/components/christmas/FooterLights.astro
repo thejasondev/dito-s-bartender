@@ -1,0 +1,23 @@
+---
+/**
+ * CHRISTMAS COMPONENT: Footer Lights
+ * 
+ * Animated Christmas lights that appear at the top of the footer.
+ * Only visible when Christmas theme is active via CSS class.
+ * 
+ * REMOVAL: Delete this file and remove from Footer.astro
+ */
+
+// Generate array of lights with alternating colors
+const lightColors = ['red', 'green', 'gold', 'red', 'green', 'gold', 'red', 'green', 'gold', 'red', 'green', 'gold', 'red', 'green', 'gold'];
+---
+
+<div class="christmas-lights christmas-header-decor" aria-hidden="true">
+  <div class="christmas-wire"></div>
+  {lightColors.map((color, index) => (
+    <div 
+      class={`christmas-light ${color}`}
+      style={`animation-delay: ${index * 0.1}s`}
+    ></div>
+  ))}
+</div>

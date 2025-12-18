@@ -1,0 +1,562 @@
+/* ==========================================================================
+   CHRISTMAS THEME STYLES - Dito's Bartender
+   ==========================================================================
+   REMOVAL INSTRUCTIONS:
+   1. Delete this file (src/styles/christmas.css)
+   2. Remove import from Layout.astro
+   3. Delete src/components/christmas/ folder
+   4. Remove 'christmas' key from translations.ts
+   5. Remove christmas colors from tailwind.config.mjs (optional)
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS Variables - Christmas Colors
+   ========================================================================== */
+:root {
+  --christmas-red: #b22222;
+  --christmas-red-light: #dc3545;
+  --christmas-green: #1b4332;
+  --christmas-green-light: #2d6a4f;
+  --christmas-gold: #d4af37;
+  --christmas-snow: #fffafa;
+  --christmas-ice: #a8d8ea;
+  --christmas-candy-red: #ff0000;
+  --christmas-candy-white: #ffffff;
+}
+
+/* ==========================================================================
+   Christmas Theme Active State
+   ========================================================================== */
+
+/* Only apply Christmas styles when theme is active */
+.christmas-theme-active {
+  /* This class is added to <html> when Christmas theme is enabled */
+}
+
+/* ==========================================================================
+   Snowfall Animation
+   ========================================================================== */
+.snowfall-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+  top: -20px;
+  color: white;
+  font-size: 1rem;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  animation: snowfall linear infinite;
+  opacity: 0.8;
+  will-change: transform;
+}
+
+.snowflake.small {
+  font-size: 0.6rem;
+  opacity: 0.6;
+}
+
+.snowflake.medium {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.snowflake.large {
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+/* Sway animation for more realistic movement */
+.snowflake.sway {
+  animation: snowfall-sway linear infinite;
+}
+
+@keyframes snowfall-sway {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(25vh) translateX(15px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-10px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(75vh) translateX(20px) rotate(270deg);
+  }
+  100% {
+    transform: translateY(100vh) translateX(0) rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Christmas Toggle Button
+   ========================================================================== */
+.christmas-toggle {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(
+    135deg,
+    var(--christmas-red) 0%,
+    var(--christmas-green) 100%
+  );
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: "Poppins", sans-serif;
+}
+
+.christmas-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.christmas-toggle:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.christmas-toggle .toggle-icon {
+  font-size: 18px;
+  animation: jingle 1s ease-in-out infinite;
+}
+
+.christmas-toggle.inactive {
+  background: linear-gradient(135deg, #555 0%, #333 100%);
+}
+
+.christmas-toggle.inactive .toggle-icon {
+  animation: none;
+}
+
+@keyframes jingle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Mobile responsiveness - toggle at bottom left, WhatsApp at bottom right */
+@media (max-width: 768px) {
+  .christmas-toggle {
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .christmas-toggle .toggle-text {
+    display: none;
+  }
+
+  .christmas-toggle .toggle-icon {
+    font-size: 20px;
+  }
+}
+
+/* ==========================================================================
+   Header Christmas Decorations
+   ========================================================================== */
+.christmas-theme-active .christmas-header-decor {
+  display: block;
+}
+
+.christmas-header-decor {
+  display: none;
+}
+
+/* Holly decoration next to logo */
+.christmas-holly {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  font-size: 1.2rem;
+  animation: holly-bounce 2s ease-in-out infinite;
+}
+
+@keyframes holly-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Snow border effect on header */
+.christmas-theme-active header {
+  border-bottom: 3px solid transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0.95)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--christmas-red) 0px,
+      var(--christmas-red) 10px,
+      var(--christmas-green) 10px,
+      var(--christmas-green) 20px
+    );
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+/* ==========================================================================
+   Footer Christmas Lights
+   ========================================================================== */
+.christmas-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.christmas-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+  top: -6px;
+}
+
+.christmas-light::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 6px;
+  background: #333;
+  border-radius: 2px 2px 0 0;
+}
+
+.christmas-light.red {
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, var(--christmas-red));
+  box-shadow: 0 0 10px var(--christmas-red), 0 0 20px var(--christmas-red);
+  animation: light-glow-red 1.5s ease-in-out infinite;
+}
+
+.christmas-light.green {
+  background: radial-gradient(
+    circle at 30% 30%,
+    #69db7c,
+    var(--christmas-green)
+  );
+  box-shadow: 0 0 10px var(--christmas-green), 0 0 20px var(--christmas-green);
+  animation: light-glow-green 1.5s ease-in-out infinite 0.5s;
+}
+
+.christmas-light.gold {
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ffd43b,
+    var(--christmas-gold)
+  );
+  box-shadow: 0 0 10px var(--christmas-gold), 0 0 20px var(--christmas-gold);
+  animation: light-glow-gold 1.5s ease-in-out infinite 1s;
+}
+
+@keyframes light-glow-red {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 5px var(--christmas-red);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--christmas-red), 0 0 30px var(--christmas-red);
+  }
+}
+
+@keyframes light-glow-green {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 5px var(--christmas-green-light);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--christmas-green-light),
+      0 0 30px var(--christmas-green-light);
+  }
+}
+
+@keyframes light-glow-gold {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 5px var(--christmas-gold);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--christmas-gold), 0 0 30px var(--christmas-gold);
+  }
+}
+
+/* Wire connecting lights */
+.christmas-wire {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #222 5%,
+    #222 95%,
+    transparent 100%
+  );
+  z-index: -1;
+}
+
+/* ==========================================================================
+   Service Cards Christmas Style
+   ========================================================================== */
+.christmas-theme-active .service-card-christmas {
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(
+      135deg,
+      var(--christmas-red) 0%,
+      var(--christmas-green) 100%
+    );
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+/* Candy cane border effect */
+.christmas-theme-active .candy-cane-border {
+  position: relative;
+}
+
+.christmas-theme-active .candy-cane-border::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--christmas-candy-red) 0px,
+    var(--christmas-candy-red) 10px,
+    var(--christmas-candy-white) 10px,
+    var(--christmas-candy-white) 20px
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* ==========================================================================
+   CTA Section Christmas Background
+   ========================================================================== */
+.christmas-theme-active .cta-christmas-bg {
+  background: linear-gradient(135deg, var(--christmas-green) 0%, #0d2818 100%);
+}
+
+.christmas-theme-active .cta-christmas-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(255, 255, 255, 0.1) 0,
+      transparent 50px
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(255, 255, 255, 0.1) 0,
+      transparent 40px
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.05) 0,
+      transparent 100px
+    );
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   WhatsApp Button Christmas Style (SVG Santa Hat)
+   ========================================================================== */
+.christmas-theme-active .whatsapp-christmas {
+  position: fixed !important;
+  background: linear-gradient(
+    135deg,
+    var(--christmas-red) 0%,
+    var(--christmas-red-light) 100%
+  ) !important;
+  border: 4px solid white !important;
+  box-shadow: 0 4px 15px rgba(178, 34, 34, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  transform: none !important; /* CRÍTICO: Anular cualquier transformación heredada */
+  transition: box-shadow 0.3s ease !important;
+}
+
+/* Desactivar movimiento en hover para mantener la ilusión de cabeza fija */
+.christmas-theme-active .whatsapp-christmas:hover {
+  transform: none !important; /* No permitir movimiento ni escala */
+  box-shadow: 0 6px 20px rgba(178, 34, 34, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Color blanco puro para el icono y anillos */
+.christmas-theme-active .whatsapp-christmas svg {
+  color: white !important;
+}
+
+.christmas-theme-active .whatsapp-christmas .pulse-ring {
+  border-color: white !important;
+  border-width: 2px !important;
+  animation: pulse 2s infinite !important; /* Mantener pulso suave */
+}
+
+/* Gorro de Santa SVG personalizado */
+.christmas-theme-active .whatsapp-christmas::after {
+  content: ""; /* Ya no usamos emoji */
+  position: absolute;
+  top: -38px; /* Ajuste preciso para que toque el borde superior */
+  left: -8px;
+  width: 70px;
+  height: 60px;
+
+  /* Versión definitiva: Gorro rojo clásico caído a la derecha */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M20,80 C20,80 30,10 70,20 C90,25 95,50 95,50' fill='%23D32F2F' stroke='%23D32F2F' stroke-width='5'/%3E%3Ccircle cx='95' cy='50' r='12' fill='white'/%3E%3Crect x='10' y='75' width='80' height='20' rx='10' ry='10' fill='white'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 1002;
+  pointer-events: none;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+  transform-origin: bottom center;
+}
+
+/* Optimización móvil */
+@media (max-width: 768px) {
+  .christmas-theme-active .whatsapp-christmas::after {
+    width: 65px;
+    height: 55px;
+    top: -38px;
+    left: 3px;
+  }
+}
+
+/* Gift ribbon effect */
+.christmas-gift-ribbon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.christmas-gift-ribbon::before,
+.christmas-gift-ribbon::after {
+  content: "";
+  position: absolute;
+  background: var(--christmas-red);
+}
+
+.christmas-gift-ribbon::before {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 100%;
+}
+
+.christmas-gift-ribbon::after {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 6px;
+}
+
+/* ==========================================================================
+   Hero Section Christmas Overlay
+   ========================================================================== */
+.christmas-theme-active .hero-christmas-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(27, 67, 50, 0.3) 0%,
+    transparent 50%,
+    rgba(178, 34, 34, 0.2) 100%
+  );
+  pointer-events: none;
+  z-index: 11;
+}
+
+/* Festive text glow */
+.christmas-theme-active .christmas-text-glow {
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5),
+    0 0 20px rgba(212, 175, 55, 0.3), 0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+/* ==========================================================================
+   Accessibility - Reduced Motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .snowflake,
+  .christmas-toggle .toggle-icon,
+  .christmas-holly,
+  .christmas-light,
+  .whatsapp-christmas::after {
+    animation: none !important;
+  }
+
+  .snowfall-container {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Print Styles - Hide Christmas decorations
+   ========================================================================== */
+@media print {
+  .snowfall-container,
+  .christmas-toggle,
+  .christmas-lights,
+  .christmas-holly {
+    display: none !important;
+  }
+}

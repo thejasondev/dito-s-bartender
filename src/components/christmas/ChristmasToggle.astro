@@ -1,0 +1,94 @@
+---
+/**
+ * CHRISTMAS COMPONENT: Theme Toggle
+ * 
+ * Floating button that allows users to enable/disable Christmas theme.
+ * Stores preference in localStorage.
+ * 
+ * REMOVAL: Delete this file and remove import from Layout.astro
+ */
+import { getLanguageFromURL } from '../../lib/i18n/utils';
+
+const currentLang = getLanguageFromURL(Astro.url.pathname);
+
+// Christmas toggle translations
+const toggleText = {
+  en: {
+    enable: 'Enable festive mode',
+    disable: 'Disable festive mode',
+    label: 'Christmas theme toggle'
+  },
+  es: {
+    enable: 'Activar modo festivo',
+    disable: 'Desactivar modo festivo',
+    label: 'Interruptor de tema navideño'
+  }
+};
+
+const t = toggleText[currentLang as 'en' | 'es'] || toggleText.en;
+---
+
+<button
+  id="christmas-toggle-btn"
+  class="christmas-toggle"
+  aria-label={t.label}
+  aria-pressed="true"
+  data-enable-text={t.enable}
+  data-disable-text={t.disable}
+>
+  <span class="toggle-icon" aria-hidden="true">🎄</span>
+  <span class="toggle-text">{t.disable}</span>
+</button>
+
+<script>
+  function initChristmasToggle() {
+    const toggleBtn = document.getElementById('christmas-toggle-btn') as HTMLElement;
+    if (!toggleBtn) return;
+    
+    const enableText = toggleBtn.dataset.enableText || 'Enable festive mode';
+    const disableText = toggleBtn.dataset.disableText || 'Disable festive mode';
+    const textSpan = toggleBtn.querySelector('.toggle-text') as HTMLElement;
+    const iconSpan = toggleBtn.querySelector('.toggle-icon') as HTMLElement;
+    
+    // Check saved preference (default: enabled)
+    const savedPreference = localStorage.getItem('christmasTheme');
+    let isActive = savedPreference !== 'disabled';
+    
+    // Apply initial state
+    updateThemeState(isActive);
+    
+    // Toggle handler
+    toggleBtn.addEventListener('click', () => {
+      isActive = !isActive;
+      localStorage.setItem('christmasTheme', isActive ? 'enabled' : 'disabled');
+      updateThemeState(isActive);
+      
+      // Dispatch custom event for other components
+      window.dispatchEvent(new CustomEvent('christmas-theme-toggle', {
+        detail: { active: isActive }
+      }));
+    });
+    
+    function updateThemeState(active: boolean) {
+      if (!toggleBtn) return;
+      // Update button state
+      toggleBtn.setAttribute('aria-pressed', String(active));
+      toggleBtn.classList.toggle('inactive', !active);
+      
+      // Update text
+      if (textSpan) {
+        textSpan.textContent = active ? disableText : enableText;
+      }
+      
+      // Update icon
+      if (iconSpan) {
+        iconSpan.textContent = active ? '🎄' : '❄️';
+      }
+      
+      // Update HTML class for CSS styling
+      document.documentElement.classList.toggle('christmas-theme-active', active);
+    }
+  }
+  
+  document.addEventListener('astro:page-load', initChristmasToggle);
+</script>
