@@ -3,9 +3,6 @@ import { Icon } from 'astro-icon/components';
 import { getLanguageFromURL } from '../lib/i18n/utils';
 import { getTranslations } from '../lib/i18n/translations';
 
-// ============ CHRISTMAS THEME IMPORT (Remove after season) ============
-import FooterLights from './christmas/FooterLights.astro';
-// ======================================================================
 
 const currentYear = new Date().getFullYear();
 const currentLang = getLanguageFromURL(Astro.url.pathname);
@@ -51,11 +48,6 @@ const footerLinks = [
 ---
 
 <footer class="bg-secondary text-white relative footer-wrapper">
-  <!-- ============ CHRISTMAS LIGHTS (Remove after season) ============ -->
-  <FooterLights />
-  <!-- ================================================================= -->
-  
-  <!-- Separador geométrico moderno -->
   <div class="footer-geometric-separator">
     <div class="geometric-element geo-1"></div>
     <div class="geometric-element geo-2"></div>
