@@ -12,14 +12,14 @@
     "analyze": "npx astro-bundle-analyzer"
   },
   "dependencies": {
-    "@astrojs/react": "^4.2.3",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/tailwind": "^6.0.2",
     "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^5.0.1",
     "@iconify-json/mdi": "^1.2.3",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.2",
-    "astro": "^5.7.10",
+    "astro": "^5.16.11",
     "astro-icon": "^1.1.5",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/sitemap": "^3.7.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3"
   }
