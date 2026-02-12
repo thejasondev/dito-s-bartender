@@ -4,10 +4,12 @@ import icon from "astro-icon";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import partytown from "@astrojs/partytown";
+import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://ditos-bartender.vercel.app/",
+  adapter: vercel(),
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es"],

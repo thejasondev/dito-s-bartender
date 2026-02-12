@@ -14,7 +14,7 @@
   "dependencies": {
     "@astrojs/react": "^4.4.2",
     "@astrojs/tailwind": "^6.0.2",
-    "@emailjs/browser": "^4.4.1",
+    "@astrojs/vercel": "^9.0.4",
     "@hookform/resolvers": "^5.0.1",
     "@iconify-json/mdi": "^1.2.3",
     "@types/react": "^19.1.0",
