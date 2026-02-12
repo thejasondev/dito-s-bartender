@@ -29,35 +29,43 @@ const services = [
 ];
 ---
 
-<section id="services" class="py-20 bg-white">
+<section id="services" class="py-12 md:py-20 bg-white">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto">
+    <div class="text-center mb-8 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Our Services</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
         We offer personalized bartending experiences for all types of events, adapting to your needs and exceeding your expectations.
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <!-- Mobile: Horizontal carousel | Desktop: Grid -->
+    <div class="services-carousel flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 md:overflow-visible md:snap-none md:pb-0 md:mx-0 md:px-0">
       {services.map(service => (
-        <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2">
-          <div class="text-primary mb-4">
-            <Icon name={service.icon} class="w-12 h-12" />
+        <div class="min-w-[280px] w-[85vw] md:min-w-0 md:w-auto snap-center flex-shrink-0 md:flex-shrink bg-white rounded-lg shadow-lg p-5 md:p-8 transition-transform duration-300 hover:-translate-y-2">
+          <div class="text-primary mb-3 md:mb-4">
+            <Icon name={service.icon} class="w-10 h-10 md:w-12 md:h-12" />
           </div>
-          <h3 class="text-xl font-bold mb-3">{service.title}</h3>
-          <p class="text-gray-600 mb-4">{service.description}</p>
+          <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">{service.title}</h3>
+          <p class="text-gray-600 text-sm md:text-base mb-3 md:mb-4">{service.description}</p>
           <a 
             href={service.link} 
-            class="text-primary hover:text-primary-dark font-medium inline-flex items-center transition-colors duration-300"
+            class="text-primary hover:text-primary-dark font-medium inline-flex items-center transition-colors duration-300 text-sm md:text-base"
           >
             Learn more
-            <Icon name="mdi:arrow-right" class="w-5 h-5 ml-1" />
+            <Icon name="mdi:arrow-right" class="w-4 h-4 md:w-5 md:h-5 ml-1" />
           </a>
         </div>
       ))}
     </div>
+
+    <!-- Mobile scroll indicators -->
+    <div class="flex justify-center gap-2 mt-4 md:hidden" aria-hidden="true">
+      {services.map((_, i) => (
+        <span class="services-dot w-2 h-2 rounded-full bg-gray-300 transition-colors duration-300" data-index={i}></span>
+      ))}
+    </div>
     
-    <div class="text-center mt-12">
+    <div class="text-center mt-8 md:mt-12">
       <a 
         href="/services/plans" 
         class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300 inline-flex items-center justify-center"
@@ -68,4 +76,46 @@ const services = [
     </div>
   </div>
 </section>
+
+<style>
+  /* Hide scrollbar for carousel on mobile */
+  .services-carousel {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .services-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .services-carousel {
+      overflow: visible;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const carousel = document.querySelector('.services-carousel') as HTMLElement;
+    const dots = document.querySelectorAll('.services-dot');
+    
+    if (carousel && dots.length > 0) {
+      const updateDots = () => {
+        const scrollLeft = carousel.scrollLeft;
+        const cardWidth = carousel.children[0]?.clientWidth || 280;
+        const gap = 16;
+        const activeIndex = Math.round(scrollLeft / (cardWidth + gap));
+        
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('bg-primary', i === activeIndex);
+          dot.classList.toggle('bg-gray-300', i !== activeIndex);
+        });
+      };
+      
+      carousel.addEventListener('scroll', updateDots, { passive: true });
+      updateDots();
+    }
+  });
+</script>
 

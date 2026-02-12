@@ -27,29 +27,29 @@ const faqs = [
 ];
 ---
 
-<section class="py-20 bg-gray-50">
+<section class="py-12 md:py-20 bg-gray-50">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto">
+    <div class="text-center mb-8 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Frequently Asked Questions</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
         We answer your questions about our mobile bartending service so you can plan your event with complete peace of mind.
       </p>
     </div>
     
     <div class="max-w-3xl mx-auto">
-      <div class="space-y-6">
+      <div class="space-y-3 md:space-y-6">
         {faqs.map((faq, index) => (
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <details class="group">
-              <summary class="flex justify-between items-center p-6 cursor-pointer">
-                <h3 class="text-lg font-semibold">{faq.question}</h3>
+              <summary class="flex justify-between items-center p-4 md:p-6 cursor-pointer">
+                <h3 class="text-base md:text-lg font-semibold pr-2">{faq.question}</h3>
                 <span class="transition-transform duration-300 group-open:rotate-180">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </span>
               </summary>
-              <div class="px-6 pb-6 text-gray-600">
+              <div class="px-4 pb-4 md:px-6 md:pb-6 text-gray-600 text-sm md:text-base">
                 <p>{faq.answer}</p>
               </div>
             </details>
@@ -57,8 +57,8 @@ const faqs = [
         ))}
       </div>
       
-      <div class="text-center mt-12">
-        <p class="text-gray-600 mb-4">Can't find an answer to your question?</p>
+      <div class="text-center mt-8 md:mt-12">
+        <p class="text-gray-600 mb-3 md:mb-4 text-sm md:text-base">Can't find an answer to your question?</p>
         <a 
           href="/contact" 
           class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md transition-colors duration-300"
